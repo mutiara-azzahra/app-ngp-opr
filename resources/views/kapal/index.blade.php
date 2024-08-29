@@ -72,7 +72,7 @@
                                                 <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
                                                 </svg>
                                                 <h3>Hapus data ini?</h3>
-                                                <div class="text-secondary">10 data akan dihapus dan tidak dapat kembali</div>
+                                                <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="w-100">
@@ -81,7 +81,7 @@
                                                         Batal
                                                     </a></div>
                                                     <div class="col">
-                                                    <form action="{{ route('kapal.destroy') }}" method="POST">
+                                                    <form action="{{ route('kapal.destroy') }}" method="POST" id="data-table">
                                                         @csrf
                                                         <button class="btn btn-danger btn w-100" type="submit">
                                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
@@ -135,7 +135,7 @@
                                 <tr>
                                     <td class="text-center">
                                         <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]"  id="selected_items{{$i}}" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox">
+                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                         </label>
                                     </td>
                                     <td class="text-left">{{ $i->KODE_KAPAL }}</td>
@@ -179,6 +179,12 @@ $(document).ready(function() {
    $("#refresh-btn").on("click", RefreshTable);
 
 });
+
+// count
+function updateCount() {
+    const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
+    document.getElementById('selectedCount').textContent = checkboxes.length;
+}
 
 </script>
 

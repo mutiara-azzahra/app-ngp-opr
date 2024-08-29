@@ -21,7 +21,10 @@ class JenisKapalController extends Controller
 
     public function store(Request $request){    
 
-        $data = JenisKapal::orderBy('FLAG_IDX')->first();
+        $idx    = JenisKapal::orderBy('FLAG_IDX')->first();
+        // $data   = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
+
+        dd($data);
 
         $request->validate([
             'jenis_kapal' => 'required',
@@ -32,16 +35,16 @@ class JenisKapalController extends Controller
 
             $input['JENIS_KAPAL']       = $request->jenis_kapal;
             $input['G1']                = $request->G1;
-            $input['FLAG_IDX']          = $data->flag_idx + 1;
+            $input['FLAG_IDX']          = $idx->flag_idx + 1;
             $input['LOG_ENTRY_DATA']    = NOW();
 
             $created    = JenisKapal::create($input);
             
-            return redirect()->route('jenis-kapal.create')->with('success','Data kode kapal baru berhasil ditambahkan!');
+            return redirect()->route('jenis-kapal.create')->with('success','Data jenis kapal baru berhasil ditambahkan!');
 
         } else {
 
-            return redirect()->route('jenis-kapal.create')->with('danger','Data kode kapal baru berhasil ditambahkan!');
+            return redirect()->route('jenis-kapal.create')->with('danger','Data jenis kapal sudah terdaftar!');
 
         }
         
