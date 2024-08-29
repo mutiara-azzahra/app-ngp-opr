@@ -117,9 +117,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Pilih</th>
-                                    <th class="text-center">KODE KAPAL</th>
-                                    <th class="text-center">NAMA KAPAL</th>
-                                    <th class="text-center">CALL SIGN</th>
+                                    <th class="text-center">JENIS KAPAL</th>
+                                    <th class="text-center">G1</th>
+                                    <th class="text-center">NOTE</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                                 <tr>
@@ -135,14 +135,14 @@
                                 <tr>
                                     <td class="text-center">
                                         <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]"  id="selected_items{{$i}}" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox">
+                                            <input class="form-check-input" name="selected_items[]"  id="selected_items{{$i}}" value="{{ $i->JENIS_KAPAL }}" id="checkbox" type="checkbox">
                                         </label>
                                     </td>
-                                    <td class="text-left">{{ $i->KODE_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->NAMA_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->CALLSIGN }}</td>
+                                    <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
+                                    <td class="text-left">{{ $i->G1 }}</td>
+                                    <td class="text-left">{{ $i->NOTE }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('jenis-kapal.edit', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
+                                        <a href="{{ route('jenis-kapal.edit', $i->JENIS_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                                         </a>
                                     </td>

@@ -15,6 +15,7 @@ use App\Http\Controllers\LogPrintController;
 use App\Http\Controllers\LogReindexController;
 use App\Http\Controllers\MasterPerusahaanController;
 use App\Http\Controllers\KapalController;
+use App\Http\Controllers\JenisKapalController;
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -93,6 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/jenis-kapal/update', [JenisKapalController::class, 'update'])->name('jenis-kapal.update');
     Route::post('/jenis-kapal/destroy', [JenisKapalController::class, 'destroy'])->name('jenis-kapal.destroy');
     Route::get('/jenis-kapal/checkbox', [JenisKapalController::class, 'checkbox'])->name('jenis-kapal.checkbox');
+    Route::get('/jenis-kapal/print/', [JenisKapalController::class, 'print'])->name('jenis-kapal.print');
 
     //REFERENSI BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');

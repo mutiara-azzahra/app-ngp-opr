@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\JenisKapal;
 
 class JenisKapalController extends Controller
 {
     public function index(){
 
-        $data = JenisKapal::paginate(20);
+        $data = JenisKapal::paginate(10);
         
         return view('jenis-kapal.index', compact('data'));
     }
 
     public function create(){
 
-        return view('kapal.create');
+        return view('jenis-kapal.create');
     }
 
     public function store(Request $request){
@@ -68,7 +69,7 @@ class JenisKapalController extends Controller
 
         $created    = Kapal::create($input);
         
-        return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+        return redirect()->route('jenis-kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
 
     }
     
@@ -76,7 +77,7 @@ class JenisKapalController extends Controller
 
         $data = Kapal::where('KODE_KAPAL', $id)->first();
 
-        return view('kapal.edit', compact('data'));
+        return view('jenis-kapal.edit', compact('data'));
     }
 
     public function update($id){
@@ -91,11 +92,11 @@ class JenisKapalController extends Controller
         try {
                 $data = Kapal::whereIn('KODE_KAPAL', $selectedItems)->delete();
 
-            return redirect()->route('kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
+            return redirect()->route('jenis-kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 
         } catch (Throwable $e) {
 
-            return redirect()->route('kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
+            return redirect()->route('jenis-kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }
         
     }
