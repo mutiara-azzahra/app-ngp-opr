@@ -8,7 +8,7 @@
             <div class="col">
             <!-- Page pre-title -->
             <div class="page-pretitle"></div>
-                <h2 class="page-title">MASTER DATA KAPAL</h2>
+                <h2 class="page-title">Master Data Kapal</h2>
             </div>
             
         </div>

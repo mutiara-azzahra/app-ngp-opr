@@ -8,7 +8,7 @@
             <div class="col">
             <!-- Page pre-title -->
             <div class="page-pretitle"></div>
-                <h2 class="page-title">MASTER DATA KAPAL</h2>
+                <h2 class="page-title">Master Data Jenis Kapal</h2>
             </div>
             
         </div>
@@ -46,16 +46,18 @@
                                 <!-- Refresh -->
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <button type="button" href="#" class="btn btn-info w-5 btn-icon" aria-label="" id="refresh-btn">
+                                        <button type="button" href="#" class="btn btn-info w-100" aria-label="" id="refresh-btn">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-refresh"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
+                                            Muat Ulang
                                         </button>
                                     </div>
                                 </div>
                                 <!-- Hapus -->
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <button type="button" class="btn btn-danger w-5 btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                        Hapus
                                         </button>
                                     </div>
                                     <div class="modal" id="exampleModal" tabindex="-1">
@@ -79,7 +81,7 @@
                                                         Batal
                                                     </a></div>
                                                     <div class="col">
-                                                    <form action="{{ route('master-kapal.destroy') }}" method="POST">
+                                                    <form action="{{ route('jenis-kapal.destroy') }}" method="POST">
                                                         @csrf
                                                         <button class="btn btn-danger btn w-100" type="submit">
                                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
@@ -92,19 +94,20 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('master-kapal.create') }}" class="btn btn-warning w-5 btn-icon">
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                                        <a href="{{ route('jenis-kapal.create') }}" class="btn btn-success w-100">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                        Tambah
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('master-kapal.create') }}" class="btn btn-success w-5 btn-icon">
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                        <a href="{{ route('jenis-kapal.print') }}" class="btn btn-warning w-100">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-share-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z" /></svg>
+                                        Cetak
                                         </a>
                                     </div>
                                 </div>
@@ -139,7 +142,7 @@
                                     <td class="text-left">{{ $i->NAMA_KAPAL }}</td>
                                     <td class="text-left">{{ $i->CALLSIGN }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-kapal.edit', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
+                                        <a href="{{ route('jenis-kapal.edit', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                                         </a>
                                     </td>
