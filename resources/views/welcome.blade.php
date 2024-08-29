@@ -56,7 +56,7 @@
                             Kapal
                           </a>
                           <a class="dropdown-item" href="{{ route('jenis-kapal.index') }}">
-                            Janis Kapal
+                            Jenis Kapal
                           </a>
                           <a class="dropdown-item" href="{{ route('ownership.index') }}">
                             Ownership

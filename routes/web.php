@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
+    Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
     Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
     Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
@@ -110,6 +111,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ownership/update', [BenderaController::class, 'update'])->name('ownership.update');
     Route::post('/ownership/destroy', [BenderaController::class, 'destroy'])->name('ownership.destroy');
     Route::get('/ownership/checkbox', [BenderaController::class, 'checkbox'])->name('ownership.checkbox');
+
+    //MASTER CONTACT PERSON
+    Route::get('/contact-person', [BenderaController::class, 'index'])->name('contact-person.index');
+    Route::get('/contact-person/create', [BenderaController::class, 'create'])->name('contact-person.create');
+    Route::post('/contact-person/store', [BenderaController::class, 'store'])->name('contact-person.store');
+    Route::get('/contact-person/edit/{id}', [BenderaController::class, 'edit'])->name('contact-person.edit');
+    Route::post('/contact-person/update', [BenderaController::class, 'update'])->name('contact-person.update');
+    Route::post('/contact-person/destroy', [BenderaController::class, 'destroy'])->name('contact-person.destroy');
+    Route::get('/contact-person/checkbox', [BenderaController::class, 'checkbox'])->name('contact-person.checkbox');
 
 
 });
