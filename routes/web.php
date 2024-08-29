@@ -84,6 +84,34 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
 
+    //MASTER JENIS KAPAL
+    Route::get('/jenis-kapal', [JenisKapalController::class, 'index'])->name('jenis-kapal.index');
+    Route::get('/jenis-kapal/create', [JenisKapalController::class, 'create'])->name('jenis-kapal.create');
+    Route::post('/jenis-kapal/store', [JenisKapalController::class, 'store'])->name('jenis-kapal.store');
+    Route::get('/jenis-kapal/edit/{id}', [JenisKapalController::class, 'edit'])->name('jenis-kapal.edit');
+    Route::post('/jenis-kapal/update', [JenisKapalController::class, 'update'])->name('jenis-kapal.update');
+    Route::post('/jenis-kapal/destroy', [JenisKapalController::class, 'destroy'])->name('jenis-kapal.destroy');
+    Route::get('/jenis-kapal/checkbox', [JenisKapalController::class, 'checkbox'])->name('jenis-kapal.checkbox');
+
+    //REFERENSI BENDERA
+    Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
+    Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
+    Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
+    Route::get('/bendera/edit/{id}', [BenderaController::class, 'edit'])->name('bendera.edit');
+    Route::post('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
+    Route::post('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
+    Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
+
+    //MASTER OWNERSHIP
+    Route::get('/ownership', [BenderaController::class, 'index'])->name('ownership.index');
+    Route::get('/ownership/create', [BenderaController::class, 'create'])->name('ownership.create');
+    Route::post('/ownership/store', [BenderaController::class, 'store'])->name('ownership.store');
+    Route::get('/ownership/edit/{id}', [BenderaController::class, 'edit'])->name('ownership.edit');
+    Route::post('/ownership/update', [BenderaController::class, 'update'])->name('ownership.update');
+    Route::post('/ownership/destroy', [BenderaController::class, 'destroy'])->name('ownership.destroy');
+    Route::get('/ownership/checkbox', [BenderaController::class, 'checkbox'])->name('ownership.checkbox');
+
+
 });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

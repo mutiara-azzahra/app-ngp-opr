@@ -11,12 +11,12 @@ class KapalController extends Controller
 
         $data = Kapal::paginate(20);
         
-        return view('master-kapal.index', compact('data'));
+        return view('kapal.index', compact('data'));
     }
 
     public function create(){
 
-        return view('master-kapal.create');
+        return view('kapal.create');
     }
 
     public function store(Request $request){
@@ -69,7 +69,7 @@ class KapalController extends Controller
 
         $created    = Kapal::create($input);
         
-        return redirect()->route('master-kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+        return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
 
     }
     
@@ -77,7 +77,7 @@ class KapalController extends Controller
 
         $data = Kapal::where('KODE_KAPAL', $id)->first();
 
-        return view('master-kapal.edit', compact('data'));
+        return view('kapal.edit', compact('data'));
     }
 
     public function update($id){
@@ -92,11 +92,11 @@ class KapalController extends Controller
         try {
                 $data = Kapal::whereIn('KODE_KAPAL', $selectedItems)->delete();
 
-            return redirect()->route('master-kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
+            return redirect()->route('kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 
         } catch (Throwable $e) {
 
-            return redirect()->route('master-kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
+            return redirect()->route('kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }
         
     }
