@@ -24,7 +24,7 @@ class KapalController extends Controller
         $data = Kapal::where('KODE_KAPAL', $request->kode_kapal)->first();
 
         $request->validate([
-            'kode_kapal'          => 'required|exists:third_db.OPR_KAPAL',
+            'kode_kapal'          => 'required',
             'nama_kapal'          => 'required',
             'callsign'            => 'required',
             'kode_bendera'        => 'required',
@@ -46,30 +46,38 @@ class KapalController extends Controller
             'klasifikasi'         => 'required',
         ]);
 
-        $input['KODE_KAPAL']            = $request->kode_kapal;
-        $input['NAMA_KAPAL']            = $request->nama_kapal;
-        $input['CALLSIGN']              = $request->callsign;
-        $input['JENIS_KAPAL']           = $request->jenis_kapal;
-        $input['KODE_BENDERA']          = $request->kode_bendera;
-        $input['PANJANG']               = $request->panjang;
-        $input['LEBAR']                 = $request->lebar;
-        $input['DRAFT']                 = $request->draft;
-        $input['TINGGI']                = $request->tinggi;
-        $input['GROSS_TON']             = $request->gross_ton;
-        $input['DEAD_TON']              = $request->dead_ton;
-        $input['DISPLACEMENT']          = $request->displacement;
-        $input['JENIS_MESIN']           = $request->jenis_mesin;
-        $input['DAYA_MESIN']            = $request->daya_mesin;
-        $input['KECEPATAN_MAX']         = $request->kecepatan_max;
-        $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
-        $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
-        $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
-        $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
-        $input['KLASIFIKASI']           = $request->klasifikasi;
+        if($data === null){
 
-        $created    = Kapal::create($input);
-        
-        return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+            $input['KODE_KAPAL']            = $request->kode_kapal;
+            $input['NAMA_KAPAL']            = $request->nama_kapal;
+            $input['CALLSIGN']              = $request->callsign;
+            $input['JENIS_KAPAL']           = $request->jenis_kapal;
+            $input['KODE_BENDERA']          = $request->kode_bendera;
+            $input['PANJANG']               = $request->panjang;
+            $input['LEBAR']                 = $request->lebar;
+            $input['DRAFT']                 = $request->draft;
+            $input['TINGGI']                = $request->tinggi;
+            $input['GROSS_TON']             = $request->gross_ton;
+            $input['DEAD_TON']              = $request->dead_ton;
+            $input['DISPLACEMENT']          = $request->displacement;
+            $input['JENIS_MESIN']           = $request->jenis_mesin;
+            $input['DAYA_MESIN']            = $request->daya_mesin;
+            $input['KECEPATAN_MAX']         = $request->kecepatan_max;
+            $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
+            $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
+            $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
+            $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
+            $input['KLASIFIKASI']           = $request->klasifikasi;
+
+            $created    = Kapal::create($input);
+            
+            return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+
+        } else {
+
+            return redirect()->route('kapal.create')->with('danger','Data kode kapal sudah ada!');
+
+        }
 
     }
     

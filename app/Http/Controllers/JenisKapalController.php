@@ -19,57 +19,32 @@ class JenisKapalController extends Controller
         return view('jenis-kapal.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request){    
 
-        $data = Kapal::where('KODE_KAPAL', $request->kode_kapal)->first();
+        $data = JenisKapal::orderBy('FLAG_IDX')->first();
 
         $request->validate([
-            'kode_kapal'          => 'required|exists:third_db.OPR_KAPAL',
-            'nama_kapal'          => 'required',
-            'callsign'            => 'required',
-            'kode_bendera'        => 'required',
-            'jenis_kapal'         => 'required',
-            'panjang'             => 'required',
-            'lebar'               => 'required',
-            'draft'               => 'required',
-            'tinggi'              => 'required',
-            'gross_ton'           => 'required',
-            'dead_ton'            => 'required', 
-            'displacement'        => 'required',
-            'jenis_mesin'         => 'required',
-            'daya_mesin'          => 'required',
-            'kecepatan_max'       => 'required',
-            'kapasitas_kargo'     => 'required',
-            'kapasitas_penumpang' => 'required',
-            'tahun_pembuatan'     => 'required',
-            'galangan_kapal'      => 'required',
-            'klasifikasi'         => 'required',
+            'jenis_kapal' => 'required',
+            'G1'          => 'required',
         ]);
 
-        $input['KODE_KAPAL']            = $request->kode_kapal;
-        $input['NAMA_KAPAL']            = $request->nama_kapal;
-        $input['CALLSIGN']              = $request->callsign;
-        $input['JENIS_KAPAL']           = $request->jenis_kapal;
-        $input['KODE_BENDERA']          = $request->kode_bendera;
-        $input['PANJANG']               = $request->panjang;
-        $input['LEBAR']                 = $request->lebar;
-        $input['DRAFT']                 = $request->draft;
-        $input['TINGGI']                = $request->tinggi;
-        $input['GROSS_TON']             = $request->gross_ton;
-        $input['DEAD_TON']              = $request->dead_ton;
-        $input['DISPLACEMENT']          = $request->displacement;
-        $input['JENIS_MESIN']           = $request->jenis_mesin;
-        $input['DAYA_MESIN']            = $request->daya_mesin;
-        $input['KECEPATAN_MAX']         = $request->kecepatan_max;
-        $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
-        $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
-        $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
-        $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
-        $input['KLASIFIKASI']           = $request->klasifikasi;
+        if($data === null){
 
-        $created    = Kapal::create($input);
+            $input['JENIS_KAPAL']       = $request->jenis_kapal;
+            $input['G1']                = $request->G1;
+            $input['FLAG_IDX']          = $data->flag_idx + 1;
+            $input['LOG_ENTRY_DATA']    = NOW();
+
+            $created    = JenisKapal::create($input);
+            
+            return redirect()->route('jenis-kapal.create')->with('success','Data kode kapal baru berhasil ditambahkan!');
+
+        } else {
+
+            return redirect()->route('jenis-kapal.create')->with('danger','Data kode kapal baru berhasil ditambahkan!');
+
+        }
         
-        return redirect()->route('jenis-kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
 
     }
     
@@ -90,7 +65,7 @@ class JenisKapalController extends Controller
         $selectedItems = $request->input('selected_items', []);
 
         try {
-                $data = Kapal::whereIn('KODE_KAPAL', $selectedItems)->delete();
+                $data = Kapal::whereIn('JENIS_KAPAL', $selectedItems)->delete();
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 

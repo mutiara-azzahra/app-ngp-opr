@@ -118,7 +118,7 @@
                                 <tr>
                                     <th class="text-center">Pilih</th>
                                     <th class="text-center">JENIS KAPAL</th>
-                                    <th class="text-center">G1</th>
+                                    <th class="text-center">GROUP</th>
                                     <th class="text-center">NOTE</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>

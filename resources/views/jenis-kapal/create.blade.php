@@ -55,22 +55,24 @@
                             @csrf
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Kapal</label>
-                                                <input type="text" class="form-control" name="jenis_kapal" placeholder="0">
+                                                <input type="text" class="form-control" name="jenis_kapal" placeholder="Isi jenis kapal">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
-                                                <label class="form-label">G1</label>
-                                                <input type="text" class="form-control" name="lebar" placeholder="0">
+                                                <label class="form-label">Grup</label>
+                                                <input type="text" class="form-control" name="G1" placeholder="Isi grup">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-end">
-                                    <button type="submit" class="btn btn-success">Simpan Data</button>
+                                    <button type="submit" class="btn btn-success">
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" /></svg>    
+                                    Simpan Data</button>
                                 </div>
                             </form>
                             </div>
