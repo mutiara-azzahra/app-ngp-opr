@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('kapal.create') }}" class="btn btn-success w-100">
+                                        <a href="{{ route('ownership.create') }}" class="btn btn-success w-100">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                                         Tambah
                                         </a>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('kapal.print') }}" class="btn btn-warning w-100">
+                                        <a href="{{ route('ownership.print') }}" class="btn btn-warning w-100">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-share-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z" /></svg>
                                         Cetak
                                         </a>

@@ -16,6 +16,8 @@ use App\Http\Controllers\LogReindexController;
 use App\Http\Controllers\MasterPerusahaanController;
 use App\Http\Controllers\KapalController;
 use App\Http\Controllers\JenisKapalController;
+use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\ContactPersonController;
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -106,23 +108,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
 
     //MASTER OWNERSHIP
-    Route::get('/ownership', [BenderaController::class, 'index'])->name('ownership.index');
-    Route::get('/ownership/create', [BenderaController::class, 'create'])->name('ownership.create');
-    Route::post('/ownership/store', [BenderaController::class, 'store'])->name('ownership.store');
-    Route::get('/ownership/edit/{id}', [BenderaController::class, 'edit'])->name('ownership.edit');
-    Route::post('/ownership/update', [BenderaController::class, 'update'])->name('ownership.update');
-    Route::post('/ownership/destroy', [BenderaController::class, 'destroy'])->name('ownership.destroy');
-    Route::get('/ownership/checkbox', [BenderaController::class, 'checkbox'])->name('ownership.checkbox');
+    Route::get('/ownership', [OwnershipController::class, 'index'])->name('ownership.index');
+    Route::get('/ownership/create', [OwnershipController::class, 'create'])->name('ownership.create');
+    Route::post('/ownership/store', [OwnershipController::class, 'store'])->name('ownership.store');
+    Route::get('/ownership/edit/{id}', [OwnershipController::class, 'edit'])->name('ownership.edit');
+    Route::post('/ownership/update', [OwnershipController::class, 'update'])->name('ownership.update');
+    Route::post('/ownership/destroy', [OwnershipController::class, 'destroy'])->name('ownership.destroy');
+    Route::get('/ownership/print', [OwnershipController::class, 'print'])->name('ownership.print');
 
     //MASTER CONTACT PERSON
-    Route::get('/contact-person', [BenderaController::class, 'index'])->name('contact-person.index');
-    Route::get('/contact-person/create', [BenderaController::class, 'create'])->name('contact-person.create');
-    Route::post('/contact-person/store', [BenderaController::class, 'store'])->name('contact-person.store');
-    Route::get('/contact-person/edit/{id}', [BenderaController::class, 'edit'])->name('contact-person.edit');
-    Route::post('/contact-person/update', [BenderaController::class, 'update'])->name('contact-person.update');
-    Route::post('/contact-person/destroy', [BenderaController::class, 'destroy'])->name('contact-person.destroy');
-    Route::get('/contact-person/checkbox', [BenderaController::class, 'checkbox'])->name('contact-person.checkbox');
-
+    Route::get('/contact-person', [ContactPersonController::class, 'index'])->name('contact-person.index');
+    Route::get('/contact-person/create', [ContactPersonController::class, 'create'])->name('contact-person.create');
+    Route::post('/contact-person/store', [ContactPersonController::class, 'store'])->name('contact-person.store');
+    Route::get('/contact-person/edit/{id}', [ContactPersonController::class, 'edit'])->name('contact-person.edit');
+    Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
+    Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
+    Route::get('/contact-person/print', [ContactPersonController::class, 'print'])->name('contact-person.print');
 
 });
 

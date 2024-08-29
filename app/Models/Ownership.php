@@ -11,7 +11,7 @@ class Ownership extends Model
 
     protected $connection = 'third_db';
 
-    protected $table      = 'MKT_OWNERSHIP_KAPAL';
+    protected $table      = 'MKT_OS';
     
     public $timestamps    = false;
 
