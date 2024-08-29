@@ -76,13 +76,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/master-perusahaan', [MasterPerusahaanController::class, 'index'])->name('master-perusahaan.index');
 
     //MASTER KAPAL
-    Route::get('/master-kapal', [KapalController::class, 'index'])->name('master-kapal.index');
-    Route::get('/master-kapal/create', [KapalController::class, 'create'])->name('master-kapal.create');
-    Route::post('/master-kapal/store', [KapalController::class, 'store'])->name('master-kapal.store');
-    Route::get('/master-kapal/edit/{id}', [KapalController::class, 'edit'])->name('master-kapal.edit');
-    Route::post('/master-kapal/update', [KapalController::class, 'update'])->name('master-kapal.update');
-    Route::post('/master-kapal/destroy', [KapalController::class, 'destroy'])->name('master-kapal.destroy');
-    Route::get('/master-kapal/checkbox', [KapalController::class, 'checkbox'])->name('master-kapal.checkbox');
+    Route::get('/kapal', [KapalController::class, 'index'])->name('kapal.index');
+    Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
+    Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
+    Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
+    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
+    Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
+    Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
 
 });
 
