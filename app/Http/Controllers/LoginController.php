@@ -28,12 +28,10 @@ class LoginController extends Controller
         $username = $request->username;
         $password = md5($request->password);
 
-        $user = User::where('USERNAME', $username)->where('PASSWORD2', md5($request->password))->first();
+        $user = User::where('USERNAME', $username)->where('PASSWORD2', $password)->first();
+
 
         if ($user) {
-
-            $request->session()->regenerate();
-            Auth::login($user);
 
             return redirect()->route('dashboard.index');
         }

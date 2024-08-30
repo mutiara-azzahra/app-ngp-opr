@@ -124,7 +124,6 @@ use App\Http\Controllers\ContactPersonController;
     Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
     Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
     Route::get('/contact-person/print', [ContactPersonController::class, 'print'])->name('contact-person.print');
-
 // });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
