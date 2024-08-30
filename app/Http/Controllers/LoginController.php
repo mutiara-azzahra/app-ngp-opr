@@ -25,19 +25,21 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
+        // $credentials = $request->only('username', 'password');
+
         $username = $request->username;
-        $password = md5($request->password);
+        $password = Hash::make($request->password);
 
-        $user = User::where('USERNAME', $username)->where('PASSWORD2', $password)->first();
+        if (Auth::attempt(['username' => $username, 'password' => $password])) {
 
+            $request->session()->regenerate();
 
-        if ($user) {
+            $user = Auth::user();
 
             return redirect()->route('dashboard.index');
         }
 
-       return back()->with('danger', 'Username atau password salah!');
-
+        return back()->with('danger','Username atau password salah!');
     }
 
     public function logout(Request $request)

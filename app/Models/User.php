@@ -6,26 +6,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-
-    protected $connection = 'third_db';
-    protected $table      = 'USERS';
-    public $timestamps    = false;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'name',
-    //     'username',
-    //     'password',
-    // ];
+
+     protected $connection = 'second_db';
+    protected $table = 'USERS';
+
+    protected $fillable = [
+        'username',
+        'password',
+        'id_role',
+        'status',
+        'created_at', 
+        'updated_at',
+        'created_by',
+        'updated_by'
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -33,21 +38,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'PASSWORD',
-        'PASSWORD2',
+        'password',
         'remember_token',
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }
