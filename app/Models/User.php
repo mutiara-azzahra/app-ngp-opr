@@ -12,18 +12,20 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $connection = 'second_db';
+    protected $connection = 'third_db';
+    protected $table      = 'USERS';
+    public $timestamps    = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'username',
+    //     'password',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -31,7 +33,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'PASSWORD',
+        'PASSWORD2',
         'remember_token',
     ];
 
