@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
-use App\Models\LogLogin;
+// use App\Models\LogLogin;
 
 class LoginController extends Controller
 {
@@ -25,22 +25,20 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-        // $credentials = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password');
 
-        $username = $request->username;
-        $password = Hash::make($request->password);
-
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+        if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
 
-            $user = Auth::user();
+            // dd($request->session());
 
             return redirect()->route('dashboard.index');
         }
 
         return back()->with('danger','Username atau password salah!');
     }
+    
 
     public function logout(Request $request)
     {
