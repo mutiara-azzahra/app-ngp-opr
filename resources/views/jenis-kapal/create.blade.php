@@ -81,7 +81,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Grup</label>
-                                                <input type="text" class="form-control" name="G1" placeholder="Isi grup">
+                                                <input type="text" class="form-control" name="g1" placeholder="Isi grup kapal">
                                             </div>
                                         </div>
                                     </div>

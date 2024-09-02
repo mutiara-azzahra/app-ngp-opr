@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
-    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
+    Route::post('/kapal/update/{id}', [KapalController::class, 'update'])->name('kapal.update');
     Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
 
@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/jenis-kapal/create', [JenisKapalController::class, 'create'])->name('jenis-kapal.create');
     Route::post('/jenis-kapal/store', [JenisKapalController::class, 'store'])->name('jenis-kapal.store');
     Route::get('/jenis-kapal/edit/{id}', [JenisKapalController::class, 'edit'])->name('jenis-kapal.edit');
-    Route::post('/jenis-kapal/update', [JenisKapalController::class, 'update'])->name('jenis-kapal.update');
+    Route::post('/jenis-kapal/update/{id}', [JenisKapalController::class, 'update'])->name('jenis-kapal.update');
     Route::post('/jenis-kapal/destroy', [JenisKapalController::class, 'destroy'])->name('jenis-kapal.destroy');
     Route::get('/jenis-kapal/checkbox', [JenisKapalController::class, 'checkbox'])->name('jenis-kapal.checkbox');
     Route::get('/jenis-kapal/print/', [JenisKapalController::class, 'print'])->name('jenis-kapal.print');

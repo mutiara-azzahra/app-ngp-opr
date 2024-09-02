@@ -117,6 +117,46 @@ return [
             ]) : [],
         ],
 
+        'db_localhost' => [
+            'driver' => 'mysql',
+            'url' => env('DB_LOCALHOST_URL'),
+            'host' => env('DB_LOCALHOST_HOST', '127.0.0.1'),
+            'port' => env('DB_LOCALHOST_PORT', '3306'),
+            'database' => env('DB_LOCALHOST_DATABASE', 'db_log'),
+            'username' => env('DB_LOCALHOST_USERNAME', 'root'),
+            'password' => env('DB_LOCALHOST_PASSWORD', ''),
+            'unix_socket' => env('DB_LOCALHOST_SOCKET', ''),
+            'charset' => env('DB_LOCALHOST_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_LOCALHOST_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'db_localhost1' => [
+            'driver' => 'mysql',
+            'url' => env('DB_LOCALHOST_URL'),
+            'host' => env('DB_LOCALHOST_HOST', '127.0.0.1'),
+            'port' => env('DB_LOCALHOST_PORT', '3306'),
+            'database' => env('DB_LOCALHOST_DATABASE', 'db_pindah'),
+            'username' => env('DB_LOCALHOST_USERNAME', 'root'),
+            'password' => env('DB_LOCALHOST_PASSWORD', ''),
+            'unix_socket' => env('DB_LOCALHOST_SOCKET', ''),
+            'charset' => env('DB_LOCALHOST_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_LOCALHOST_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

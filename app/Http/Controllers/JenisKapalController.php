@@ -21,26 +21,28 @@ class JenisKapalController extends Controller
 
     public function store(Request $request){    
 
-        $idx    = JenisKapal::orderBy('FLAG_IDX')->first();
-        // $data   = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
+        $idx    = JenisKapal::orderBy('FLAG_IDX', 'desc')->first();
 
-        dd($data);
+        // dd($idx);
+        $data   = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
 
         $request->validate([
             'jenis_kapal' => 'required',
-            'G1'          => 'required',
+            'g1'          => 'required',
         ]);
 
-        if($data === null){
+        if(!$data){
 
             $input['JENIS_KAPAL']       = $request->jenis_kapal;
-            $input['G1']                = $request->G1;
-            $input['FLAG_IDX']          = $idx->flag_idx + 1;
+            $input['G1']                = $request->g1;
+            $input['FLAG_IDX']          = $idx->FLAG_IDX + 1;
             $input['LOG_ENTRY_DATA']    = NOW();
+
+            // dd($input);
 
             $created    = JenisKapal::create($input);
             
-            return redirect()->route('jenis-kapal.create')->with('success','Data jenis kapal baru berhasil ditambahkan!');
+            return redirect()->route('jenis-kapal.index')->with('success','Data jenis kapal baru berhasil ditambahkan!');
 
         } else {
 
@@ -53,12 +55,31 @@ class JenisKapalController extends Controller
     
     public function edit($id){
 
-        $data = Kapal::where('KODE_KAPAL', $id)->first();
+        $data = JenisKapal::where('FLAG_IDX', $id)->first();
 
         return view('jenis-kapal.edit', compact('data'));
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
+
+
+        $request->validate([
+            'jenis_kapal'  => 'required',
+            'g1'           => 'required',
+        ]);
+
+        try {
+
+            $data = JenisKapal::where('FLAG_IDX', $id)->first();
+
+            $data->update($request->all());
+
+            return redirect()->route('jenis-kapal.index')->with('success', 'Data jenis kapal berhasil diubah!');
+
+        } catch (\Exception $e) {
+
+            return redirect()->route('jenis-kapal.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data jenis kapal.');
+        }
 
         
     }

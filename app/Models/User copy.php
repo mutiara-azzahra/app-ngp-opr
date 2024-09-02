@@ -19,8 +19,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $connection = 'db_localhost';
-    protected $table = 'users';
+    protected $connection = 'second_db';
+    protected $table = 'USERS_copy1';
     // protected $primaryKey = FALSE;
 
 
