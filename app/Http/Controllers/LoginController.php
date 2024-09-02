@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Session;
@@ -25,21 +25,18 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-        $credentials = [
-            'USERNAME' => $request->username,
-            'PASSWORD3' => $request->password,
-        ];
+        $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-
+            
             $request->session()->regenerate();
 
             return redirect()->route('dashboard.index');
         }
 
         return back()->with('danger','Username atau password salah!');
+        
     }
-    
 
     public function logout(Request $request)
     {

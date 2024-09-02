@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Authenticatable as LaravelAuthenticatable;
 
 class User extends Authenticatable
 {
@@ -18,8 +19,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $connection = 'third_db';
-    protected $table = 'USERS';
+    protected $connection = 'second_db';
+    protected $table = 'USERS_copy1';
+    // protected $primaryKey = FALSE;
+
 
     protected $fillable = [
         'USERNAME',
@@ -32,7 +35,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'PASSWORD3',
         'remember_token',
     ];
 
@@ -43,16 +46,21 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'PASSWORD3' => 'hashed',
     ];
 
-    public function getAuthUsername()
+    public function getUsernameAttribute()
     {
-        return $this->USERNAME;
+        return $this->attributes['username'];
     }
 
-    public function getAuthPassword()
+    /**
+     * Set the password attribute.
+     */
+    public function setPasswordAttribute($value)
     {
-        return $this->PASSWORD3;
+        $this->attributes['password'] = bcrypt($value);
     }
+
+    
 }
