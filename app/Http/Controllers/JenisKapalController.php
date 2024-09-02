@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\JenisKapal;
 
@@ -70,9 +71,19 @@ class JenisKapalController extends Controller
 
         try {
 
-            $data = JenisKapal::where('FLAG_IDX', $id)->first();
-
-            $data->update($request->all());
+            JenisKapal::where('FLAG_IDX', $id)->update([
+                'JENIS_KAPAL'       => $request->jenis_kapal,
+                'G1'                => $request->g1,
+                'FLAG_IDX'          => $id,
+                'FLAG_SYSTEM'       => '0',
+                'FLAG_DEFAULT'      => '0',
+                'FLAG_STATUS'       => '1',
+                'FLAG_STATUS0_NAME' => '',
+                'FLAG_STATUS1_NAME' => '',
+                'LOG_ENTRY_NAME'    => 'SYSTEM',
+                'LOG_EDIT_DATE'     => NOW(),
+                'LOG_EDIT_NAME'     => Auth::user()->username
+            ]);
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data jenis kapal berhasil diubah!');
 
