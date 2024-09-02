@@ -9,8 +9,8 @@ class Ownership extends Model
 {
     use HasFactory;
 
-    protected $connection = 'third_db';
-    protected $table      = 'MKT_OS';
+    protected $connection = 'db_localhost1';
+    protected $table      = 'mkt_ownership_kapal';
     public $timestamps    = false;
 
     protected $fillable = [
