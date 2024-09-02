@@ -83,9 +83,9 @@
                                                 <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
                                                 </svg>
                                                 <h3>Hapus data ini?</h3>
-                                                <div class="text-secondary">10 data akan dihapus dan tidak dapat kembali</div>
+                                                <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="modal-footer" id="deleteButton" style="display: none">
                                                 <div class="w-100">
                                                 <div class="row">
                                                     <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
@@ -146,7 +146,7 @@
                                 <tr>
                                     <td class="text-center">
                                         <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]"  id="selected_items{{$i}}" value="{{ $i->JENIS_KAPAL }}" id="checkbox" type="checkbox">
+                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->IDX_FLAG }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                         </label>
                                     </td>
                                     <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
@@ -190,6 +190,23 @@ $(document).ready(function() {
    $("#refresh-btn").on("click", RefreshTable);
 
 });
+
+
+// count
+function updateCount() {
+    const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
+    document.getElementById('selectedCount').textContent = checkboxes.length;
+
+    const button = document.getElementById('deleteButton');
+
+    console.log(checkboxes.length)
+
+    if(checkboxes.length > 0){
+        button.style.display = 'block'
+    } else {
+        button.style.display = 'none'
+    }
+}
 
 </script>
 

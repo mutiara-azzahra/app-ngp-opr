@@ -74,7 +74,7 @@
                                                 <h3>Hapus data ini?</h3>
                                                 <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="modal-footer" id="deleteButton" style="display: none">
                                                 <div class="w-100">
                                                 <div class="row">
                                                     <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
@@ -184,6 +184,16 @@ $(document).ready(function() {
 function updateCount() {
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
     document.getElementById('selectedCount').textContent = checkboxes.length;
+
+    const button = document.getElementById('deleteButton');
+
+    console.log(checkboxes.length)
+
+    if(checkboxes.length > 0){
+        button.style.display = 'block'
+    } else {
+        button.style.display = 'none'
+    }
 }
 
 </script>
