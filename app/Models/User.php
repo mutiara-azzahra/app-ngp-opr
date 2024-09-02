@@ -19,17 +19,9 @@ class User extends Authenticatable
      */
 
     protected $connection = 'second_db';
-    protected $table = 'users2';
+    protected $table = 'USERS';
 
     protected $fillable = [
-        'username',
-        'password',
-        'id_role',
-        'status',
-        'created_at', 
-        'updated_at',
-        'created_by',
-        'updated_by'
     ];
 
     /**
@@ -51,4 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getAuthUsername()
+    {
+        return $this->USERNAME;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->PASSWORD3;
+    }
 }
