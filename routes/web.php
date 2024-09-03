@@ -20,7 +20,7 @@ use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\BenderaController;
 
-    // Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/log/error', [LogErrorController::class, 'index'])->name('log.error');

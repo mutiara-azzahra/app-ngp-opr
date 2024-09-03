@@ -62,6 +62,7 @@
                                                             <select name="KODE_BENDERA" id="select-tags" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 <option value="A">A</option>
+                                                                <!-- <option value="{{ $data->KODE_BENDERA }}" {{ $data->KODE_BENDERA == available ? 'selected' : '' }}>{{ $data->KODE_BENDERA}}</option> -->
                                                             </select>
                                                         </div>
                                                     </div>

@@ -27,7 +27,7 @@
     <div class="container-xl">
         <div class="row row-cards">
             <div class="col-12">
-                @if ($errors->any())
+                @if (($message = Session::get('danger')) && ($errors->any()))
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">
                         <div>
@@ -63,6 +63,12 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Group</label>
                                                 <input type="text" class="form-control" name="g1" value="{{ $data->G1 }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Catatan</label>
+                                                <input type="text" class="form-control" name="note" value="{{ $data->NOTE }}">
                                             </div>
                                         </div>
                                     </div>

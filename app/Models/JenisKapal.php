@@ -9,11 +9,11 @@ class JenisKapal extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'third_db';
+    protected $connection = 'third_db';
+    protected $table      = 'REF_JENIS_KAPAL';
 
-    protected $connection = 'db_localhost1';
-
-    protected $table      = 'ref_jenis_kapal';
+    // protected $connection = 'db_localhost1';
+    // protected $table      = 'ref_jenis_kapal';
     
     public $timestamps    = false;
 

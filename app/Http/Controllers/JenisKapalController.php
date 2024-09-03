@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\JenisKapal;
 
@@ -24,7 +25,6 @@ class JenisKapalController extends Controller
 
         $idx    = JenisKapal::orderBy('FLAG_IDX', 'desc')->first();
 
-        // dd($idx);
         $data   = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
 
         $request->validate([
@@ -37,7 +37,7 @@ class JenisKapalController extends Controller
             $input['JENIS_KAPAL']       = $request->jenis_kapal;
             $input['G1']                = $request->g1;
             $input['FLAG_IDX']          = $idx->FLAG_IDX + 1;
-            $input['LOG_ENTRY_DATA']    = NOW();
+            $input['LOG_ENTRY_DATE']    = NOW();
 
             // dd($input);
 
@@ -63,26 +63,21 @@ class JenisKapalController extends Controller
 
     public function update(Request $request, $id){
 
-
         $request->validate([
             'jenis_kapal'  => 'required',
             'g1'           => 'required',
         ]);
+
+        // dd(Auth::check());
 
         try {
 
             JenisKapal::where('FLAG_IDX', $id)->update([
                 'JENIS_KAPAL'       => $request->jenis_kapal,
                 'G1'                => $request->g1,
-                'FLAG_IDX'          => $id,
-                'FLAG_SYSTEM'       => '0',
-                'FLAG_DEFAULT'      => '0',
-                'FLAG_STATUS'       => '1',
-                'FLAG_STATUS0_NAME' => '',
-                'FLAG_STATUS1_NAME' => '',
-                'LOG_ENTRY_NAME'    => 'SYSTEM',
-                'LOG_EDIT_DATE'     => NOW(),
-                'LOG_EDIT_NAME'     => Auth::user()->username
+                'NOTE'              => $request->note,
+                'LOG_EDIT_DATE'     => Carbon::now(),
+                // 'LOG_EDIT_NAME'     => Auth::user()->username
             ]);
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data jenis kapal berhasil diubah!');
