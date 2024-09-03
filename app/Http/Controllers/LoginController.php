@@ -23,20 +23,25 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
+        $credentials = $request->only('USERNAME', 'PASSWORD3');
 
-        $credentials = $request->only('username', 'password');
+        // if (Auth::attempt($credentials)) {
 
-        if (Auth::attempt($credentials)) {
-            
+        if (Auth::attempt([
+            'username' => $credentials['USERNAME'],
+            'password' => $credentials['PASSWORD3']
+        ])) {
+
             $request->session()->regenerate();
-
-            return redirect()->route('dashboard.index');
+            
+            return redirect()->route('dashboard.index'); 
         }
 
-        return back()->with('danger','Username atau password salah!');
-        
+        return back()->with('error', 'Username or password is incorrect.');
     }
+
 
     public function logout(Request $request)
     {

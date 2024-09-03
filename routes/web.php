@@ -20,8 +20,7 @@ use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\BenderaController;
 
-
-Route::group(['middleware' => 'auth'], function () {
+    // Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/log/error', [LogErrorController::class, 'index'])->name('log.error');
@@ -125,7 +124,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
     Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
     Route::get('/contact-person/print', [ContactPersonController::class, 'print'])->name('contact-person.print');
-});
+// });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'formRegister'])->name('login.formRegister');

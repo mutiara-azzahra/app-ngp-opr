@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,10 +20,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $connection = 'db_localhost';
-    protected $table = 'users';
-    // protected $primaryKey = FALSE;
-
+    protected $connection = 'second_db';
+    protected $table = 'USERS_copy1';
 
     protected $fillable = [
         'USERNAME',
@@ -36,7 +35,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'PASSWORD3',
-        'remember_token',
     ];
 
     /**
@@ -46,21 +44,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'PASSWORD3' => 'hashed',
     ];
 
-    public function getUsernameAttribute()
+    public function getAuthPassword()
     {
-        return $this->attributes['username'];
+        return $this->PASSWORD3;
     }
 
-    /**
-     * Set the password attribute.
-     */
-    public function setPasswordAttribute($value)
+    public function getAuthIdentifierName()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->USERNAME;
     }
 
-    
+
 }
