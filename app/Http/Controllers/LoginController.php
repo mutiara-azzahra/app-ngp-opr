@@ -13,6 +13,11 @@ use App\Models\User;
 class LoginController extends Controller
 {
 
+    public function username()
+    {
+        return 'USERNAME';
+    }
+
     public function formLogin(){
 
         if (Auth::check()) {
@@ -23,18 +28,30 @@ class LoginController extends Controller
         return view('login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->only('USERNAME', 'PASSWORD3');
+
+    //     if (Auth::attempt([
+    //         'username' => $credentials['USERNAME'],
+    //         'password' => $credentials['PASSWORD3']
+    //     ])) {
+
+    //         // $request->session()->regenerate();
+            
+    //         return redirect()->route('dashboard.index'); 
+    //     }
+
+    //     return back()->with('error', 'Username or password is incorrect.');
+    // }
+
     public function login(Request $request)
     {
-        $credentials = $request->only('USERNAME', 'PASSWORD3');
+       $credentials = $request->only('username', 'password');
 
-        // if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
 
-        if (Auth::attempt([
-            'username' => $credentials['USERNAME'],
-            'password' => $credentials['PASSWORD3']
-        ])) {
-
-            $request->session()->regenerate();
+            // $request->session()->regenerate();
             
             return redirect()->route('dashboard.index'); 
         }

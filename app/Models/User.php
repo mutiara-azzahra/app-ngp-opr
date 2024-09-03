@@ -50,11 +50,7 @@ class User extends Authenticatable
     {
         return $this->PASSWORD3;
     }
-
-    public function getAuthIdentifierName()
-    {
-        return $this->USERNAME;
-    }
+    
 
 
 }

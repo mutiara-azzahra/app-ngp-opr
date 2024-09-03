@@ -68,7 +68,7 @@ class JenisKapalController extends Controller
             'g1'           => 'required',
         ]);
 
-        // dd(Auth::check());
+        // dd(Auth::user());
 
         try {
 
@@ -77,7 +77,7 @@ class JenisKapalController extends Controller
                 'G1'                => $request->g1,
                 'NOTE'              => $request->note,
                 'LOG_EDIT_DATE'     => Carbon::now(),
-                // 'LOG_EDIT_NAME'     => Auth::user()->username
+                'LOG_EDIT_NAME'     => Auth::user()->USERNAME
             ]);
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data jenis kapal berhasil diubah!');
