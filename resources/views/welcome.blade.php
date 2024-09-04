@@ -67,6 +67,9 @@
                           <a class="dropdown-item" href="{{ route('contact-person.index') }}">
                             Contact Person
                           </a>
+						  <a class="dropdown-item" href="{{ route('repair-list.index') }}">
+                            Repair List
+                          </a>
                         </div>
                       </div>
                     </div>

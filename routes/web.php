@@ -19,6 +19,8 @@ use App\Http\Controllers\JenisKapalController;
 use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\BenderaController;
+use App\Http\Controllers\RepairListController;
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -125,6 +127,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
     Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
     Route::get('/contact-person/print', [ContactPersonController::class, 'print'])->name('contact-person.print');
+
+    //MASTER REPAIR LIST
+    Route::get('/repair-list', [RepairListController::class, 'index'])->name('repair-list.index');
+    Route::get('/repair-list/create', [RepairListController::class, 'create'])->name('repair-list.create');
+    Route::post('/repair-list/store', [RepairListController::class, 'store'])->name('repair-list.store');
+    Route::get('/repair-list/edit/{id}', [RepairListController::class, 'edit'])->name('repair-list.edit');
+    Route::post('/repair-list/update', [RepairListController::class, 'update'])->name('repair-list.update');
+    Route::post('/repair-list/destroy', [RepairListController::class, 'destroy'])->name('repair-list.destroy');
+    Route::get('/repair-list/print', [RepairListController::class, 'print'])->name('repair-list.print');
 });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

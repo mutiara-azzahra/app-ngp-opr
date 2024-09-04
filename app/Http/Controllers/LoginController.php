@@ -30,14 +30,9 @@ class LoginController extends Controller
 
     // public function login(Request $request)
     // {
-    //     $credentials = $request->only('USERNAME', 'PASSWORD3');
+    //    $credentials = $request->only('username', 'password');
 
-    //     if (Auth::attempt([
-    //         'username' => $credentials['USERNAME'],
-    //         'password' => $credentials['PASSWORD3']
-    //     ])) {
-
-    //         // $request->session()->regenerate();
+    //     if (Auth::attempt($credentials)) {
             
     //         return redirect()->route('dashboard.index'); 
     //     }
@@ -49,14 +44,34 @@ class LoginController extends Controller
     {
        $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
+       $pw1 = User::where('username', $request->username)->first();
 
-            // $request->session()->regenerate();
+       $pw2 = md5($request->password);
+
+       if($pw1->PASSWORD1 == ''){
+
+            if($pw2 == $pw1->PASSWORD2){
+
+                if (Auth::attempt($credentials)) {
             
-            return redirect()->route('dashboard.index'); 
-        }
+                    return redirect()->route('dashboard.index');
 
-        return back()->with('error', 'Username or password is incorrect.');
+                } else {
+
+                    return back()->with('danger', 'Username atau password salah');
+                }
+
+            } else {
+
+                return back()->with('danger', 'Ada yang salah');
+            }
+
+       } else {
+
+            return back()->with('danger', 'Ada yang salah');
+
+       }
+
     }
 
 
