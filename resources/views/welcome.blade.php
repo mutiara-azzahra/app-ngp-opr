@@ -55,7 +55,10 @@
                           <a class="dropdown-item" href="{{ route('kapal.index') }}">
                             Kapal
                           </a>
-                          <a class="dropdown-item" href="{{ route('jenis-kapal.index') }}">
+                          <a class="dropdown-item" href="{{ route('bendera.index') }}">
+                            Bendera
+                          </a>
+						  <a class="dropdown-item" href="{{ route('jenis-kapal.index') }}">
                             Jenis Kapal
                           </a>
                           <a class="dropdown-item" href="{{ route('ownership.index') }}">
