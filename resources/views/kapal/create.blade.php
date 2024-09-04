@@ -37,7 +37,19 @@
                     </div>
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
-                @elseif (($message = Session::get('danger')) && ($errors->any()))
+                @elseif($message = Session::get('danger'))
+                <div class="alert alert-important alert-success alert-dismissible" role="alert">
+                    <div class="d-flex">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                        </div>
+                        <div>{{ $message }}</div>
+                    </div>
+                    <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                </div>
+                @endif
+
+                @if($errors->any())
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">
                         <div>
@@ -91,7 +103,9 @@
                                                         <div>
                                                             <select name="kode_bendera" id="select-tags" class="form-select">
                                                                 <option value="">-- Pilih --</option>
-                                                                <option value="A">A</option>
+                                                                @foreach($bendera as $i)
+                                                                    <option value="{{ $i->KODE_BENDERA }}">{{ $a->KODE_BENDERA }} / {{ $a->ASAL_NEGARA }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -106,7 +120,9 @@
                                                         <div>
                                                             <select name="jenis_kapal" id="select-tags" class="form-select">
                                                                 <option value="">-- Pilih --</option>
-                                                                <option value="A">A</option>
+                                                                @foreach($jenis_kapal as $a)
+                                                                    <option value="{{ $i->KODE_JENIS_KAPAL }}">{{ $a->JENIS_KAPAL }} / {{ $a->G1 }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>

@@ -21,7 +21,7 @@
     <link href="{{ asset('./dist/css/demo.min.css?1692870487')}}" rel="stylesheet"/>
 	  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
 
-    <style>
+    <style>	`
       @import url('https://rsms.me/inter/inter.css');
       :root {
       	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;

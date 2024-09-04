@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kapal;
+use App\Models\JenisKapal;
+use App\Models\Bendera;
 
 class KapalController extends Controller
 {
@@ -16,12 +18,17 @@ class KapalController extends Controller
 
     public function create(){
 
-        return view('kapal.create');
+        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
+        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
+
+        return view('kapal.create', compact('jenis_kapal'));
     }
 
     public function store(Request $request){
 
         $data = Kapal::where('KODE_KAPAL', $request->kode_kapal)->first();
+
+        // dd($request->all());
 
         $request->validate([
             'kode_kapal'          => 'required',
@@ -44,7 +51,13 @@ class KapalController extends Controller
             'tahun_pembuatan'     => 'required',
             'galangan_kapal'      => 'required',
             'klasifikasi'         => 'required',
-        ]);
+        ],
+        [
+            'required'  => 'Data :attribute belum diisi',
+            'unique'    => ':attribute sudah ada'
+        ]
+    
+    );    
 
         if($data === null){
 
@@ -73,7 +86,19 @@ class KapalController extends Controller
             
             return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
 
+            if($created){
+                
+                return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+
+            } else {
+                
+                return redirect()->route('kapal.create')->with('danger','Maaf! ada data yang belum terisi');
+
+            }
+
         } else {
+
+            dd('test');
 
             return redirect()->route('kapal.create')->with('danger','Data kode kapal sudah ada!');
 
