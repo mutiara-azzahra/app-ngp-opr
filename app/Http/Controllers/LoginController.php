@@ -44,34 +44,57 @@ class LoginController extends Controller
     {
        $credentials = $request->only('username', 'password');
 
-       $pw1 = User::where('username', $request->username)->first();
-
+       $user = User::where('username', $request->username)->first();
        $pw2 = md5($request->password);
 
-       if($pw1->PASSWORD1 == ''){
+       if($user){
 
-            if($pw2 == $pw1->PASSWORD2){
+            if(($request->password === $user->password)){
 
-                if (Auth::attempt($credentials)) {
-            
-                    return redirect()->route('dashboard.index');
+                if($pw2 == $user->PASSWORD2){
+
+                    if (Auth::attempt($credentials)) {
+                
+                        return redirect()->route('dashboard.index');
+
+                    } else {
+
+                        return back()->with('danger', 'Username atau password salah');
+                    }
 
                 } else {
 
-                    return back()->with('danger', 'Username atau password salah');
+                    //bypass without auth
+                    return back()->with('danger', 'Ada yang salah');
                 }
+
+            } elseif ($request->password !== null && $user->password == '') {
+
+                    if($pw2 == $user->PASSWORD2){
+
+                        if (Auth::attempt($credentials)) {
+                    
+                            return redirect()->route('dashboard.index');
+
+                        } else {
+
+                            return back()->with('danger', 'Username atau password salah');
+                        }
+
+                    } else {
+
+                        return back()->with('danger', 'Username atau password salah!');
+                    }
 
             } else {
 
-                return back()->with('danger', 'Ada yang salah');
-            }
+                return back()->with('danger', 'Ada yang salh');
 
-       } else {
+            } 
 
-            return back()->with('danger', 'Ada yang salah');
+        }
 
-       }
-
+        return back()->with('danger', 'Username tidak terdaftar!');
     }
 
 
