@@ -28,8 +28,6 @@ class KapalController extends Controller
 
         $data = Kapal::where('KODE_KAPAL', $request->kode_kapal)->first();
 
-        // dd($request->all());
-
         $request->validate([
             'kode_kapal'          => 'required',
             'nama_kapal'          => 'required',

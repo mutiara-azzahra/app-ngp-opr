@@ -23,31 +23,9 @@ class BenderaController extends Controller
 
         $data = Bendera::where('KODE_BENDERA', $request->KODE_BENDERA)->first();
 
-        dd($data);
-
-        // dd($request->all());
-
         $request->validate([
-            'kode_kapal'          => 'required',
-            'nama_kapal'          => 'required',
-            'callsign'            => 'required',
             'kode_bendera'        => 'required',
-            'jenis_kapal'         => 'required',
-            'panjang'             => 'required',
-            'lebar'               => 'required',
-            'draft'               => 'required',
-            'tinggi'              => 'required',
-            'gross_ton'           => 'required',
-            'dead_ton'            => 'required', 
-            'displacement'        => 'required',
-            'jenis_mesin'         => 'required',
-            'daya_mesin'          => 'required',
-            'kecepatan_max'       => 'required',
-            'kapasitas_kargo'     => 'required',
-            'kapasitas_penumpang' => 'required',
-            'tahun_pembuatan'     => 'required',
-            'galangan_kapal'      => 'required',
-            'klasifikasi'         => 'required',
+            'asal_negara'          => 'required',
         ],
         [
             'required'  => 'Data :attribute belum diisi',
@@ -58,34 +36,15 @@ class BenderaController extends Controller
 
         if($data === null){
 
-            $input['KODE_KAPAL']            = $request->kode_kapal;
-            $input['NAMA_KAPAL']            = $request->nama_kapal;
-            $input['CALLSIGN']              = $request->callsign;
-            $input['JENIS_KAPAL']           = $request->jenis_kapal;
             $input['KODE_BENDERA']          = $request->kode_bendera;
-            $input['PANJANG']               = $request->panjang;
-            $input['LEBAR']                 = $request->lebar;
-            $input['DRAFT']                 = $request->draft;
-            $input['TINGGI']                = $request->tinggi;
-            $input['GROSS_TON']             = $request->gross_ton;
-            $input['DEAD_TON']              = $request->dead_ton;
-            $input['DISPLACEMENT']          = $request->displacement;
-            $input['JENIS_MESIN']           = $request->jenis_mesin;
-            $input['DAYA_MESIN']            = $request->daya_mesin;
-            $input['KECEPATAN_MAX']         = $request->kecepatan_max;
-            $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
-            $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
-            $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
-            $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
-            $input['KLASIFIKASI']           = $request->klasifikasi;
+            $input['ASAL_NEGARA']           = $request->asal_negara;
+            $input['NOTE']                  = $request->note;
 
-            $created    = Kapal::create($input);
-            
-            return redirect()->route('bendera.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+            $created    = Bendera::create($input);
 
             if($created){
                 
-                return redirect()->route('bendera.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
+                return redirect()->route('bendera.index')->with('success','Data bendera kapal baru berhasil ditambahkan!');
 
             } else {
                 
@@ -95,9 +54,7 @@ class BenderaController extends Controller
 
         } else {
 
-            dd('test');
-
-            return redirect()->route('bendera.create')->with('danger','Data kode kapal sudah ada!');
+            return redirect()->route('bendera.create')->with('danger','Data bendera kapal sudah ada!');
 
         }
 
@@ -105,7 +62,7 @@ class BenderaController extends Controller
     
     public function edit($id){
 
-        $data = Kapal::where('KODE_KAPAL', $id)->first();
+        $data = Bendera::where('KODE_BENDERA', $id)->first();
 
         return view('bendera.edit', compact('data'));
     }

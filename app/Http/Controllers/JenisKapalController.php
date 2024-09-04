@@ -30,6 +30,9 @@ class JenisKapalController extends Controller
         $request->validate([
             'jenis_kapal' => 'required',
             'g1'          => 'required',
+        ],[
+            'required'  => 'Data :attribute belum diisi',
+            'unique'    => ':attribute sudah ada'
         ]);
 
         if(!$data){
@@ -39,11 +42,17 @@ class JenisKapalController extends Controller
             $input['FLAG_IDX']          = $idx->FLAG_IDX + 1;
             $input['LOG_ENTRY_DATE']    = NOW();
 
-            // dd($input);
-
             $created    = JenisKapal::create($input);
             
-            return redirect()->route('jenis-kapal.index')->with('success','Data jenis kapal baru berhasil ditambahkan!');
+            if($created){
+                
+                return redirect()->route('jenis-kapal.index')->with('success','Data jenis kapal baru berhasil ditambahkan!');
+
+            } else {
+                
+                return redirect()->route('jenis-kapal.create')->with('danger','Maaf! ada data yang belum terisi');
+
+            }
 
         } else {
 

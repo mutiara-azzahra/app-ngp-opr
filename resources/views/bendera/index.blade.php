@@ -128,8 +128,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Pilih</th>
-                                    <th class="text-center">JENIS KAPAL</th>
-                                    <th class="text-center">GROUP</th>
+                                    <th class="text-center">KODE BENDERA</th>
+                                    <th class="text-center">NEGARA</th>
                                     <th class="text-center">NOTE</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -149,8 +149,8 @@
                                             <input class="form-check-input" name="selected_items[]" value="{{ $i->IDX_FLAG }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                         </label>
                                     </td>
-                                    <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->G1 }}</td>
+                                    <td class="text-left">{{ $i->KODE_BENDERA }}</td>
+                                    <td class="text-left">{{ $i->ASAL_NEGARA }}</td>
                                     <td class="text-left">{{ $i->NOTE }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('bendera.edit', $i->FLAG_IDX) }}" class="btn btn-info w-5 btn-icon" aria-label="">

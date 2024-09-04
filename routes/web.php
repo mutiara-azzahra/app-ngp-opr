@@ -106,7 +106,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
     Route::post('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
-
+    Route::get('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
+    
     //MASTER OWNERSHIP
     Route::get('/ownership', [OwnershipController::class, 'index'])->name('ownership.index');
     Route::get('/ownership/create', [OwnershipController::class, 'create'])->name('ownership.create');
