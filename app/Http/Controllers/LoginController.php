@@ -88,13 +88,13 @@ class LoginController extends Controller
 
             } else {
 
-                return back()->with('danger', 'Ada yang salh');
+                return back()->with('danger', 'Ada yang salah');
 
             } 
 
         }
 
-        return back()->with('danger', 'Username tidak terdaftar!');
+        return back()->with('danger', 'Username anda tidak terdaftar');
     }
 
 
