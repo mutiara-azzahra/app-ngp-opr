@@ -44,10 +44,10 @@ class LoginController extends Controller
     {
        $credentials = $request->only('username', 'password');
 
-       $user = User::where('username', $request->username)->first();
+       $user = User::where('username', $request->username)->where()->first();
        $pw2 = md5($request->password);
 
-       if($user){
+       if($user && $user->STATUS == '1'){
 
             if(($request->password === $user->password)){
 
@@ -90,7 +90,9 @@ class LoginController extends Controller
 
                 return back()->with('danger', 'Ada yang salah');
 
-            } 
+            }
+
+            return back()->with('danger', 'Username anda tidak aktif');
 
         }
 

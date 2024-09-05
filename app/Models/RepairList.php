@@ -14,8 +14,9 @@ class RepairList extends Model
     public $timestamps    = false;
 
     protected $fillable = [
-        'KODE_OS',
-        'KODE_KAPAL',
+        'KODE_REPAIR_LIST',
+        'KODE_JENIS_KAPAL',
+        '',
         'CLASS',
         'STATUS',
         'NAMA_PEMILIK_TERDAFTAR',
