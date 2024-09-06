@@ -43,13 +43,29 @@ class LoginController extends Controller
     public function login(Request $request)
     {
        $credentials = $request->only('username', 'password');
+       $user        = User::where('username', $request->username)->where('status', '1')->first();
+       $pw2         = md5($request->password);
 
-       $user = User::where('username', $request->username)->where()->first();
-       $pw2 = md5($request->password);
+       if($Hash::check($request->password, $user->PASSWORD)){
 
-       if($user && $user->STATUS == '1'){
+            if($pw2 == $user->PASSWORD2){
 
-            if(($request->password === $user->password)){
+                if (Auth::attempt($credentials)) {
+            
+                    return redirect()->route('dashboard.index');
+
+                } else {
+
+                    return back()->with('danger', 'Username atau password salah');
+                }
+
+            } else {
+
+                //bypass without auth
+                return back()->with('danger', 'Ada yang salah');
+            }
+
+        } elseif ($request->password !== null && $user->password == '') {
 
                 if($pw2 == $user->PASSWORD2){
 
@@ -64,39 +80,17 @@ class LoginController extends Controller
 
                 } else {
 
-                    //bypass without auth
-                    return back()->with('danger', 'Ada yang salah');
+                    return back()->with('danger', 'Username atau password salah!');
                 }
 
-            } elseif ($request->password !== null && $user->password == '') {
+        } else {
 
-                    if($pw2 == $user->PASSWORD2){
-
-                        if (Auth::attempt($credentials)) {
-                    
-                            return redirect()->route('dashboard.index');
-
-                        } else {
-
-                            return back()->with('danger', 'Username atau password salah');
-                        }
-
-                    } else {
-
-                        return back()->with('danger', 'Username atau password salah!');
-                    }
-
-            } else {
-
-                return back()->with('danger', 'Ada yang salah');
-
-            }
-
-            return back()->with('danger', 'Username anda tidak aktif');
+            dd($request->all());
 
         }
 
-        return back()->with('danger', 'Username anda tidak terdaftar');
+        return back()->with('danger', 'Username anda tidak aktif');
+
     }
 
 
