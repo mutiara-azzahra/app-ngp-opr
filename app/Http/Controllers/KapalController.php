@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Kapal;
 use App\Models\JenisKapal;
@@ -21,7 +23,7 @@ class KapalController extends Controller
         $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
         $bendera = Bendera::where('FLAG_STATUS', 1)->get();
 
-        return view('kapal.create', compact('jenis_kapal'));
+        return view('kapal.create', compact('jenis_kapal', 'bendera'));
     }
 
     public function store(Request $request){
@@ -55,9 +57,9 @@ class KapalController extends Controller
             'unique'    => ':attribute sudah ada'
         ]
     
-    );    
+    );
 
-        if($data === null){
+        if(!$data){
 
             $input['KODE_KAPAL']            = $request->kode_kapal;
             $input['NAMA_KAPAL']            = $request->nama_kapal;
@@ -106,12 +108,73 @@ class KapalController extends Controller
     
     public function edit($id){
 
-        $data = Kapal::where('KODE_KAPAL', $id)->first();
+        $data        = Kapal::where('KODE_KAPAL', $id)->first();
+        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
+        $bendera     = Bendera::where('FLAG_STATUS', 1)->get();
 
-        return view('kapal.edit', compact('data'));
+        // dd($data);
+
+        return view('kapal.edit', compact('data', 'jenis_kapal', 'bendera'));
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
+
+        $request->validate([
+                'kode_kapal'          => 'required',
+                'nama_kapal'          => 'required',
+                'callsign'            => 'required',
+                'kode_bendera'        => 'required',
+                'jenis_kapal'         => 'required',
+                'panjang'             => 'required',
+                'lebar'               => 'required',
+                'draft'               => 'required',
+                'tinggi'              => 'required',
+                'gross_ton'           => 'required',
+                'dead_ton'            => 'required', 
+                'displacement'        => 'required',
+                'jenis_mesin'         => 'required',
+                'daya_mesin'          => 'required',
+                'kecepatan_max'       => 'required',
+                'kapasitas_kargo'     => 'required',
+                'kapasitas_penumpang' => 'required',
+                'tahun_pembuatan'     => 'required',
+                'galangan_kapal'      => 'required',
+                'klasifikasi'         => 'required',
+            ],[
+                'required'  => 'Data :attribute belum diisi',
+                'unique'    => ':attribute sudah ada',
+        ]);
+
+        try {
+
+            Kapal::where('KODE_KAPAL', $id)->update([
+                'NAMA_KAPAL'          => $request->nama_kapal,
+                'CALLSIGN'            => $request->callsign,
+                'JENIS_KAPAL'         => $request->jenis_kapal,
+                'KODE_BENDERA'        => $request->kode_bendera,
+                'PANJANG'             => $request->panjang,
+                'LEBAR'               => $request->lebar,
+                'DRAFT'               => $request->draft,
+                'TINGGI'              => $request->tinggi,
+                'GROSS_TON'           => $request->gross_ton,
+                'DEAD_TON'            => $request->dead_ton,
+                'DISPLACEMENT'        => $request->displacement,
+                'JENIS_MESIN'         => $request->jenis_mesin,
+                'DAYA_MESIN'          => $request->daya_mesin,
+                'KECEPATAN_MAX'       => $request->kecepatan_max,
+                'KAPASITAS_KARGO'     => $request->kapasitas_kargo,
+                'KAPASITAS_PENUMPANG' => $request->kapasitas_penumpang,
+                'TAHUN_PEMBUATAN'     => $request->tahun_pembuatan,
+                'GALANGAN_KAPAL'      => $request->galangan_kapal,
+                'KLASIFIKASI'         => $request->klasifikasi,
+            ]);
+
+            return redirect()->route('kapal.index')->with('success', 'Data kapal berhasil diubah!');
+
+        } catch (\Exception $e) {
+
+            return redirect()->route('kapal.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data kapal.');
+        }
 
         
     }

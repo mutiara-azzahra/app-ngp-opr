@@ -60,7 +60,6 @@ class JenisKapalController extends Controller
 
         }
         
-
     }
     
     public function edit($id){
@@ -76,8 +75,6 @@ class JenisKapalController extends Controller
             'jenis_kapal'  => 'required',
             'g1'           => 'required',
         ]);
-
-        // dd(Auth::user());
 
         try {
 
