@@ -40,57 +40,82 @@ class LoginController extends Controller
     //     return back()->with('error', 'Username or password is incorrect.');
     // }
 
-    public function login(Request $request)
-    {
-       $credentials = $request->only('username', 'password');
-       $user        = User::where('username', $request->username)->where('status', '1')->first();
-       $pw2         = md5($request->password);
+    // public function login(Request $request)
+    // {
+    //    $credentials = $request->only('username', 'password');
+    //    $user        = User::where('username', $request->username)->where('status', '1')->first();
+    //    $pw2         = md5($request->password);
 
-       if($Hash::check($request->password, $user->PASSWORD)){
+    //    if($Hash::check($request->password, $user->PASSWORD)){
 
-            if($pw2 == $user->PASSWORD2){
+    //         if($pw2 == $user->PASSWORD2){
 
-                if (Auth::attempt($credentials)) {
+    //             if (Auth::attempt($credentials)) {
             
-                    return redirect()->route('dashboard.index');
+    //                 return redirect()->route('dashboard.index');
 
-                } else {
+    //             } else {
 
-                    return back()->with('danger', 'Username atau password salah');
-                }
+    //                 return back()->with('danger', 'Username atau password salah');
+    //             }
 
-            } else {
+    //         } else {
 
-                //bypass without auth
-                return back()->with('danger', 'Ada yang salah');
+    //             //bypass without auth
+    //             return back()->with('danger', 'Ada yang salah');
+    //         }
+
+    //     } elseif ($request->password !== null && $user->password == '') {
+
+    //             if($pw2 == $user->PASSWORD2){
+
+    //                 if (Auth::attempt($credentials)) {
+                
+    //                     return redirect()->route('dashboard.index');
+
+    //                 } else {
+
+    //                     return back()->with('danger', 'Username atau password salah');
+    //                 }
+
+    //             } else {
+
+    //                 return back()->with('danger', 'Username atau password salah!');
+    //             }
+
+    //     } else {
+
+    //         dd($request->all());
+
+    //     }
+
+    //     return back()->with('danger', 'Username anda tidak aktif');
+
+    // }
+
+
+    public function login(Request $request){
+
+        $hash = Hash::make($request->password);
+
+        $check = User::where('USERNAME', $request->username)
+                    ->where('PASSWORD2', md5($request->password))
+                    ->where('STATUS', '1')
+                    ->first();
+
+        if($check->PASSWORD == ''){
+
+            if (Auth::attempt($credentials)) {
+
+                return redirect()->route('dashboard.index'); 
+
             }
 
-        } elseif ($request->password !== null && $user->password == '') {
-
-                if($pw2 == $user->PASSWORD2){
-
-                    if (Auth::attempt($credentials)) {
-                
-                        return redirect()->route('dashboard.index');
-
-                    } else {
-
-                        return back()->with('danger', 'Username atau password salah');
-                    }
-
-                } else {
-
-                    return back()->with('danger', 'Username atau password salah!');
-                }
-
         } else {
-
-            dd($request->all());
-
+            
+            return redirect()->route('dashboard.index'); 
         }
-
-        return back()->with('danger', 'Username anda tidak aktif');
-
+        
     }
 
 
