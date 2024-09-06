@@ -28,17 +28,17 @@ class LoginController extends Controller
         return view('login');
     }
 
-    // public function login(Request $request)
-    // {
-    //    $credentials = $request->only('username', 'password');
+    public function login(Request $request)
+    {
+       $credentials = $request->only('username', 'password');
 
-    //     if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             
-    //         return redirect()->route('dashboard.index'); 
-    //     }
+            return redirect()->route('dashboard.index'); 
+        }
 
-    //     return back()->with('error', 'Username or password is incorrect.');
-    // }
+        return back()->with('error', 'Username dan Password');
+    }
 
     // public function login(Request $request)
     // {
@@ -94,29 +94,40 @@ class LoginController extends Controller
     // }
 
 
-    public function login(Request $request){
+    // public function login(Request $request){
 
-        $hash = Hash::make($request->password);
+    //     $hash = Hash::make($request->password);
+    //     $credentials = $request->only('username', 'password');
 
-        $check = User::where('USERNAME', $request->username)
-                    ->where('PASSWORD2', md5($request->password))
-                    ->where('STATUS', '1')
-                    ->first();
+    //     $user = User::where('USERNAME', $request->username)
+    //                 ->where('PASSWORD2', md5($request->password))
+    //                 ->where('STATUS', 1)
+    //                 ->first();
 
-        if($check->PASSWORD == ''){
+    //     $check_password = Hash::check($user->PASSWORD3, $user->PASSWORD);
 
-            if (Auth::attempt($credentials)) {
+    //     if ($user->PASSWORD == "") {
+           
+    //         if (Auth::attempt($credentials)) {
 
-                return redirect()->route('dashboard.index'); 
+    //             return redirect()->route('dashboard.index');
 
-            }
+    //         }
 
-        } else {
-            
-            return redirect()->route('dashboard.index'); 
-        }
-        
-    }
+    //     } else {
+
+    //         if ($user->PASSWORD2 == md5($request->password)) {
+
+    //             Auth::login($user);
+    //             return redirect()->route('dashboard.index');
+
+    //         }
+
+    //         return back()->with('danger', 'Username atau password salah!');
+    //     }
+
+       
+    // }
 
 
     public function logout(Request $request)
