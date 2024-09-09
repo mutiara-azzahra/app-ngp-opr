@@ -30,9 +30,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-       $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
+        $username = strtoupper($request->username);
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt(['username'=> $username, 'password' => $request->password])) {
             
             return redirect()->route('dashboard.index'); 
         }
