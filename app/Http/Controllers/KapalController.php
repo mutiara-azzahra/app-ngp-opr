@@ -14,8 +14,9 @@ class KapalController extends Controller
     public function index(){
 
         $data = Kapal::paginate(20);
+        $user = Auth::user()->USERNAME;
         
-        return view('kapal.index', compact('data'));
+        return view('kapal.index', compact('data', 'user'));
     }
 
     public function create(){
@@ -112,8 +113,6 @@ class KapalController extends Controller
         $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
         $bendera     = Bendera::where('FLAG_STATUS', 1)->get();
 
-        // dd($data);
-
         return view('kapal.edit', compact('data', 'jenis_kapal', 'bendera'));
     }
 
@@ -194,4 +193,26 @@ class KapalController extends Controller
         }
         
     }
+
+    public function print(Request $request)
+    {
+
+        $request->validate([
+            'tanggal_awal'          => 'required',
+            'tanggal_akhir'         => 'required',
+        ],
+        [
+            'required'  => 'Data :attribute belum diisi',
+        ]);
+
+        $tanggal_awal   = $request->tanggal_awal;
+        $tanggal_akhir  = $request->tanggal_akhir;
+
+        $data   = Kapal::whereBetween('LOG_ENTRY_DATE', [$tanggal_awal, $tanggal_akhir])->where('STATUS', 1)->get();
+        $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);
+        $pdf->setPaper('letter', 'landscape');
+
+        return $pdf->stream('kapal.pdf');
+    }
+
 }

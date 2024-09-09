@@ -101,7 +101,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="kode_bendera" id="select-tags" class="form-select"  value= "{{ $data->KODE_BENDERA }}">
+                                                            <select type="text" name="kode_bendera"  id="select-flag" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($bendera as $a)
                                                                     <option value="{{ $a->KODE_BENDERA }}" {{ $data->KODE_BENDERA == $a->KODE_BENDERA ? 'selected' : '' }}>{{ $a->KODE_BENDERA }}/{{ $a->ASAL_NEGARA }}</option>
@@ -118,7 +118,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="jenis_kapal" id="select-tags" class="form-select">
+                                                            <select name="jenis_kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($jenis_kapal as $a)
                                                                     <option value="{{ $a->JENIS_KAPAL }}" {{ $data->JENIS_KAPAL == $a->JENIS_KAPAL ? 'selected' : '' }}>{{ $a->JENIS_KAPAL }} / {{ $a->G1 }}</option>

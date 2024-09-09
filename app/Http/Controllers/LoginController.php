@@ -8,15 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
-// use App\Models\LogLogin;
 
 class LoginController extends Controller
 {
-
-    public function username()
-    {
-        return 'USERNAME';
-    }
 
     public function formLogin(){
 
@@ -35,7 +29,7 @@ class LoginController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt(['username'=> $username, 'password' => $request->password])) {
-            
+
             return redirect()->route('dashboard.index'); 
         }
 
