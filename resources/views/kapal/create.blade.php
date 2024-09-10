@@ -79,13 +79,13 @@
                                     <div class="row row-cards">
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Kode Kapal</label>
+                                                <strong>Kode Kapal</strong>
                                                 <input type="text " class="form-control" name="kode_kapal" placeholder="Isi Kode Kapal">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Call Sign</label>
+                                                <strong>Call Sign</strong>
                                                 <input type="text" class="form-control" name="callsign" placeholder="Isi callsign">
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="kode_bendera" id="select-tags" class="form-select">
+                                                            <select name="kode_bendera" id="bendera" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($bendera as $a)
                                                                     <option value="{{ $a->KODE_BENDERA }}">{{ $a->KODE_BENDERA }} / {{ $a->ASAL_NEGARA }}</option>
@@ -118,7 +118,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="jenis_kapal" id="select-tags" class="form-select">
+                                                            <select name="jenis_kapal" id="jenis_kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($jenis_kapal as $a)
                                                                     <option value="{{ $a->JENIS_KAPAL }}">{{ $a->JENIS_KAPAL }} / {{ $a->G1 }}</option>
@@ -255,6 +255,53 @@ while (currentYear >= earliestYear) {
     currentYear -= 1;    
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
+});
+
+
 //CHECK INPUT NUMBER ONLY
 document.addEventListener('DOMContentLoaded', function() {
     const decimalRegex = /^\d*(\.\d*)?$/;
@@ -272,6 +319,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+//JENIS KAPAL
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("jenis_kapal"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
+});
+
+//BENDERA
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
 });
 
 </script>

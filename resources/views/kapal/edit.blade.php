@@ -101,7 +101,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select type="text" name="kode_bendera"  id="select-flag" class="form-select">
+                                                            <select type="text" name="kode_bendera"  id="bendera" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($bendera as $a)
                                                                     <option value="{{ $a->KODE_BENDERA }}" {{ $data->KODE_BENDERA == $a->KODE_BENDERA ? 'selected' : '' }}>{{ $a->KODE_BENDERA }}/{{ $a->ASAL_NEGARA }}</option>
@@ -118,7 +118,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="jenis_kapal" class="form-select">
+                                                            <select name="jenis_kapal" id="jenis_kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($jenis_kapal as $a)
                                                                     <option value="{{ $a->JENIS_KAPAL }}" {{ $data->JENIS_KAPAL == $a->JENIS_KAPAL ? 'selected' : '' }}>{{ $a->JENIS_KAPAL }} / {{ $a->G1 }}</option>
@@ -254,6 +254,54 @@
         dateDropdown.add(dateOption);      
         currentYear -= 1;    
         }
+
+    //JENIS KAPAL
+    document.addEventListener("DOMContentLoaded", function () {
+        var el;
+        window.TomSelect && (new TomSelect(el = document.getElementById("jenis_kapal"), {
+            copyClassesToDropdown: false,
+            dropdownParent: 'body',
+            controlInput: '<input>',
+            render:{
+                item: function(data,escape) {
+                    if( data.customProperties ){
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+                option: function(data,escape){
+                    if( data.customProperties ){
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+            },
+        }));
+    });
+
+    //BENDERA
+    document.addEventListener("DOMContentLoaded", function () {
+        var el;
+        window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
+            copyClassesToDropdown: false,
+            dropdownParent: 'body',
+            controlInput: '<input>',
+            render:{
+                item: function(data,escape) {
+                    if( data.customProperties ){
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+                option: function(data,escape){
+                    if( data.customProperties ){
+                        return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                    }
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+            },
+        }));
+    });
 </script>
 
 @endsection

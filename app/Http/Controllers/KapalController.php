@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Kapal;
