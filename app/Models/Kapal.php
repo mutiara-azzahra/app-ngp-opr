@@ -39,4 +39,9 @@ class Kapal extends Model
         'GALANGAN_KAPAL',
         'KLASIFIKASI'
     ];
+
+    public function bendera()
+    {
+        return $this->hasOne(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
+    }
 }

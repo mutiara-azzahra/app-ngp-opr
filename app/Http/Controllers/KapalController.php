@@ -110,8 +110,6 @@ class KapalController extends Controller
 
         } else {
 
-            dd('test');
-
             return redirect()->route('kapal.create')->with('danger','Data kode kapal sudah ada!');
 
         }

@@ -136,35 +136,21 @@
                                 <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Cetak Data</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                <label class="form-label">Jenis File</label>
-                                                <select class="form-select">
-                                                    <option value="1">Excel</option>
-                                                    <option value="2">PDF</option>
-                                                </select>
-                                                </div>
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Cetak Data</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                <label class="form-label">Tanggal Awal</label>
-                                                <input type="date" class="form-control">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                    <label class="form-label">Jenis File</label>
+                                                    <select class="form-select">
+                                                        <option value="1">Excel</option>
+                                                        <option value="2">PDF</option>
+                                                    </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                <label class="form-label">Tanggal Akhir</label>
-                                                <input type="date" class="form-control">
-                                                </div>
-                                            </div>
-
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -184,17 +170,21 @@
                         <table class="table card-table table-vcenter text-nowrap datatable" id="mytable">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Pilih</th>
-                                    <th class="text-center">KODE KAPAL</th>
-                                    <th class="text-center">NAMA KAPAL</th>
-                                    <th class="text-center">CALL SIGN</th>
-                                    <th class="text-center">Aksi</th>
+                                    <th class="text-center"></th>
+                                    <th class="text-center"><h4>KODE KAPAL</h4></th>
+                                    <th class="text-center"><h4>NAMA KAPAL</h4></th>
+                                    <th class="text-center"><h4>CALL SIGN</h4></th>
+                                    <th class="text-center"><h4>JENIS KAPAL</h4></th>
+                                    <th class="text-center"><h4>KODE BENDERA</h4></th>
+                                    <th class="text-center"><h4>Aksi</h4></th>
                                 </tr>
                                 <tr>
                                     <th class="text-center"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn1"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn2"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn3"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn4"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn5"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -202,15 +192,19 @@
                                 @foreach ($data as $i)
                                 <tr>
                                     <td class="text-center">
-                                        <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox" onchange="updateCount()">
-                                        </label>
+                                        <input class="form-check-input m-0 align-middle" name="selected_items[]" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                     </td>
                                     <td class="text-left">{{ $i->KODE_KAPAL }}</td>
                                     <td class="text-left">{{ $i->NAMA_KAPAL }}</td>
                                     <td class="text-left">{{ $i->CALLSIGN }}</td>
+                                    <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
+                                    <td class="text-left">{{ $i->KODE_BENDERA }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('kapal.edit', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
+                                        <a href="{{ route('kapal.show', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                                            
+                                        </a>
+                                        <a href="{{ route('kapal.edit', $i->KODE_KAPAL) }}" class="btn btn-warning w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                                         </a>
                                     </td>
@@ -264,55 +258,14 @@ function updateCount() {
     }
 }
 
-//SEARCH PER COLUMN
-// function search() {
-
-//     console.log('1')
-//     var inputRec,
-
-//         filterRec,
-
-//         table,
-//         tr,
-//         td,
-//         i,
-//         y,
-
-//         Rec;
-    
-//     table = document.getElementById("myTable");
-//     tr = table.getElementsByTagName("tr");
-
-//     for (i = 2; i <= tr.length; i++)
-//     {
-//         let anySearchDoesNotMatch = false; 
-//         for (y = 0; y < 4; y++) {
-            
-//             inputRec = document.getElementById("dataColumn"+y);
-
-//             filterRec = inputRec.value.toUpperCase();
-
-//             td =  tr[i].getElementsByTagName("td")[y];
-            
-//             if (td) {
-
-//                 Rec = (td.textContent  || td.innerText).toUpperCase();
-                
-//                 if (
-//                     Rec != "" && Rec.indexOf(filterRec) == -1 
-//                 ) {
-//                     anySearchDoesNotMatch = true;
-//                 }
-//             }
-//         }
-//         if (anySearchDoesNotMatch) {
-//             tr[i].style.display = "none";
-//         } else {
-//             tr[i].style.display = "";
-//         }
-//     }
-    
-// }
+//refresh table
+$(document).ready(function() {
+   function RefreshTable() {
+       $( "#mytable" ).load( "your-current-page.html #mytable" );
+   }
+   $("#refresh-btn").on("click", RefreshTable);
+});
+</script>
 
 </script>
 

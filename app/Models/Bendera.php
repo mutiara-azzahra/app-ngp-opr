@@ -30,4 +30,9 @@ class Bendera extends Model
         'LOG_EDIT_NAME',
         'LOG_EDIT_DATE',
     ];
+
+    public function kapal()
+    {
+        return $this->hasMany(Kapal::class, 'KODE_BENDERA', 'KODE_BENDERA');
+    }
 }
