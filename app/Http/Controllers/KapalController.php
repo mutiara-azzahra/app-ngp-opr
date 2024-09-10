@@ -213,13 +213,9 @@ class KapalController extends Controller
 
     public function print(Request $request)
     {
-
-        dd('test');
         $selectedItems = $request->input('selected_items', []);
 
-        dd($selectedItems);
-
-        $data   = Kapal::whereBetween('LOG_ENTRY_DATE', [$tanggal_awal, $tanggal_akhir])->where('STATUS', 1)->get();
+        $data   = Kapal::where('KODE_KAPAL', [$selectedItems])->get();
         $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);
         $pdf->setPaper('letter', 'landscape');
 
