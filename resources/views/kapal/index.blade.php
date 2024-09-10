@@ -192,9 +192,9 @@
                                 </tr>
                                 <tr>
                                     <th class="text-center"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable1"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable2"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable3"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn1"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn2"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn3"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -263,6 +263,56 @@ function updateCount() {
         button.style.display = 'none'
     }
 }
+
+//SEARCH PER COLUMN
+// function search() {
+
+//     console.log('1')
+//     var inputRec,
+
+//         filterRec,
+
+//         table,
+//         tr,
+//         td,
+//         i,
+//         y,
+
+//         Rec;
+    
+//     table = document.getElementById("myTable");
+//     tr = table.getElementsByTagName("tr");
+
+//     for (i = 2; i <= tr.length; i++)
+//     {
+//         let anySearchDoesNotMatch = false; 
+//         for (y = 0; y < 4; y++) {
+            
+//             inputRec = document.getElementById("dataColumn"+y);
+
+//             filterRec = inputRec.value.toUpperCase();
+
+//             td =  tr[i].getElementsByTagName("td")[y];
+            
+//             if (td) {
+
+//                 Rec = (td.textContent  || td.innerText).toUpperCase();
+                
+//                 if (
+//                     Rec != "" && Rec.indexOf(filterRec) == -1 
+//                 ) {
+//                     anySearchDoesNotMatch = true;
+//                 }
+//             }
+//         }
+//         if (anySearchDoesNotMatch) {
+//             tr[i].style.display = "none";
+//         } else {
+//             tr[i].style.display = "";
+//         }
+//     }
+    
+// }
 
 </script>
 

@@ -73,7 +73,7 @@
                     <div class="col-lg-8 col-lg-12">
                         <div class="row row-cards">
                             <div class="col-12">
-                            <form class="card" action="{{ route('kapal.store') }}" method="POST" enctype="multipart/form-data">
+                            <form class="card" action="{{ route('kapal.store') }}" name="create_form" method="POST" onSubmit="checkInput()" enctype="multipart/form-data">
                             @csrf
                                 <div class="card-body">
                                     <div class="row row-cards">
@@ -241,18 +241,33 @@
 @section('script')
 
 <script>
-    let dateDropdown = document.getElementById('year-dropdown'); 
-        
-    let currentYear = new Date().getFullYear();    
-    let earliestYear = 1970;
+// YEAR DROPDOWN
+let dateDropdown = document.getElementById('year-dropdown'); 
+    
+let currentYear = new Date().getFullYear();    
+let earliestYear = 1970;
 
-    while (currentYear >= earliestYear) {      
-        let dateOption = document.createElement('option');          
-        dateOption.text = currentYear;      
-        dateOption.value = currentYear;        
-        dateDropdown.add(dateOption);      
-        currentYear -= 1;    
-        }
+while (currentYear >= earliestYear) {      
+    let dateOption = document.createElement('option');          
+    dateOption.text = currentYear;      
+    dateOption.value = currentYear;        
+    dateDropdown.add(dateOption);      
+    currentYear -= 1;    
+}
+
+//CHECK INPUT NUMBER ONLY
+
+function checkInput()
+{
+  var panjang = document.forms["create_form"]["panjang"].value;
+
+  if (isNaN(panjang)) 
+    {
+        console.log("Panjang harus diisi dengan angka");
+        return false;
+    }
+}
+
 </script>
 
 @endsection

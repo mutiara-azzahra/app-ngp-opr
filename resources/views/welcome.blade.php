@@ -1,12 +1,4 @@
 <!doctype html>
-<!--
-* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-beta20
-* @link https://tabler.io
-* Copyright 2018-2023 The Tabler Authors
-* Copyright 2018-2023 codecalm.net Paweł Kuna
-* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
--->
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
@@ -35,68 +27,6 @@
     <script src="{{ asset('./dist/js/demo-theme.min.js?1692870487')}}"></script>
     <div class="page">  
       <div class="page-wrapper">
-	    <!-- <header class="navbar navbar-expand-md sticky-top d-print-none">
-			<div class="collapse navbar-collapse" id="navbar-menu">
-				<div class="navbar sticky-top">
-				<div class="container-xl">
-					<ul class="navbar-nav">
-					<li class="nav-item active dropdown">
-						<a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-						<span class="nav-link-icon d-md-none d-lg-inline-block">
-							<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" /><path d="M4 6v6a8 3 0 0 0 16 0v-6" /><path d="M4 12v6a8 3 0 0 0 16 0v-6" /></svg>
-						</span>
-						<span class="nav-link-title">
-							Master Data
-						</span>
-						</a>
-						<div class="dropdown-menu">
-						<div class="dropdown-menu-columns">
-							<div class="dropdown-menu-column">
-							<a class="dropdown-item" href="{{ route('kapal.index') }}">
-								Kapal
-							</a>
-							<a class="dropdown-item" href="{{ route('bendera.index') }}">
-								Bendera
-							</a>
-							<a class="dropdown-item" href="{{ route('jenis-kapal.index') }}">
-								Jenis Kapal
-							</a>
-							<a class="dropdown-item" href="{{ route('ownership.index') }}">
-								Ownership
-							</a>
-							<a class="dropdown-item" href="{{ route('contact-person.index') }}">
-								Contact Person
-							</a>
-							<a class="dropdown-item" href="{{ route('repair-list.index') }}">
-								Repair List
-							</a>
-							</div>
-						</div>
-						</div>
-					</li>
-					</ul>
-					<div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-						<div class="nav-item dropdown">
-						<a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-						<span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-						<div class="d-none d-xl-block ps-2">
-							<div>User</div>
-						</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-						<a href="#" class="dropdown-item">Status</a>
-						<a href="./profile.html" class="dropdown-item">Profil Saya</a>
-						<div class="dropdown-divider"></div>
-						<a href="./settings.html" class="dropdown-item">Pengaturan</a>
-						<a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
-						</div>
-					</div>
-					</div>
-				</div>
-				</div>
-			</div>
-		</header> -->
-
 		<div class="sticky-top">
         <header class="navbar navbar-expand-md sticky-top d-print-none" >
           <div class="container-xl">
@@ -105,24 +35,21 @@
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
               <a href=".">
-                <img src="" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                <img src="{{ asset('./img/nogo.png')}}" width="110" height="110" alt="NGP OPR APP" class="navbar-brand-image">
               </a>
             </h1>
             <div class="navbar-nav flex-row order-md-last">
               <div class="d-none d-md-flex">
                 <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip"
 		   data-bs-placement="bottom">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
                 </a>
                 <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip"
 		   data-bs-placement="bottom">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/sun -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
                 </a>
                 <div class="nav-item dropdown d-none d-md-flex me-3">
                   <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
                     <span class="badge bg-red"></span>
                   </a>
@@ -274,17 +201,6 @@
                     </div>
                   </li>
                 </ul>
-                <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                  <form action="./" method="get" autocomplete="off" novalidate>
-                    <div class="input-icon">
-                      <span class="input-icon-addon">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                      </span>
-                      <input type="text" value="" class="form-control" placeholder="Search…" aria-label="Search in website">
-                    </div>
-                  </form>
-                </div>
               </div>
             </div>
           </div>
@@ -1030,45 +946,45 @@
 
 
 	//TABLE SEARCH
-	let input = document.getElementById('searchInput');
-	let table = document.getElementById('dataTable');
-	let rows = table.getElementsByTagName('tr');
-	let noMatchMessage = document.getElementById('noMatch');
+	// let input = document.getElementById('searchInput');
+	// let table = document.getElementById('dataTable');
+	// let rows = table.getElementsByTagName('tr');
+	// let noMatchMessage = document.getElementById('noMatch');
 
-	input.addEventListener('input', function () {
-		let filter = input
-			.value
-			.toLowerCase();
-		let matchFound = false;
+	// input.addEventListener('input', function () {
+	// 	let filter = input
+	// 		.value
+	// 		.toLowerCase();
+	// 	let matchFound = false;
 
-		for (let i = 1; i < rows.length; i++) {
-			let row = rows[i];
-			let cells = row
-				.getElementsByTagName('td');
-			let found = false;
+	// 	for (let i = 1; i < rows.length; i++) {
+	// 		let row = rows[i];
+	// 		let cells = row
+	// 			.getElementsByTagName('td');
+	// 		let found = false;
 
-			for (let j = 0; j < cells.length; j++) {
-				let cell = cells[j];
-				if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
-					found = true;
-					matchFound = true;
-					break;
-				}
-			}
+	// 		for (let j = 0; j < cells.length; j++) {
+	// 			let cell = cells[j];
+	// 			if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+	// 				found = true;
+	// 				matchFound = true;
+	// 				break;
+	// 			}
+	// 		}
 
-			if (found) {
-				row.style.display = '';
-			} else {
-				row.style.display = 'none';
-			}
-		}
+	// 		if (found) {
+	// 			row.style.display = '';
+	// 		} else {
+	// 			row.style.display = 'none';
+	// 		}
+	// 	}
 
-		if (!matchFound) {
-			noMatchMessage.style.display = 'block';
-		} else {
-			noMatchMessage.style.display = 'none';
-		}
-	});
+	// 	if (!matchFound) {
+	// 		noMatchMessage.style.display = 'block';
+	// 	} else {
+	// 		noMatchMessage.style.display = 'none';
+	// 	}
+	// });
     // @formatter:off
     document.addEventListener("DOMContentLoaded", function () {
     	var el;
