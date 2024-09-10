@@ -11,7 +11,7 @@
     <link href="{{ asset('./dist/css/tabler-payments.min.css?1692870487')}}" rel="stylesheet"/>
     <link href="{{ asset('./dist/css/tabler-vendors.min.css?1692870487')}}" rel="stylesheet"/>
     <link href="{{ asset('./dist/css/demo.min.css?1692870487')}}" rel="stylesheet"/>
-	  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
 
     <style>	`
       @import url('https://rsms.me/inter/inter.css');
@@ -334,6 +334,7 @@
       </div>
     </div>
     <!-- Libs JS -->
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css"></script>
 	<script src="https:////cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
@@ -942,49 +943,6 @@
       		}],
       	})).render();
       });
-      // @formatter:on
-
-
-	//TABLE SEARCH
-	// let input = document.getElementById('searchInput');
-	// let table = document.getElementById('dataTable');
-	// let rows = table.getElementsByTagName('tr');
-	// let noMatchMessage = document.getElementById('noMatch');
-
-	// input.addEventListener('input', function () {
-	// 	let filter = input
-	// 		.value
-	// 		.toLowerCase();
-	// 	let matchFound = false;
-
-	// 	for (let i = 1; i < rows.length; i++) {
-	// 		let row = rows[i];
-	// 		let cells = row
-	// 			.getElementsByTagName('td');
-	// 		let found = false;
-
-	// 		for (let j = 0; j < cells.length; j++) {
-	// 			let cell = cells[j];
-	// 			if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
-	// 				found = true;
-	// 				matchFound = true;
-	// 				break;
-	// 			}
-	// 		}
-
-	// 		if (found) {
-	// 			row.style.display = '';
-	// 		} else {
-	// 			row.style.display = 'none';
-	// 		}
-	// 	}
-
-	// 	if (!matchFound) {
-	// 		noMatchMessage.style.display = 'block';
-	// 	} else {
-	// 		noMatchMessage.style.display = 'none';
-	// 	}
-	// });
     // @formatter:off
     document.addEventListener("DOMContentLoaded", function () {
     	var el;

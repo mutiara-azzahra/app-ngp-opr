@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::get('/kapal/show/{id}', [KapalController::class, 'show'])->name('kapal.show');
-    Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
+    Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
     Route::post('/kapal/update/{id}', [KapalController::class, 'update'])->name('kapal.update');
     Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');

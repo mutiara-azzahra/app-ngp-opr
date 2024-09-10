@@ -140,6 +140,8 @@
                                                 <h5 class="modal-title">Cetak Data</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
+                                            <form action="{{ route('kapal.print') }}" method="POST" id="data-table">
+                                            @csrf
                                             <div class="modal-body">
                                                 <div class="row">
                                                 <div class="col-lg-12">
@@ -154,20 +156,20 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                                            Batal
-                                            </a>
-                                            <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-                                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
-                                            Cetak
-                                            </a>
-                                        </div>
+                                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
+                                                    Batal
+                                                </a></div>
+                                                <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                                                Cetak
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <table class="table card-table table-vcenter text-nowrap datatable" id="mytable">
+                        <table class="table card-table table-vcenter text-nowrap datatable" id="search-input">
                             <thead>
                                 <tr>
                                     <th class="text-center"></th>
@@ -180,11 +182,11 @@
                                 </tr>
                                 <tr>
                                     <th class="text-center"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn1"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn2"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn3"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn4"></th>
-                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataColumn5"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm data-input" aria-label="" id="dataColumn1"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm data-input" aria-label="" id="dataColumn2"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm data-input" aria-label="" id="dataColumn3"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm data-input" aria-label="" id="dataColumn4"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm data-input" aria-label="" id="dataColumn5"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -198,7 +200,7 @@
                                     <td class="text-left">{{ $i->NAMA_KAPAL }}</td>
                                     <td class="text-left">{{ $i->CALLSIGN }}</td>
                                     <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->KODE_BENDERA }}</td>
+                                    <td class="text-left">{{ $i->KODE_BENDERA }}/{{ $i->bendera->ASAL_NEGARA }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('kapal.show', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
@@ -230,18 +232,6 @@
 @section('script')
 
 <script>
-
-// refresh table
-$(document).ready(function() {
-
-   function RefreshTable() {
-       $( "#mytable" ).load( "index.php #mytable" );
-   }
-
-   $("#refresh-btn").on("click", RefreshTable);
-
-});
-
 // count
 function updateCount() {
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
@@ -258,14 +248,6 @@ function updateCount() {
     }
 }
 
-//refresh table
-$(document).ready(function() {
-   function RefreshTable() {
-       $( "#mytable" ).load( "your-current-page.html #mytable" );
-   }
-   $("#refresh-btn").on("click", RefreshTable);
-});
-</script>
 
 </script>
 

@@ -214,16 +214,10 @@ class KapalController extends Controller
     public function print(Request $request)
     {
 
-        $request->validate([
-            'tanggal_awal'          => 'required',
-            'tanggal_akhir'         => 'required',
-        ],
-        [
-            'required'  => 'Data :attribute belum diisi',
-        ]);
+        dd('test');
+        $selectedItems = $request->input('selected_items', []);
 
-        $tanggal_awal   = $request->tanggal_awal;
-        $tanggal_akhir  = $request->tanggal_akhir;
+        dd($selectedItems);
 
         $data   = Kapal::whereBetween('LOG_ENTRY_DATE', [$tanggal_awal, $tanggal_akhir])->where('STATUS', 1)->get();
         $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);

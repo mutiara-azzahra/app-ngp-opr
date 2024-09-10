@@ -96,7 +96,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Asal Negara</label>
-                                                {{ $data->bendera->ASAL_NEGARA }}
+                                                {{ $data->KODE_BENDERA }}/{{ $data->bendera->ASAL_NEGARA }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
