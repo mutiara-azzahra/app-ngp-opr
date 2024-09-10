@@ -131,86 +131,86 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Panjang / m²</label>
-                                                <input type="text" class="form-control" name="panjang" placeholder="0">
+                                                <label class="form-label">Panjang / m² <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="panjang" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Lebar / m²</label>
-                                                <input type="text" class="form-control" name="lebar" placeholder="0">
+                                                <label class="form-label">Lebar / m² <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="lebar" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Tinggi / m²</label>
-                                                <input type="text" class="form-control" name="tinggi" placeholder="0">
+                                                <label class="form-label">Tinggi / m² <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label></label>
+                                                <input type="text" class="form-control data-input" name="tinggi" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Draft / m</label>
-                                                <input type="text" class="form-control" name="draft" placeholder="0">
+                                                <label class="form-label">Draft / m <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="draft" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Gross Tonnage (GT) / m³</label>
-                                                <input type="text" class="form-control" name="gross_ton" placeholder="0">
+                                                <label class="form-label">Gross Tonnage (GT) / m³ <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="gross_ton" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Dead Tonnage (DT) / m³</label>
-                                                <input type="text" class="form-control" name="dead_ton" placeholder="0">
+                                                <label class="form-label">Dead Tonnage (DT) / m³ <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="dead_ton" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Displacement / m³</label>
-                                                <input type="text" class="form-control" name="displacement" placeholder="0">
+                                                <label class="form-label">Displacement / m³ <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="displacement" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Jenis Mesin</label>
-                                                <input type="text" class="form-control" name="jenis_mesin" placeholder="0">
+                                                <label class="form-label">Jenis Mesin <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="jenis_mesin" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Daya Mesin / kW</label>
-                                                <input type="text" class="form-control" name="daya_mesin" placeholder="0">
+                                                <label class="form-label">Daya Mesin / kW <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="daya_mesin" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Kecepatan Maksimal</label>
-                                                <input type="text" class="form-control" name="kecepatan_max" placeholder="0">
+                                                <label class="form-label">Kecepatan Maksimal <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="kecepatan_max" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Kapasitas Kargo</label>
-                                                <input type="text" class="form-control" name="kapasitas_kargo" placeholder="0">
+                                                <label class="form-label">Kapasitas Kargo <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="kapasitas_kargo" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Kapasitas Penumpang</label>
-                                                <input type="text" class="form-control" name="kapasitas_penumpang" placeholder="0">
+                                                <label class="form-label">Kapasitas Penumpang <span  class="error-message"  style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="kapasitas_penumpang"  placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Galangan Kapal</label>
-                                                <input type="text" class="form-control" name="galangan_kapal" placeholder="0">
+                                                <label class="form-label">Galangan Kapal <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="galangan_kapal" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Klasifikasi</label>
-                                                <input type="text" class="form-control" name="klasifikasi" placeholder="0">
+                                                <input type="text" class="form-control" name="klasifikasi" placeholder="Isi Klasifikasi Kapal">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
@@ -256,17 +256,23 @@ while (currentYear >= earliestYear) {
 }
 
 //CHECK INPUT NUMBER ONLY
+document.addEventListener('DOMContentLoaded', function() {
+    const decimalRegex = /^\d*(\.\d*)?$/;
 
-function checkInput()
-{
-  var panjang = document.forms["create_form"]["panjang"].value;
+    document.querySelectorAll('.data-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const inputValue = this.value;
+            const errorMessage = this.parentElement.querySelector('.error-message');
 
-  if (isNaN(panjang)) 
-    {
-        console.log("Panjang harus diisi dengan angka");
-        return false;
-    }
-}
+            if (!decimalRegex.test(inputValue)) {
+                errorMessage.style.display = 'inline';
+                errorMessage.style.color = 'red';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+    });
+});
 
 </script>
 

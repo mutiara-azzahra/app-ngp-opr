@@ -178,7 +178,7 @@
                                         </div>
                                         </div>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                         <table class="table card-table table-vcenter text-nowrap datatable" id="mytable">

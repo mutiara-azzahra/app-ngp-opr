@@ -37,25 +37,36 @@ class KapalController extends Controller
             'callsign'            => 'required',
             'kode_bendera'        => 'required',
             'jenis_kapal'         => 'required',
-            'panjang'             => 'required',
-            'lebar'               => 'required',
-            'draft'               => 'required',
-            'tinggi'              => 'required',
-            'gross_ton'           => 'required',
-            'dead_ton'            => 'required', 
-            'displacement'        => 'required',
-            'jenis_mesin'         => 'required',
-            'daya_mesin'          => 'required',
-            'kecepatan_max'       => 'required',
-            'kapasitas_kargo'     => 'required',
-            'kapasitas_penumpang' => 'required',
-            'tahun_pembuatan'     => 'required',
+            'panjang'             => 'required|regex:/^\d*(\.\d*)?$/',
+            'lebar'               => 'required|regex:/^\d*(\.\d*)?$/',
+            'draft'               => 'required|regex:/^\d*(\.\d*)?$/',
+            'tinggi'              => 'required|regex:/^\d*(\.\d*)?$/',
+            'gross_ton'           => 'required|regex:/^\d*(\.\d*)?$/',
+            'dead_ton'            => 'required|regex:/^\d*(\.\d*)?$/', 
+            'displacement'        => 'required|regex:/^\d*(\.\d*)?$/',
+            'jenis_mesin'         => 'required|regex:/^\d*(\.\d*)?$/',
+            'daya_mesin'          => 'required|regex:/^\d*(\.\d*)?$/',
+            'kecepatan_max'       => 'required|regex:/^\d*(\.\d*)?$/',
+            'kapasitas_kargo'     => 'required|regex:/^\d*(\.\d*)?$/',
+            'kapasitas_penumpang' => 'required|regex:/^\d*(\.\d*)?$/',
             'galangan_kapal'      => 'required',
             'klasifikasi'         => 'required',
+            'tahun_pembuatan'     => 'required',
         ],
         [
-            'required'  => 'Data :attribute belum diisi',
-            'unique'    => ':attribute sudah ada'
+            'required'                  => 'Data :attribute belum diisi',
+            'unique'                    => ':attribute sudah ada',
+            'panjang.regex'             => 'Format :attribute tidak valid',
+            'lebar.regex'               => 'Format :attribute tidak valid',
+            'tinggi.regex'              => 'Format :attribute tidak valid',
+            'gross_ton.regex'           => 'Format :attribute tidak valid',
+            'dead_ton.regex'            => 'Format :attribute tidak valid',
+            'displacement.regex'        => 'Format :attribute tidak valid',
+            'jenis_mesin.regex'         => 'Format :attribute tidak valid',
+            'daya_mesin.regex'          => 'Format :attribute tidak valid',
+            'kecepatan_max.regex'       => 'Format :attribute tidak valid',
+            'kapasitas_kargo.regex'     => 'Format :attribute tidak valid',
+            'kapasitas_penumpang.regex' => 'Format :attribute tidak valid'
         ]
     
     );
@@ -79,9 +90,9 @@ class KapalController extends Controller
             $input['KECEPATAN_MAX']         = $request->kecepatan_max;
             $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
             $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
-            $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
             $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
             $input['KLASIFIKASI']           = $request->klasifikasi;
+            $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
 
             $created    = Kapal::create($input);
             
