@@ -44,4 +44,9 @@ class Kapal extends Model
     {
         return $this->hasOne(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
     }
+
+    public function jenis_kapal()
+    {
+        return $this->hasOne(JenisKapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
+    }
 }

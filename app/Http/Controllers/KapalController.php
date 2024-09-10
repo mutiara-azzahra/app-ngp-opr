@@ -115,6 +115,14 @@ class KapalController extends Controller
         }
 
     }
+
+    public function show($id){
+
+        $data        = Kapal::where('KODE_KAPAL', $id)->first();
+
+        return view('kapal.show', compact('data'));
+
+    }
     
     public function edit($id){
 

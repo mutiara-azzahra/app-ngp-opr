@@ -34,4 +34,9 @@ class JenisKapal extends Model
         'LOG_EDIT_NAME',
         'LOG_EDIT_DATE',
     ];
+
+    public function kapal()
+    {
+        return $this->hasMany(Kapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
+    }
 }
