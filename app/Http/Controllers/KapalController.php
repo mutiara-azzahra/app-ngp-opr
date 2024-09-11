@@ -219,9 +219,7 @@ class KapalController extends Controller
     public function cetak(Request $request)
     {
 
-        $selectedItems = $request->input('selected_items');
-
-        // dd($selectedItems);
+        $selectedItems = $request->input('selected_items', []);
 
         if($request->pilih_cetak == 1){
 
@@ -235,6 +233,7 @@ class KapalController extends Controller
 
             return $pdf->stream('data-kapal.pdf');
         }
+        
 
     }
 

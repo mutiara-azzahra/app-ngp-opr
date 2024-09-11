@@ -4,13 +4,13 @@ namespace App\Exports;
 
 use Carbon\Carbon;
 use App\Models\Kapal;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use Maatwebsite\Excel\Facades\Excel;
 
 class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -23,12 +23,12 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
     public function __construct(array $selectedItems)
     {
         $this->selectedItems = $selectedItems;
+
     }
 
     public function collection()
     {
-        return Kapal::where('KODE_KAPAL', [$this->selectedItems])->get()->map(function($item){
-            
+        return Kapal::where('KODE_KAPAL', $this->selectedItems)->get()->map(function($item){
             $item->no                  = '-';
             $item->kode_kapal          = $item->KODE_KAPAL;
             $item->nama_kapal          = $item->NAMA_KAPAL;
