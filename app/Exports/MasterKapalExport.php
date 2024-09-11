@@ -69,7 +69,8 @@ class TransaksiPembayaranExport implements FromCollection, WithHeadings, ShouldA
                 ''
             ],
             ['NO.','KODE KAPAL','NAMA KAPAL','CALLSIGN','JENIS KAPAL','BENDERA','PANJANG', 'LEBAR','DRAFT','TINGGI',
-                'GROSS TON','JUMLAH BULAN','RETRIBUSI','TOTAL'],
+                'GROSS TON','DEAD TON','DISPLACEMENT','JENIS MESIN', 'DAYA MESIN', 'KECEPATAN MAX', 'KAPASITAS KARGO',
+                'KAPASITAS PENUMPANG', 'TAHUN PEMBUATAN', 'GALANGAN KAPAL', 'KLASIFIKASI'],
         ];
     }
 
