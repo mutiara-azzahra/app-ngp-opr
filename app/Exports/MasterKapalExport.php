@@ -20,8 +20,9 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
 
     protected $selectedItems;
 
-    public function __construct(array $selectedItems)
+    public function __construct($selectedItems)
     {
+        dd($selectedItems);
         $this->selectedItems = $selectedItems;
 
     }
