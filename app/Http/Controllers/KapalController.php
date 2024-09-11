@@ -212,7 +212,7 @@ class KapalController extends Controller
         
     }
 
-    public function print(Request $request)
+    public function cetak_pdf(Request $request)
     {
         $selectedItems = $request->input('selected_items', []);
 
@@ -221,6 +221,15 @@ class KapalController extends Controller
         $pdf->setPaper('letter', 'landscape');
 
         return $pdf->stream('kapal.pdf');
+    }
+
+    public function cetak_excel(Request $request)
+    {
+        $data           = TransaksiPembayaran::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->get();
+        $tanggal_awal   = $request->tanggal_awal;
+        $tanggal_akhir  = $request->tanggal_akhir;
+
+        return Excel::download(new TransaksiPembayaranExport($tanggal_awal, $tanggal_akhir), 'transaksi-pembayaran-rusunawa.xlsx');
     }
 
 }

@@ -25,7 +25,7 @@ class BenderaController extends Controller
 
         $request->validate([
             'kode_bendera'        => 'required',
-            'asal_negara'          => 'required',
+            'asal_negara'         => 'required',
         ],
         [
             'required'  => 'Data :attribute belum diisi',
