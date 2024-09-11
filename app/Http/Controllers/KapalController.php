@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Auth;
 use PDF;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Exports\MasterKapalExport;
 use App\Models\Kapal;
 use App\Models\JenisKapal;
 use App\Models\Bendera;
+
+
 
 class KapalController extends Controller
 {
@@ -215,10 +219,12 @@ class KapalController extends Controller
     public function cetak(Request $request)
     {
 
-        $selectedItems = $request->input('selected_items', []);
+        $selectedItems = $request->input('selected_items');
+
+        // dd($selectedItems);
 
         if($request->pilih_cetak == 1){
-            
+
             return Excel::download(new MasterKapalExport($selectedItems), 'data-kapal.xlsx');
 
         } else {
@@ -229,7 +235,6 @@ class KapalController extends Controller
 
             return $pdf->stream('data-kapal.pdf');
         }
-        
 
     }
 

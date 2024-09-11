@@ -10,8 +10,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Maatwebsite\Excel\Facades\Excel;
 
-class TransaksiPembayaranExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -19,7 +20,7 @@ class TransaksiPembayaranExport implements FromCollection, WithHeadings, ShouldA
 
     protected $selectedItems;
 
-    public function __construct($selectedItems)
+    public function __construct(array $selectedItems)
     {
         $this->selectedItems = $selectedItems;
     }

@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('kapal.print') }}" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#modal-report">
+                                        <a href="{{ route('kapal.cetak') }}" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#modal-report">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-share-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z" /></svg>
                                         Cetak
                                         </a>
@@ -141,7 +141,7 @@
                                                 <h5 class="modal-title">Cetak Data</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form action="{{ route('kapal.print') }}" method="POST" id="data-table">
+                                            <form action="{{ route('kapal.cetak') }}" method="POST" id="data-table">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="row">
@@ -149,6 +149,7 @@
                                                     <div class="mb-3">
                                                     <label class="form-label">Jenis File</label>
                                                     <select name ="pilih_cetak" class="form-select">
+                                                        <option value="">--Pilih--</option>
                                                         <option value="1">Excel</option>
                                                         <option value="2">PDF</option>
                                                     </select>
