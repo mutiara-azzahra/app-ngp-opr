@@ -212,24 +212,25 @@ class KapalController extends Controller
         
     }
 
-    public function cetak_pdf(Request $request)
+    public function cetak(Request $request)
     {
+
         $selectedItems = $request->input('selected_items', []);
 
-        $data   = Kapal::where('KODE_KAPAL', [$selectedItems])->get();
-        $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);
-        $pdf->setPaper('letter', 'landscape');
+        if($request->pilih_cetak == 1){
+            
+            return Excel::download(new MasterKapalExport($selectedItems), 'data-kapal.xlsx');
 
-        return $pdf->stream('kapal.pdf');
-    }
+        } else {
 
-    public function cetak_excel(Request $request)
-    {
-        $data           = TransaksiPembayaran::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->get();
-        $tanggal_awal   = $request->tanggal_awal;
-        $tanggal_akhir  = $request->tanggal_akhir;
+            $data   = Kapal::where('KODE_KAPAL', [$selectedItems])->get();
+            $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);
+            $pdf->setPaper('letter', 'landscape');
 
-        return Excel::download(new TransaksiPembayaranExport($tanggal_awal, $tanggal_akhir), 'transaksi-pembayaran-rusunawa.xlsx');
+            return $pdf->stream('data-kapal.pdf');
+        }
+        
+
     }
 
 }

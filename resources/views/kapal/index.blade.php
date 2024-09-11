@@ -148,7 +148,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                     <label class="form-label">Jenis File</label>
-                                                    <select class="form-select">
+                                                    <select name ="pilih_cetak" class="form-select">
                                                         <option value="1">Excel</option>
                                                         <option value="2">PDF</option>
                                                     </select>

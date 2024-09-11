@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use Carbon\Carbon;
-use App\Models\TransaksiPembayaran;
+use App\Models\Kapal;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -17,60 +17,59 @@ class TransaksiPembayaranExport implements FromCollection, WithHeadings, ShouldA
     * @return \Illuminate\Support\Collection
     */
 
-    protected $tanggal_awal;
-    protected $tanggal_akhir;
+    protected $selectedItems;
 
-    public function __construct($tanggal_awal, $tanggal_akhir)
+    public function __construct($selectedItems)
     {
-        $this->tanggal_awal = $tanggal_awal;
-        $this->tanggal_akhir = $tanggal_akhir;
+        $this->selectedItems = $selectedItems;
     }
 
     public function collection()
     {
-        return TransaksiPembayaran::whereBetween('created_at', [$this->tanggal_awal, $this->tanggal_akhir])->get()->map(function($item){
+        return Kapal::where('KODE_KAPAL', [$this->selectedItems])->get()->map(function($item){
             
-            $item->no               = '-';
-            $item->no_registrasi    = $item->id_transaksi_pembayaran;
-            $item->nama             = $item->pemohon->nama_kepala_keluarga;
-            if($item->ruangan->lantai->gedung->blok){
-                $item->blok             = $item->ruangan->lantai->gedung->blok;
-            }
-            else{
-                $item->blok = '-';
-            }
-            $item->gedung           = $item->ruangan->lantai->gedung->nama_gedung;
-            $item->lantai           = $item->ruangan->lantai->lantai;
-            $item->no_ruangan       = $item->ruangan->no_ruangan;
-            $item->harga_ruangan    = 'Rp. '.$item->ruangan->harga_ruangan;
-            $item->bulan            = $item->detail_transaksi_pembayaran->implode('bulan',',');
-            $item->tahun            = Carbon::parse($item->created_at)->translatedFormat('Y');
-            $item->tanggal_validasi = Carbon::parse($item->created_at)->translatedFormat('d F Y');
-
-            $item->tahun_validasi   = Carbon::parse($item->created_at)->translatedFormat('Y');
-            $item->jumlah_bulan     = $item->detail_transaksi_pembayaran->count();
-            $item->retribusi        = 'Rp. '.$item->ruangan->harga_ruangan;
-            $item->total_bayar      = 'Rp. '.$item->detail_transaksi_pembayaran->sum('harga');
+            $item->no                  = '-';
+            $item->kode_kapal          = $item->KODE_KAPAL;
+            $item->nama_kapal          = $item->NAMA_KAPAL;
+            $item->callsign            = $item->CALLSIGN;
+            $item->jenis_kapal         = $item->jenis_kapal->JENIS_KAPAL;
+            $item->kode_bendera        = $item->bendera->KODE_BENDERA.'/'.$item->bendera->ASAL_NEGARA;
+            $item->panjang             = $item->PANJANG;
+            $item->lebar               = $item->LEBAR;
+            $item->draft               = $item->DRAFT;
+            $item->tinggi              = $item->TINGGI;
+            $item->gross_ton           = $item->GROSS_TON;
+            $item->dead_ton            = $item->DEAD_TON;
+            $item->displacement        = $item->DISPLACEMENT;
+            $item->jenis_mesin         = $item->JENIS_MESIN;
+            $item->daya_mesin          = $item->DAYA_MESIN;
+            $item->kecepatan_max       = $item->KECEPATAN_MAX;
+            $item->kapasitas_kargo     = $item->KAPASITAS_KARGO;
+            $item->kapasitas_penumpang = $item->KAPASITAS_PENUMPANG;
+            $item->tahun_pembuatan     = $item->TAHUN_PEMBUATAN;
+            $item->galangan_kapal      = $item->GALANGAN_KAPAL;
+            $item->klasifikasi         = $item->KLASIFIKASI;
          
-            return $item->only(['no','id_transaksi_pembayaran','nama',
-                'blok','gedung','lantai','no_ruangan','harga_ruangan',
-                'bulan','tanggal_validasi','tahun_validasi',
-                'jumlah_bulan','retribusi','total_bayar', 
-                'jumlah', 'piutang', 'penerimaan']);
+            return $item->only(['no','kode_kapal','nama_kapal',
+                'callsign','jenis_kapal','kode_bendera','panjang','lebar',
+                'draft','tinggi','gross_ton',
+                'dead_ton','displacement','jenis_mesin', 
+                'daya_mesin', 'kecepatan_max', 'kapasitas_kargo', 'kapasitas_penumpang', 'tahun_pembuatan', 'galangan_kapal', 'klasifikasi']);
         });
     }
 
     public function headings(): array
     {
         return [
-            ['PENERIMAAN RUSUNAWA'],
-            ['BULAN ' => Carbon::parse($this->tanggal_awal)->translatedFormat('F Y')],
+            ['DATA KAPAL'],
             [
                 ''
             ],
-            ['NO.','NO. REGISTRASI','NAMA','BLOK','GEDUNG','LANTAI','NO. RUANGAN',
-                'BESARAN PER BULAN','BULAN','TANGGAL VALIDASI',
-                'TAHUN','JUMLAH BULAN','RETRIBUSI','TOTAL'],
+            [
+                ''
+            ],
+            ['NO.','KODE KAPAL','NAMA KAPAL','CALLSIGN','JENIS KAPAL','BENDERA','PANJANG', 'LEBAR','DRAFT','TINGGI',
+                'GROSS TON','JUMLAH BULAN','RETRIBUSI','TOTAL'],
         ];
     }
 
