@@ -22,7 +22,7 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
 
     public function __construct($selectedItems)
     {
-        dd($selectedItems);
+
         $this->selectedItems = $selectedItems;
 
     }
@@ -58,6 +58,7 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'dead_ton','displacement','jenis_mesin', 
                 'daya_mesin', 'kecepatan_max', 'kapasitas_kargo', 'kapasitas_penumpang', 'tahun_pembuatan', 'galangan_kapal', 'klasifikasi']);
         });
+
     }
 
     public function headings(): array
