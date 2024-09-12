@@ -233,7 +233,6 @@ class KapalController extends Controller
 
             return $pdf->stream('data-kapal.pdf');
         }
-        
 
     }
 
