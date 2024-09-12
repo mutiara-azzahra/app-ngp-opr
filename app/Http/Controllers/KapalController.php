@@ -12,8 +12,6 @@ use App\Models\Kapal;
 use App\Models\JenisKapal;
 use App\Models\Bendera;
 
-
-
 class KapalController extends Controller
 {
     public function index(){

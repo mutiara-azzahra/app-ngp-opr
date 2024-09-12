@@ -9,10 +9,8 @@ class Kapal extends Model
 {
     use HasFactory;
 
-   protected $connection = 'third_db';
-   protected $table      = 'OPR_KAPAL';
-
-    // protected $connection = 'db_localhost1';
+    protected $connection = 'third_db';
+    protected $table      = 'OPR_KAPAL';
     
     public $timestamps    = false;
 
