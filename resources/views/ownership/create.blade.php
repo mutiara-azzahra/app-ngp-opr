@@ -73,7 +73,7 @@
                     <div class="col-lg-8 col-lg-12">
                         <div class="row row-cards">
                             <div class="col-12">
-                            <form class="card" action="{{ route('kapal.store') }}" name="create_form" method="POST" onSubmit="checkInput()" enctype="multipart/form-data">
+                            <form class="card" action="{{ route('ownership.store') }}" name="create_form" method="POST" onSubmit="checkInput()" enctype="multipart/form-data">
                             @csrf
                                 <div class="card-body">
                                     <div class="row row-cards">
@@ -85,11 +85,17 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Kapal</strong>
+                                                <label class="form-label">Nama Kapal</label>
+                                                <input type="text" class="form-control" name="nama_kapal" placeholder="Isi nama kapal">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Kapal</label>
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="kode_bendera" id="kapal" class="form-select">
+                                                            <select name="kode_kapal" id="kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($kapal as $a)
                                                                     <option value="{{ $a->KODE_KAPAL }}">{{ $a->KODE_KAPAL }} / {{ $a->NAMA_KAPAL }}</option>
@@ -100,76 +106,76 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Class/Status Kapal</strong>
-                                                <input type="text" class="form-control data-input" name="class" placeholder="0">
+                                                <label class="form-label">Class/Status</label>
+                                                <input type="text" class="form-control" name="class" placeholder="Isi class/status">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Nama Pemilik Terdaftar</strong>
-                                                <input type="text" class="form-control" name="pemilik_terdaftar" placeholder="Isi nama pemilik terdaftar">
+                                                <label class="form-label">Nama Pemilik Terdaftar</label>
+                                                <input type="text" class="form-control" name="nama_pemilik_terdaftar" placeholder="Isi nama pemilik terdaftar">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Nama Pemilik Manfaat</strong>
-                                                <input type="text" class="form-control" name="pemilik_manfaat" placeholder="Isi nama pemilik terdaftar">
+                                                <label class="form-label">Nama Pemilik Manfaat</label>
+                                                <input type="text" class="form-control" name="nama_pemilik_manfaat" placeholder="Isi nama pemilik manfaat">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Operator Kapal</strong>
-                                                <input type="text" class="form-control" name="operator_kapal" placeholder="0">
+                                                <label class="form-label">Operator Kapal</label>
+                                                <input type="text" class="form-control" name="operator_kapal" placeholder="Isi nama operator kapal">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Operator Pihak Kapal</strong>
-                                                <input type="text" class="form-control" name="operator_pihak_ketiga" placeholder="0">
+                                                <label class="form-label">Operator Pihak Ketiga</label>
+                                                <input type="text" class="form-control" name="operator_pihak_ketiga" placeholder="Isi nama operator pihak ketiga">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Manajer Teknis</strong>
-                                                <input type="text" class="form-control" name="manajer_teknis" placeholder="Isi manajer teknis">
+                                                <label class="form-label">Manajer Teknis</label>
+                                                <input type="text" class="form-control" name="manajer_teknis" placeholder="Isi nama manajer teknis">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Manajer Komersial</strong>
-                                                <input type="text" class="form-control" name="manajer_komersial" placeholder="0">
+                                                <label class="form-label">Manajer Komersial</label>
+                                                <input type="text" class="form-control" name="manajer_komersial" placeholder="Isi nama manajer komersial">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>NPWP</strong><span  class="error-message" style="display: none">*minimal 16 digit</span>
-                                                <input type="number" class="form-control data-input" name="npwp" placeholder="Isi NPWP">
+                                                <label class="form-label">NPWP</label>
+                                                <input type="number =" class="form-control" name="jenis_mesin" placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Email</strong><span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
-                                                <input type="text" class="form-control data-input" name="email" placeholder="Isi email">
+                                                <label class="form-label">Email</label>
+                                                <input type="text" class="form-control" name="email" placeholder="Isi email">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Fax</strong><span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
-                                                <input type="text" class="form-control data-input" name="fax" placeholder="Isi fax">
+                                                <label class="form-label">Fax</label>
+                                                <input type="text" class="form-control" name="fax" placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Telpon</strong></label>
-                                                <input type="text" class="form-control data-input" name="displacement" placeholder="Isi telpon/HP">
+                                                <label class="form-label">Telpon</label>
+                                                <input type="number" class="form-control" name="telpon" placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Alamat</strong></label>
-                                                <input type="text" class="form-control data-input" name="jenis_mesin" placeholder="Isi alamat">
+                                                <label class="form-label">Alamat</label>
+                                                <input type="text" class="form-control" name="alamat"  placeholder="Isi alamat">
                                             </div>
                                         </div>
                                     </div>
@@ -193,20 +199,6 @@
 @section('script')
 
 <script>
-// YEAR DROPDOWN
-let dateDropdown = document.getElementById('year-dropdown'); 
-    
-let currentYear = new Date().getFullYear();    
-let earliestYear = 1970;
-
-while (currentYear >= earliestYear) {      
-    let dateOption = document.createElement('option');          
-    dateOption.text = currentYear;      
-    dateOption.value = currentYear;        
-    dateDropdown.add(dateOption);      
-    currentYear -= 1;    
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     var el;
     window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
@@ -233,49 +225,6 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     var el;
     window.TomSelect && (new TomSelect(el = document.getElementById("bendera"), {
-        copyClassesToDropdown: false,
-        dropdownParent: 'body',
-        controlInput: '<input>',
-        render:{
-            item: function(data,escape) {
-                if( data.customProperties ){
-                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                }
-                return '<div>' + escape(data.text) + '</div>';
-            },
-            option: function(data,escape){
-                if( data.customProperties ){
-                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                }
-                return '<div>' + escape(data.text) + '</div>';
-            },
-        },
-    }));
-});
-
-//CHECK INPUT NUMBER ONLY
-document.addEventListener('DOMContentLoaded', function() {
-    const decimalRegex = /^\d*(\.\d*)?$/;
-
-    document.querySelectorAll('.data-input').forEach(input => {
-        input.addEventListener('input', function() {
-            const inputValue = this.value;
-            const errorMessage = this.parentElement.querySelector('.error-message');
-
-            if (!decimalRegex.test(inputValue)) {
-                errorMessage.style.display = 'inline';
-                errorMessage.style.color = 'red';
-            } else {
-                errorMessage.style.display = 'none';
-            }
-        });
-    });
-});
-
-//JENIS KAPAL
-document.addEventListener("DOMContentLoaded", function () {
-    var el;
-    window.TomSelect && (new TomSelect(el = document.getElementById("jenis_kapal"), {
         copyClassesToDropdown: false,
         dropdownParent: 'body',
         controlInput: '<input>',

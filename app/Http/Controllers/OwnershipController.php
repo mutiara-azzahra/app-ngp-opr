@@ -30,44 +30,27 @@ class OwnershipController extends Controller
 
     public function store(Request $request){
 
-        $data = Ownership::where('KODE_KAPAL', $request->kode_kapal)->first();
+        $data = Ownership::where('KODE_OWNERSHIP', $request->kode_ownership)->first();
 
         $request->validate([
-            'kode_kapal'          => 'required',
-            'nama_kapal'          => 'required',
-            'callsign'            => 'required',
-            'kode_bendera'        => 'required',
-            'jenis_kapal'         => 'required',
-            'panjang'             => 'required|regex:/^\d*(\.\d*)?$/',
-            'lebar'               => 'required|regex:/^\d*(\.\d*)?$/',
-            'draft'               => 'required|regex:/^\d*(\.\d*)?$/',
-            'tinggi'              => 'required|regex:/^\d*(\.\d*)?$/',
-            'gross_ton'           => 'required|regex:/^\d*(\.\d*)?$/',
-            'dead_ton'            => 'required|regex:/^\d*(\.\d*)?$/', 
-            'displacement'        => 'required|regex:/^\d*(\.\d*)?$/',
-            'jenis_mesin'         => 'required|regex:/^\d*(\.\d*)?$/',
-            'daya_mesin'          => 'required|regex:/^\d*(\.\d*)?$/',
-            'kecepatan_max'       => 'required|regex:/^\d*(\.\d*)?$/',
-            'kapasitas_kargo'     => 'required|regex:/^\d*(\.\d*)?$/',
-            'kapasitas_penumpang' => 'required|regex:/^\d*(\.\d*)?$/',
-            'galangan_kapal'      => 'required',
-            'klasifikasi'         => 'required',
-            'tahun_pembuatan'     => 'required',
+            'kode_ownership'          => 'required',
+            'kode_kapal'              => 'required',
+            'class'                   => 'required',
+            'nama_pemilik_terdaftar'  => 'required',
+            'nama_pemilik_manfaat'    => 'required',
+            'operator_kapal'          => 'required',
+            'operator_pihak_ketiga'   => 'required',
+            'manajer_teknis'          => 'required',
+            'manajer_komersial'       => 'required',
+            'npwp'                    => 'required|min:16|max:16',
+            'email'                   => 'required', 
+            'fax'                     => 'required',
+            'telpon'                  => 'required',
+            'alamat'                  => 'required',
         ],
         [
             'required'                  => 'Data :attribute belum diisi',
-            'unique'                    => ':attribute sudah ada',
-            'panjang.regex'             => 'Format :attribute tidak valid',
-            'lebar.regex'               => 'Format :attribute tidak valid',
-            'tinggi.regex'              => 'Format :attribute tidak valid',
-            'gross_ton.regex'           => 'Format :attribute tidak valid',
-            'dead_ton.regex'            => 'Format :attribute tidak valid',
-            'displacement.regex'        => 'Format :attribute tidak valid',
-            'jenis_mesin.regex'         => 'Format :attribute tidak valid',
-            'daya_mesin.regex'          => 'Format :attribute tidak valid',
-            'kecepatan_max.regex'       => 'Format :attribute tidak valid',
-            'kapasitas_kargo.regex'     => 'Format :attribute tidak valid',
-            'kapasitas_penumpang.regex' => 'Format :attribute tidak valid'
+            'npwp.min'                  => 'Format :attribute tidak valid'
         ]
     
     );
