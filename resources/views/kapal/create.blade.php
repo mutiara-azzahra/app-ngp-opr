@@ -301,7 +301,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }));
 });
 
-
 //CHECK INPUT NUMBER ONLY
 document.addEventListener('DOMContentLoaded', function() {
     const decimalRegex = /^\d*(\.\d*)?$/;

@@ -141,30 +141,44 @@ class KapalController extends Controller
     public function update(Request $request, $id){
 
         $request->validate([
-                'kode_kapal'          => 'required',
-                'nama_kapal'          => 'required',
-                'callsign'            => 'required',
-                'kode_bendera'        => 'required',
-                'jenis_kapal'         => 'required',
-                'panjang'             => 'required|numeric|min:0',
-                'lebar'               => 'required|numeric|min:0',
-                'draft'               => 'required|numeric|min:0',
-                'tinggi'              => 'required|numeric|min:0',
-                'gross_ton'           => 'required|numeric|min:0',
-                'dead_ton'            => 'required|numeric|min:0', 
-                'displacement'        => 'required|numeric|min:0',
-                'jenis_mesin'         => 'required',
-                'daya_mesin'          => 'required',
-                'kecepatan_max'       => 'required',
-                'kapasitas_kargo'     => 'required',
-                'kapasitas_penumpang' => 'required',
-                'tahun_pembuatan'     => 'required',
-                'galangan_kapal'      => 'required',
-                'klasifikasi'         => 'required',
-            ],[
-                'required'  => 'Data :attribute belum diisi',
-                'unique'    => ':attribute sudah ada',
-        ]);
+            'kode_kapal'          => 'required',
+            'nama_kapal'          => 'required',
+            'callsign'            => 'required',
+            'kode_bendera'        => 'required',
+            'jenis_kapal'         => 'required',
+            'panjang'             => 'required|regex:/^\d*(\.\d*)?$/',
+            'lebar'               => 'required|regex:/^\d*(\.\d*)?$/',
+            'draft'               => 'required|regex:/^\d*(\.\d*)?$/',
+            'tinggi'              => 'required|regex:/^\d*(\.\d*)?$/',
+            'gross_ton'           => 'required|regex:/^\d*(\.\d*)?$/',
+            'dead_ton'            => 'required|regex:/^\d*(\.\d*)?$/', 
+            'displacement'        => 'required|regex:/^\d*(\.\d*)?$/',
+            'jenis_mesin'         => 'required|regex:/^\d*(\.\d*)?$/',
+            'daya_mesin'          => 'required|regex:/^\d*(\.\d*)?$/',
+            'kecepatan_max'       => 'required|regex:/^\d*(\.\d*)?$/',
+            'kapasitas_kargo'     => 'required|regex:/^\d*(\.\d*)?$/',
+            'kapasitas_penumpang' => 'required|regex:/^\d*(\.\d*)?$/',
+            'galangan_kapal'      => 'required',
+            'klasifikasi'         => 'required',
+            'tahun_pembuatan'     => 'required',
+        ],
+        [
+            'required'                  => 'Data :attribute belum diisi',
+            'unique'                    => ':attribute sudah ada',
+            'panjang.regex'             => 'Format :attribute tidak valid',
+            'lebar.regex'               => 'Format :attribute tidak valid',
+            'tinggi.regex'              => 'Format :attribute tidak valid',
+            'gross_ton.regex'           => 'Format :attribute tidak valid',
+            'dead_ton.regex'            => 'Format :attribute tidak valid',
+            'displacement.regex'        => 'Format :attribute tidak valid',
+            'jenis_mesin.regex'         => 'Format :attribute tidak valid',
+            'daya_mesin.regex'          => 'Format :attribute tidak valid',
+            'kecepatan_max.regex'       => 'Format :attribute tidak valid',
+            'kapasitas_kargo.regex'     => 'Format :attribute tidak valid',
+            'kapasitas_penumpang.regex' => 'Format :attribute tidak valid'
+        ]
+    
+    );
 
         try {
 
@@ -227,9 +241,9 @@ class KapalController extends Controller
 
         } else {
 
-            $data   = Kapal::where('KODE_KAPAL', [$selectedItems])->get();
+            $data   = Kapal::where('KODE_KAPAL', $selectedItems)->get();
             $pdf    = PDF::loadView('reports.kapal', ['data'=>$data]);
-            $pdf->setPaper('letter', 'landscape');
+            $pdf->setPaper('a4', 'potrait');
 
             return $pdf->stream('data-kapal.pdf');
         }

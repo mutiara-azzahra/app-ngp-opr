@@ -131,44 +131,50 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Panjang</label>
-                                                <input type="text" class="form-control" name="panjang" value="{{ $data->PANJANG }}">
+                                                <label class="form-label">Panjang <span class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="panjang" value="{{ $data->PANJANG }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">Kapasitas Kargo <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
+                                                <input type="text" class="form-control data-input" name="kapasitas_kargo" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Lebar</label>
-                                                <input type="text" class="form-control" name="lebar" value="{{ $data->LEBAR }}">
+                                                <input type="text" class="form-control data-input" name="lebar" value="{{ $data->LEBAR }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Tinggi</label>
-                                                <input type="text" class="form-control" name="tinggi" value="{{ $data->TINGGI }}">
+                                                <input type="text" class="form-control data-input" name="tinggi" value="{{ $data->TINGGI }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Draft</label>
-                                                <input type="text" class="form-control" name="draft" value="{{ $data->DRAFT }}">
+                                                <input type="text" class="form-control data-input" name="draft" value="{{ $data->DRAFT }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Gross Ton</label>
-                                                <input type="text" class="form-control" name="gross_ton" value="{{ $data->GROSS_TON }}">
+                                                <input type="text" class="form-control data-input" name="gross_ton" value="{{ $data->GROSS_TON }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Dead Ton</label>
-                                                <input type="text" class="form-control" name="dead_ton" value="{{ $data->DEAD_TON }}">
+                                                <input type="text" class="form-control data-input" name="dead_ton" value="{{ $data->DEAD_TON }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Displacement</label>
-                                                <input type="text" class="form-control" name="displacement" value="{{ $data->DISPLACEMENT }}">
+                                                <input type="text" class="form-control data-input" name="displacement" value="{{ $data->DISPLACEMENT }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
@@ -180,19 +186,19 @@
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Daya Mesin</label>
-                                                <input type="text" class="form-control" name="daya_mesin" value="{{ $data->DAYA_MESIN }}">
+                                                <input type="text" class="form-control data-input" name="daya_mesin" value="{{ $data->DAYA_MESIN }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kecepatan Maksimal</label>
-                                                <input type="text" class="form-control" name="kecepatan_max" value="{{ $data->KECEPATAN_MAX }}">
+                                                <input type="text" class="form-control data-input" name="kecepatan_max" value="{{ $data->KECEPATAN_MAX }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kapasitas Kargo</label>
-                                                <input type="text" class="form-control" name="kapasitas_kargo" value="{{ $data->KAPASITAS_KARGO }}">
+                                                <input type="text" class="form-control data-input" name="kapasitas_kargo" value="{{ $data->KAPASITAS_KARGO }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
@@ -254,6 +260,25 @@
         dateDropdown.add(dateOption);      
         currentYear -= 1;    
         }
+
+    //CHECK INPUT NUMBER ONLY
+    document.addEventListener('DOMContentLoaded', function() {
+        const decimalRegex = /^\d*(\.\d*)?$/;
+
+        document.querySelectorAll('.data-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const inputValue = this.value;
+                const errorMessage = this.parentElement.querySelector('.error-message');
+
+                if (!decimalRegex.test(inputValue)) {
+                    errorMessage.style.display = 'inline';
+                    errorMessage.style.color = 'red';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
+        });
+    });
 
     //JENIS KAPAL
     document.addEventListener("DOMContentLoaded", function () {
