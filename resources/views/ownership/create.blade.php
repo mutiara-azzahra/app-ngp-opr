@@ -79,8 +79,8 @@
                                     <div class="row row-cards">
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <strong>Kode Ownership</strong>
-                                                <input type="text " class="form-control" name="kode_ownership" placeholder="Isi Kode Kapal">
+                                                <label class="form-label">Kode Ownership</label>
+                                                <input type="text " class="form-control" name="kode_os" placeholder="Isi Kode Kapal">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
@@ -151,7 +151,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">NPWP</label>
-                                                <input type="number =" class="form-control" name="jenis_mesin" placeholder="0">
+                                                <input type="number" class="form-control" name="jenis_mesin" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
@@ -163,7 +163,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Fax</label>
-                                                <input type="text" class="form-control" name="fax" placeholder="0">
+                                                <input type="number" class="form-control" name="fax" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">

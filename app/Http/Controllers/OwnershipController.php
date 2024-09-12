@@ -30,10 +30,11 @@ class OwnershipController extends Controller
 
     public function store(Request $request){
 
-        $data = Ownership::where('KODE_OWNERSHIP', $request->kode_ownership)->first();
+        $data = Ownership::where('KODE_OS', $request->kode_os)->first();
+        $lastest_data = Ownership::where('KODE_OS', $request->kode_os)->get();
 
         $request->validate([
-            'kode_ownership'          => 'required',
+            'kode_os'          => 'required',
             'kode_kapal'              => 'required',
             'class'                   => 'required',
             'nama_pemilik_terdaftar'  => 'required',
@@ -57,26 +58,27 @@ class OwnershipController extends Controller
 
         if(!$data){
 
-            $input['KODE_KAPAL']            = $request->kode_kapal;
-            $input['NAMA_KAPAL']            = $request->nama_kapal;
-            $input['CALLSIGN']              = $request->callsign;
-            $input['JENIS_KAPAL']           = $request->jenis_kapal;
-            $input['KODE_BENDERA']          = $request->kode_bendera;
-            $input['PANJANG']               = $request->panjang;
-            $input['LEBAR']                 = $request->lebar;
-            $input['DRAFT']                 = $request->draft;
-            $input['TINGGI']                = $request->tinggi;
-            $input['GROSS_TON']             = $request->gross_ton;
-            $input['DEAD_TON']              = $request->dead_ton;
-            $input['DISPLACEMENT']          = $request->displacement;
-            $input['JENIS_MESIN']           = $request->jenis_mesin;
-            $input['DAYA_MESIN']            = $request->daya_mesin;
-            $input['KECEPATAN_MAX']         = $request->kecepatan_max;
-            $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
-            $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
-            $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
-            $input['KLASIFIKASI']           = $request->klasifikasi;
-            $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
+            $input['KODE_OS']                   = $request->kode_os;
+            $input['NAMA_KAPAL']                = $request->kode_kapal;
+            $input['CLASS']                     = $request->class;
+            $input['NAMA_PEMILIK_TERDAFTAR']    = $request->nama_pemilik_terdaftar;
+            $input['NAMA_PEMILIK_MANFAAT']      = $request->nama_pemilik_manfaat;
+            $input['OPERATOR_KAPAL']            = $request->operator_kapal;
+            $input['OPERATOR_PIHAK_KETIGA']     = $request->operator_pihak_ketiga;
+            $input['MANAJER_TEKNIS']            = $request->manajer_teknis;
+            $input['MANAJER_KOMERSIAL']         = $request->manajer_komersial;
+            $input['NPWP']                      = $request->npwp;
+            $input['EMAIL']                     = $request->email;
+            $input['FAX']                       = $request->fax;
+            $input['TELPON']                    = $request->telpon;
+            $input['ALAMAT']                    = $request->alamat;
+            if(!$lastest_data){
+                $input['FLAG_IDX']                    = $lastest_data->FLAG_IDX + 1;
+            } else {
+                $input['FLAG_IDX']                    = 1;
+            }
+            $input['FLAG_STATUS1_NAME']         = $request->kapasitas_kargo;
+            $input['FLAG_STATUS1_DATE']         = $request->kapasitas_penumpang;
 
             $created    = Ownership::create($input);
             
