@@ -42,4 +42,9 @@ class Ownership extends Model
         'LOG_EDIT_NAME',
         'LOG_EDIT_DATE',
     ];
+
+    public function kapal()
+    {
+        return $this->belongsTo(Kapal::class, 'KODE_KAPAL', 'KODE_KAPAL');
+    }
 }

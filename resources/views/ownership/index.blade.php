@@ -10,7 +10,6 @@
             <div class="page-pretitle"></div>
                 <h2 class="page-title">Master Data Ownership</h2>
             </div>
-            
         </div>
     </div>
 </div>
@@ -117,8 +116,12 @@
                                 <tr>
                                     <th class="text-center">Pilih</th>
                                     <th class="text-center">KODE OS</th>
+                                    <th class="text-center">PEMILIK</th>
                                     <th class="text-center">NAMA KAPAL</th>
-                                    <th class="text-center">CALL SIGN</th>
+                                    <th class="text-center">CLASS</th>
+                                    <th class="text-center">ALAMAT</th>
+                                    <th class="text-center">PANJANG LOA</th>
+                                    <th class="text-center">LEBAR (B)</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                                 <tr>
@@ -126,6 +129,10 @@
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable1"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable2"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable3"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable4"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable5"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable6"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable7"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -138,8 +145,17 @@
                                         </label>
                                     </td>
                                     <td class="text-left">{{ $i->KODE_OS }}</td>
-                                    <td class="text-left">{{ $i }}</td>
-                                    <td class="text-left">{{ $i }}</td>
+                                    <td class="text-left">
+                                        @if($i->kapal != null)
+                                        {{ $i->kapal->NAMA_KAPAL }}
+                                        @else
+                                        -
+                                        @endif 
+                                    </td>
+                                    <td class="text-left">{{ $i->CLASS }}</td>
+                                    <td class="text-left">{{ $i->ALAMAT }}</td>
+                                    <td class="text-left">{{ $i->PANJANG }} m</td>
+                                    <td class="text-left">{{ $i->LEBAR }} m</td>
                                     <td class="text-center">
                                         <a href="{{ route('ownership.edit', $i->KODE_OS) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
