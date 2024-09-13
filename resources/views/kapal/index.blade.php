@@ -234,7 +234,6 @@
 @endsection
 
 @section('script')
-
 <script>
 // count
 function updateCount() {
@@ -251,7 +250,5 @@ function updateCount() {
         button.style.display = 'none'
     }
 }
-
 </script>
-
 @endsection

@@ -93,19 +93,20 @@ class JenisKapalController extends Controller
             return redirect()->route('jenis-kapal.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data jenis kapal.');
         }
 
-        
     }
 
     public function destroy(Request $request){
 
+        dd($request->all());
+
         $selectedItems = $request->input('selected_items', []);
 
         try {
-                $data = Kapal::whereIn('JENIS_KAPAL', $selectedItems)->delete();
+                $data = JenisKapal::whereIn('JENIS_KAPAL', $selectedItems)->delete();
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
 
             return redirect()->route('jenis-kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }

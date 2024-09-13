@@ -114,7 +114,6 @@ class OwnershipController extends Controller
 
     public function update(Request $request, $id){
 
-
         $request->validate([
             'kode_os'                 => 'required',
             'kode_kapal'              => 'required',
@@ -172,11 +171,12 @@ class OwnershipController extends Controller
         $selectedItems = $request->input('selected_items', []);
 
         try {
-                $data = Ownership::whereIn('FLAG_IDX', $selectedItems)->delete();
+
+            $data = Ownership::whereIn('FLAG_IDX', $selectedItems)->get();
 
             return redirect()->route('ownership.index')->with('success', 'Data Master Ownership berhasil dihapus!');
 
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
 
             return redirect()->route('ownership.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Ownership.');
         }

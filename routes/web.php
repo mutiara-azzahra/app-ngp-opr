@@ -119,6 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ownership/update/{id}', [OwnershipController::class, 'update'])->name('ownership.update');
     Route::post('/ownership/destroy', [OwnershipController::class, 'destroy'])->name('ownership.destroy');
     Route::get('/ownership/print', [OwnershipController::class, 'print'])->name('ownership.print');
+    Route::post('/ownership/cetak', [OwnershipController::class, 'cetak'])->name('ownership.cetak');
 
     //MASTER CONTACT PERSON
     Route::get('/contact-person', [ContactPersonController::class, 'index'])->name('contact-person.index');

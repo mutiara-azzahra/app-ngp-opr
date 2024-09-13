@@ -76,9 +76,9 @@ class BenderaController extends Controller
         $selectedItems = $request->input('selected_items', []);
 
         try {
-                $data = Kapal::whereIn('KODE_KAPAL', $selectedItems)->delete();
+                $data = Bendera::whereIn('KODE_BENDERA', $selectedItems)->delete();
 
-            return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
+            return redirect()->route('bendera.index')->with('success', 'Data Master Bendera berhasil dihapus!');
 
         } catch (Throwable $e) {
 
