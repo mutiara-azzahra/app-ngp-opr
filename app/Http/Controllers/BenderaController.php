@@ -75,15 +75,13 @@ class BenderaController extends Controller
 
         $selectedItems = $request->input('selected_items', []);
 
-        dd($selectedItems);
-
         try {
             
             $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();
 
             return redirect()->route('bendera.index')->with('success', 'Data Master Bendera berhasil dihapus!');
 
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
 
             return redirect()->route('bendera.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }
