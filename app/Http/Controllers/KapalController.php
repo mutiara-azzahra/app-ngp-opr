@@ -210,7 +210,6 @@ class KapalController extends Controller
 
             return redirect()->route('kapal.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data kapal.');
         }
-
         
     }
 
@@ -220,11 +219,11 @@ class KapalController extends Controller
 
         try {
             
-            $data = Bendera::whereIn('KODE_KAPAL', $selectedItems)->delete();
+            $data = Kapal::whereIn('FLAG_IDX', $selectedItems)->delete();
 
             return redirect()->route('kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 
-        } catch (Throwable $e) {
+        } catch (\Exception $e) {
 
             return redirect()->route('kapal.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }

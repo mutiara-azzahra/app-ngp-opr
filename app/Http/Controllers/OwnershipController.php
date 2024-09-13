@@ -172,7 +172,7 @@ class OwnershipController extends Controller
 
         try {
 
-            $data = Ownership::whereIn('FLAG_IDX', $selectedItems)->get();
+            $data = Ownership::whereIn('FLAG_IDX', $selectedItems)->delete();
 
             return redirect()->route('ownership.index')->with('success', 'Data Master Ownership berhasil dihapus!');
 

@@ -97,12 +97,10 @@ class JenisKapalController extends Controller
 
     public function destroy(Request $request){
 
-        dd($request->all());
-
         $selectedItems = $request->input('selected_items', []);
 
         try {
-                $data = JenisKapal::whereIn('JENIS_KAPAL', $selectedItems)->delete();
+                $data = JenisKapal::whereIn('FLAG_IDX', $selectedItems)->delete();
 
             return redirect()->route('jenis-kapal.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 

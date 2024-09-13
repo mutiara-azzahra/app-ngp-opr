@@ -10,7 +10,6 @@
             <div class="page-pretitle"></div>
                 <h2 class="page-title">Master Data Jenis Kapal</h2>
             </div>
-            
         </div>
     </div>
 </div>
@@ -146,7 +145,7 @@
                                 <tr>
                                     <td class="text-center">
                                         <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->IDX_FLAG }}" id="checkbox" type="checkbox" onchange="updateCount()">
+                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->FLAG_IDX }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                         </label>
                                     </td>
                                     <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
@@ -179,19 +178,6 @@
 @section('script')
 
 <script>
-
-// refresh table
-$(document).ready(function() {
-
-   function RefreshTable() {
-       $( "#mytable" ).load( "index.php #mytable" );
-   }
-
-   $("#refresh-btn").on("click", RefreshTable);
-
-});
-
-
 // count
 function updateCount() {
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
@@ -207,7 +193,6 @@ function updateCount() {
         button.style.display = 'none'
     }
 }
-
 </script>
 
 @endsection
