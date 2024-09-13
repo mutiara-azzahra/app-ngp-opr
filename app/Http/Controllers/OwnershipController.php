@@ -58,7 +58,7 @@ class OwnershipController extends Controller
         if(!$data){
 
             $input['KODE_OS']                   = $request->kode_os;
-            $input['NAMA_KAPAL']                = $request->kode_kapal;
+            $input['KODE_KAPAL']                = $request->kode_kapal;
             $input['CLASS']                     = $request->class;
             $input['NAMA_PEMILIK_TERDAFTAR']    = $request->nama_pemilik_terdaftar;
             $input['NAMA_PEMILIK_MANFAAT']      = $request->nama_pemilik_manfaat;

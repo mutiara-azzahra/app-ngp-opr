@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
@@ -12,7 +12,8 @@ use App\Models\User;
 class LoginController extends Controller
 {
 
-    public function formLogin(){
+    public function formLogin()
+    {
 
         if (Auth::check()) {
 
@@ -28,9 +29,9 @@ class LoginController extends Controller
         $username = strtoupper($request->username);
         $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt(['username'=> $username, 'password' => $request->password])) {
+        if (Auth::attempt(['username' => $username, 'password' => $request->password])) {
 
-            return redirect()->route('dashboard.index'); 
+            return redirect()->route('dashboard.index');
         }
 
         return back()->with('error', 'Username dan Password');
@@ -45,7 +46,7 @@ class LoginController extends Controller
     //    if($Hash::check($request->password, $user->PASSWORD)){
     //         if($pw2 == $user->PASSWORD2){
     //             if (Auth::attempt($credentials)) {
-            
+
     //                 return redirect()->route('dashboard.index');
     //             } else {
     //                 return back()->with('danger', 'Username atau password salah');
@@ -57,7 +58,7 @@ class LoginController extends Controller
     //     } elseif ($request->password !== null && $user->password == '') {
     //             if($pw2 == $user->PASSWORD2){
     //                 if (Auth::attempt($credentials)) {
-                
+
     //                     return redirect()->route('dashboard.index');
     //                 } else {
     //                     return back()->with('danger', 'Username atau password salah');
@@ -77,14 +78,12 @@ class LoginController extends Controller
     //                 ->first();
     //     $check_password = Hash::check($user->PASSWORD3, $user->PASSWORD);
     //     if ($user->PASSWORD == "") {
-           
+
     //         if (Auth::attempt($credentials)) {
     //             return redirect()->route('dashboard.index');
     //         if ($user->PASSWORD2 == md5($request->password)) {
     //             Auth::login($user);
     //         return back()->with('danger', 'Username atau password salah!');
-       
-
 
     public function logout(Request $request)
     {
@@ -93,7 +92,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.formLogin')->with('success','Anda berhasil keluar!');
+        return redirect()->route('login.formLogin')->with('success', 'Anda berhasil keluar!');
     }
-
 }
