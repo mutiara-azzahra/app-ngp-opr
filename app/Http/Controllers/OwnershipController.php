@@ -24,7 +24,7 @@ class OwnershipController extends Controller
 
     public function create(){
         
-        $kapal = Kapal::where('FLAG_STATUS', 1)->get();
+        $kapal = Kapal::where('FLAG_STATUS', 1)->where('KODE_OS', null)->get();
         $bendera = Bendera::where('FLAG_STATUS', 1)->get();
 
         return view('ownership.create', compact('kapal', 'bendera'));

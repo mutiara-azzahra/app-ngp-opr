@@ -85,12 +85,6 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nama Kapal</label>
-                                                <input type="text" class="form-control" name="nama_kapal" placeholder="Isi nama kapal">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
-                                            <div class="mb-3">
                                                 <label class="form-label">Kapal</label>
                                                 <div class="col-12">
                                                     <div class="mb-3">

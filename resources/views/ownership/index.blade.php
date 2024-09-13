@@ -22,9 +22,9 @@
                 <div class="alert alert-important alert-success alert-dismissible" role="alert">
                     <div class="d-flex">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
                         </div>
-                        <div>{{ $message }}</div>
+                        <div> {{ $message }}</div>
                     </div>
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
@@ -32,9 +32,9 @@
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-alert-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
                         </div>
-                        <div>{{ $message }}</div>
+                        <div> {{ $message }}</div>
                     </div>
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
@@ -167,17 +167,21 @@
                                     </td>
                                     <td class="text-left">{{ $i->KODE_OS }}</td>
                                     <td class="text-left">{{ $i->NAMA_PEMILIK_TERDAFTAR }}</td>
-                                    <td class="text-left">
-                                        @if($i->kapal != null)
-                                        {{ $i->kapal->NAMA_KAPAL }}
-                                        @else
-                                        -
-                                        @endif 
+                                    @if($i->kapal != null)
+                                    <td class="text-left">{{ $i->kapal->NAMA_KAPAL }}</td>
+                                    @else
+                                    <td class="text-center"> - </td>
+                                    @endif 
                                     </td>
                                     <td class="text-left">{{ $i->CLASS }}</td>
                                     <td class="text-left">{{ $i->ALAMAT }}</td>
-                                    <td class="text-left">{{ $i->PANJANG }} m</td>
-                                    <td class="text-left">{{ $i->LEBAR }} m</td>
+                                    @if($i->kapal != null)
+                                    <td class="text-left">{{ number_format($i->kapal->PANJANG, 2, ',', '.') }} m</td>
+                                    <td class="text-left">{{ number_format($i->kapal->LEBAR, 2, ',', '.') }} m</td>
+                                    @else
+                                    <td class="text-center"> - </td>
+                                    <td class="text-center"> - </td>
+                                    @endif 
                                     <td class="text-center">
                                         <a href="{{ route('ownership.edit', $i->FLAG_IDX) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>

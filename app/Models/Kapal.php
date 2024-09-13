@@ -47,4 +47,9 @@ class Kapal extends Model
     {
         return $this->hasOne(JenisKapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
     }
+
+    public function ownership()
+    {
+        return $this->hasOne(Ownership::class, 'KODE_KAPAL', 'KODE_KAPAL');
+    }
 }
