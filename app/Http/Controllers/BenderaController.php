@@ -29,7 +29,6 @@ class BenderaController extends Controller
         ],
         [
             'required'  => 'Data :attribute belum diisi',
-            'unique'    => ':attribute sudah ada'
         ]
     
     );    

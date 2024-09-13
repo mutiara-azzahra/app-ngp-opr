@@ -34,7 +34,7 @@ class OwnershipController extends Controller
         $lastest_data = Ownership::where('KODE_OS', $request->kode_os)->get();
 
         $request->validate([
-            'kode_os'          => 'required',
+            'kode_os'                 => 'required',
             'kode_kapal'              => 'required',
             'class'                   => 'required',
             'nama_pemilik_terdaftar'  => 'required',
@@ -43,18 +43,17 @@ class OwnershipController extends Controller
             'operator_pihak_ketiga'   => 'required',
             'manajer_teknis'          => 'required',
             'manajer_komersial'       => 'required',
-            'npwp'                    => 'required|min:16|max:16',
+            'npwp'                    => 'required|min:15|max:16',
             'email'                   => 'required', 
             'fax'                     => 'required',
             'telpon'                  => 'required',
             'alamat'                  => 'required',
         ],
         [
-            'required'                  => 'Data :attribute belum diisi',
-            'npwp.min'                  => 'Format :attribute tidak valid'
-        ]
-    
-    );
+            'required'         => 'Data :attribute belum diisi',
+            'min'              => 'NPWP minimal 15 digit angka',
+            'max'              => 'NPWP maksimal 16 digit angka'
+        ]);
 
         if(!$data){
 
@@ -73,12 +72,12 @@ class OwnershipController extends Controller
             $input['TELPON']                    = $request->telpon;
             $input['ALAMAT']                    = $request->alamat;
             if(!$lastest_data){
-                $input['FLAG_IDX']                    = $lastest_data->FLAG_IDX + 1;
+                $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
             } else {
-                $input['FLAG_IDX']                    = 1;
+                $input['FLAG_IDX']              = 1;
             }
-            $input['FLAG_STATUS1_NAME']         = $request->kapasitas_kargo;
-            $input['FLAG_STATUS1_DATE']         = $request->kapasitas_penumpang;
+            $input['FLAG_STATUS1_NAME']         = Auth::user()->USERNAME;
+            $input['FLAG_STATUS1_DATE']         = NOW();
 
             $created    = Ownership::create($input);
             
