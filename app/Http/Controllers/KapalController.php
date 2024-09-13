@@ -138,6 +138,8 @@ class KapalController extends Controller
 
     public function update(Request $request, $id){
 
+        dd($request->all());
+
         $request->validate([
             'kode_kapal'          => 'required',
             'nama_kapal'          => 'required',

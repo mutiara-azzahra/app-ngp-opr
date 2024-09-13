@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ownership/create', [OwnershipController::class, 'create'])->name('ownership.create');
     Route::post('/ownership/store', [OwnershipController::class, 'store'])->name('ownership.store');
     Route::get('/ownership/edit/{id}', [OwnershipController::class, 'edit'])->name('ownership.edit');
-    Route::post('/ownership/update', [OwnershipController::class, 'update'])->name('ownership.update');
+    Route::post('/ownership/update/{id}', [OwnershipController::class, 'update'])->name('ownership.update');
     Route::post('/ownership/destroy', [OwnershipController::class, 'destroy'])->name('ownership.destroy');
     Route::get('/ownership/print', [OwnershipController::class, 'print'])->name('ownership.print');
 

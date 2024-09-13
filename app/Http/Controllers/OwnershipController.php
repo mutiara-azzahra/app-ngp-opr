@@ -114,7 +114,6 @@ class OwnershipController extends Controller
 
     public function update(Request $request, $id){
 
-        dd($request->all());
 
         $request->validate([
             'kode_os'                 => 'required',
@@ -155,13 +154,13 @@ class OwnershipController extends Controller
                 'FAX'                       => $request->fax,
                 'TELPON'                    => $request->telpon,
                 'ALAMAT'                    => $request->alamat,
-                'FLAG_EDIT1_NAME'           => Auth::user()->USERNAME,
-                'FLAG_EDIT1_DATE'           => NOW(),
+                'LOG_EDIT_NAME'           => Auth::user()->USERNAME,
+                'LOG_EDIT_DATE'           => NOW(),
             ]);
 
             return redirect()->route('ownership.index')->with('success', 'Data ownership berhasil diubah!');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
 
             return redirect()->route('ownership.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data ownership.');
         }

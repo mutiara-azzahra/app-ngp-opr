@@ -28,6 +28,48 @@
         <div class="row row-cards">
             <div class="col-12">
                 <div class="card">
+                <div class="col-12">
+                    @if($message = Session::get('success'))
+                    <div class="alert alert-important alert-success alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                            </div>
+                            <div>{{ $message }}</div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                    </div>
+                    @elseif($message = Session::get('danger'))
+                    <div class="alert alert-important alert-danger alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                            </div>
+                            <div>{{ $message }}</div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                    </div>
+                    @endif
+
+                    @if($errors->any())
+                    <div class="alert alert-important alert-danger alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
+                            </div>
+                            <div>
+                                <ul>
+                                    <strong>Maaf!</strong> Ada yang salah<br><br>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                    </div>
+                    @endif
+                </div>
                     <div class="col-lg-8 col-lg-12">
                         <div class="row row-cards">
                             <div class="col-12">
@@ -47,7 +89,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="kapal" id="kapal" class="form-select">
+                                                            <select name="kode_kapal" id="kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
                                                                 @foreach($kapal as $a)
                                                                     <option value="{{ $a->KODE_KAPAL }}" {{ $data->KODE_KAPAL == $a->KODE_KAPAL ? 'selected' : '' }}>{{ $a->KODE_KAPAL }} / {{ $a->NAMA_KAPAL }}</option>
@@ -85,49 +127,49 @@
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Operator Pihak Ketiga</label>
-                                                <input type="text" class="form-control" value="{{ $data->OPERATOR_PIHAK_KETIGA }}">
+                                                <input type="text" class="form-control" name="operator_pihak_ketiga" value="{{ $data->OPERATOR_PIHAK_KETIGA }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Manajer Teknis</label>
-                                                <input type="text" class="form-control" value="{{ $data->MANAJER_TEKNIS }}">
+                                                <input type="text" class="form-control" name="manajer_teknis" value="{{ $data->MANAJER_TEKNIS }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Manajer Komersial</label>
-                                                <input type="text" class="form-control" value="{{ $data->MANAJER_KOMERSIAL }}">
+                                                <input type="text" class="form-control" name="manajer_komersial" value="{{ $data->MANAJER_KOMERSIAL }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">NPWP</label>
-                                                <input type="text" class="form-control" value="{{ $data->NPWP }}">
+                                                <input type="text" class="form-control" name="npwp" value="{{ $data->NPWP }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Email</label>
-                                                <input type="text" class="form-control" value="{{ $data->EMAIL }}">
+                                                <input type="email" class="form-control" name="email" value="{{ $data->EMAIL }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Fax</label>
-                                                <input type="text" class="form-control" value="{{ $data->FAX }}">
+                                                <input type="text" class="form-control" name="fax" value="{{ $data->FAX }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Telpon</label>
-                                                <input type="text" class="form-control" value="{{ $data->TELPON }}">
+                                                <input type="text" class="form-control" name="telpon" value="{{ $data->TELPON }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Alamat</label>
-                                                <input type="text" class="form-control" value="{{ $data->ALAMAT }}">
+                                                <input type="text" class="form-control" name="alamat" value="{{ $data->ALAMAT }}">
                                             </div>
                                         </div>
                                     </div>
