@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table class="table card-table table-vcenter text-nowrap datatable" id="mytable">
+                        <table class="table card-table table-vcenter text-nowrap datatable">
                             <thead>
                                 <tr>
                                     <th class="text-center">Pilih</th>
@@ -146,7 +146,7 @@
                                 <tr>
                                     <td class="text-center">
                                         <div class="form-check">
-                                            <input class="form-check-input m-0 align-middle" name="selected_items[]" value="{{ $i->FLAG_IDX }}" id="checkbox" type="checkbox" onchange="updateCount()">
+                                            <input class="form-check-input m-0 align-middle" name="selected_items[]" value="{{ $i->FLAG_IDX }}" type="checkbox" onchange="updateCount()">
                                         </div>
                                     </td>
                                     <td class="text-left">{{ $i->KODE_BENDERA }}</td>
@@ -179,19 +179,6 @@
 @section('script')
 
 <script>
-
-// refresh table
-$(document).ready(function() {
-
-   function RefreshTable() {
-       $( "#mytable" ).load( "index.php #mytable" );
-   }
-
-   $("#refresh-btn").on("click", RefreshTable);
-
-});
-
-
 // count
 function updateCount() {
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');

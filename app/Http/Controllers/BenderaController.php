@@ -75,8 +75,11 @@ class BenderaController extends Controller
 
         $selectedItems = $request->input('selected_items', []);
 
+        dd($selectedItems);
+
         try {
-                $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();
+            
+            $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();
 
             return redirect()->route('bendera.index')->with('success', 'Data Master Bendera berhasil dihapus!');
 

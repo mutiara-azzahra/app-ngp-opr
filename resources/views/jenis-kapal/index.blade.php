@@ -144,9 +144,9 @@
                                 @foreach ($data as $i)
                                 <tr>
                                     <td class="text-center">
-                                        <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->FLAG_IDX }}" id="checkbox" type="checkbox" onchange="updateCount()">
-                                        </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input m-0 align-middle" name="selected_items[]" value="{{ $i->FLAG_IDX }}" type="checkbox" onchange="updateCount()">
+                                        </div>
                                     </td>
                                     <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
                                     <td class="text-left">{{ $i->G1 }}</td>
