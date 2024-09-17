@@ -18,32 +18,23 @@ class ContactPersonController extends Controller
 
     public function create(){
         
-        $kapal   = Kapal::where('FLAG_STATUS', 1)->where('KODE_OS', null)->get();
-        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
-
-        return view('contact-person.create', compact('kapal', 'bendera'));
+        return view('contact-person.create');
     }
 
     public function store(Request $request){
 
-        $data = ContactPerson::where('KODE_OS', $request->kode_os)->first();
-        $lastest_data = ContactPerson::where('KODE_OS', $request->kode_os)->get();
+        $data         = ContactPerson::where('KODE_CP', $request->kode_cp)->first();
+        $lastest_data = ContactPerson::orderBy('FLAG_IDX', 'desc')->first();
 
         $request->validate([
-            'kode_os'                 => 'required',
-            'kode_kapal'              => 'required',
-            'class'                   => 'required',
-            'nama_pemilik_terdaftar'  => 'required',
-            'nama_pemilik_manfaat'    => 'required',
-            'operator_kapal'          => 'required',
-            'operator_pihak_ketiga'   => 'required',
-            'manajer_teknis'          => 'required',
-            'manajer_komersial'       => 'required',
-            'npwp'                    => 'required|min:15|max:16',
-            'email'                   => 'required', 
-            'fax'                     => 'required',
-            'telpon'                  => 'required',
-            'alamat'                  => 'required',
+            'nik'              => 'required|min:16|max:16',
+            'kode_cp'          => 'required',
+            'nama_cp'          => 'required',
+            'tempat_lahir'     => 'required',
+            'tanggal_lahir'    => 'required',
+            'email'            => 'required',
+            'telp1'            => 'required',
+            'alamat1'          => 'required',
         ],
         [
             'required'         => 'Data :attribute belum diisi',
@@ -53,27 +44,22 @@ class ContactPersonController extends Controller
 
         if(!$data){
 
-            $input['KODE_OS']                   = $request->kode_os;
-            $input['KODE_KAPAL']                = $request->kode_kapal;
-            $input['CLASS']                     = $request->class;
-            $input['NAMA_PEMILIK_TERDAFTAR']    = $request->nama_pemilik_terdaftar;
-            $input['NAMA_PEMILIK_MANFAAT']      = $request->nama_pemilik_manfaat;
-            $input['OPERATOR_KAPAL']            = $request->operator_kapal;
-            $input['OPERATOR_PIHAK_KETIGA']     = $request->operator_pihak_ketiga;
-            $input['MANAJER_TEKNIS']            = $request->manajer_teknis;
-            $input['MANAJER_KOMERSIAL']         = $request->manajer_komersial;
-            $input['NPWP']                      = $request->npwp;
-            $input['EMAIL']                     = $request->email;
-            $input['FAX']                       = $request->fax;
-            $input['TELPON']                    = $request->telpon;
-            $input['ALAMAT']                    = $request->alamat;
+            $input['NIK']               = $request->nik;
+            $input['KODE_CP']           = $request->kode_cp;
+            $input['NAMA_CP']           = $request->nama_cp;
+            $input['ALIAS']             = $request->alias;
+            $input['TEMPAT_LAHIR']      = $request->tempat_lahir;
+            $input['TANGGAL_LAHIR']     = $request->tanggal_lahir;
+            $input['EMAIL']             = $request->email;
+            $input['TELP2']             = $request->telp1;
+            $input['ALAMAT2']           = $request->alamat1;
             if(!$lastest_data){
-                $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
+                $input['FLAG_IDX']      = $lastest_data->FLAG_IDX + 1;
             } else {
-                $input['FLAG_IDX']              = 1;
+                $input['FLAG_IDX']      = 1;
             }
-            $input['FLAG_STATUS1_NAME']         = Auth::user()->USERNAME;
-            $input['FLAG_STATUS1_DATE']         = NOW();
+            $input['LOG_ENTRY_NAME']    = Auth::user()->USERNAME;
+            $input['LOG_ENTRY_DATE']    = NOW();
 
             $created    = ContactPerson::create($input);
             

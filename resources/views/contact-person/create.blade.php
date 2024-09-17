@@ -79,6 +79,12 @@
                                     <div class="row row-cards">
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
+                                                <label class="form-label">NIK</label>
+                                                <input type="text" class="form-control" name="nik" placeholder="Isi NIK">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="mb-3">
                                                 <label class="form-label">Kode Contact Person</label>
                                                 <input type="text " class="form-control" name="kode_os" placeholder="Isi Kode Kapal">
                                             </div>
@@ -174,49 +180,55 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Email</label>
-                                                <input type="text" class="form-control" name="email" placeholder="Isi email aktif cp">
+                                                <input type="text" class="form-control" name="email" placeholder="Isi email aktif">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nomor Telpon</label>
+                                                <input type="number" class="form-control" name="telp2" placeholder="Isi nomor telpon">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Alamat</label>
-                                                <input type="text" class="form-control" name="alamat1" placeholder="Isi alamat">
+                                                <input type="text" class="form-control" name="alamat2" placeholder="Isi alamat">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kelurahan</label>
-                                                <input type="number" class="form-control" name="kelurahan1" placeholder="Isi kelurahan">
+                                                <input type="number" class="form-control" name="kelurahan2" placeholder="Isi kelurahan">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kecamatan</label>
-                                                <input type="email" class="form-control" name="kecamatan1" placeholder="Isi kecamatan">
+                                                <input type="email" class="form-control" name="kecamatan2" placeholder="Isi kecamatan">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kabupaten/Kota</label>
-                                                <input type="number" class="form-control" name="kota1" placeholder="Isi kota">
+                                                <input type="number" class="form-control" name="kota2" placeholder="Isi kota">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Provinsi</label>
-                                                <input type="number" class="form-control" name="provinsi1" placeholder="Isi provinsi">
+                                                <input type="number" class="form-control" name="provinsi2" placeholder="Isi provinsi">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Negara</label>
-                                                <input type="text" class="form-control" name="negara1"  placeholder="Isi negara">
+                                                <input type="text" class="form-control" name="negara2"  placeholder="Isi negara">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Pos</label>
-                                                <input type="text" class="form-control" name="kodepos1"  placeholder="Isi kode pos">
+                                                <input type="text" class="form-control" name="kodepos2"  placeholder="Isi kode pos">
                                             </div>
                                         </div>
                                     </div>
@@ -240,6 +252,30 @@
 @section('script')
 
 <script>
+//GENDER
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("gender"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
+});
+
 //STATUS_PERNIKAHAN
 document.addEventListener("DOMContentLoaded", function () {
     var el;

@@ -14,6 +14,7 @@ class ContactPerson extends Model
     public $timestamps    = false;
 
     protected $fillable = [
+        'NIK',
         'KODE_CP',
         'NAMA_CP',
         'ALIAS',
