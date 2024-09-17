@@ -80,7 +80,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Ownership</label>
-                                                <input type="text " class="form-control" name="kode_os" placeholder="Isi Kode Kapal">
+                                                <input type="text " class="form-control" name="kode_os" placeholder="Isi Kode Ownership Baru">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">

@@ -93,13 +93,13 @@
                                                 {{ $data->NAMA_KAPAL }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Asal Negara</label>
                                                 {{ $data->KODE_BENDERA }}/{{ $data->bendera->ASAL_NEGARA }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Kapal</label>
                                                 {{ $data->JENIS_KAPAL }}
@@ -114,43 +114,43 @@
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Lebar / m²</label>
-                                                {{ $data->LEBAR }}
+                                                {{ number_format($data->LEBAR, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Tinggi / m²</label></label>
-                                                <{{ $data->TINGGI }}
+                                                {{ number_format($data->TINGGI, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Draft / m</label>
-                                                {{ $data->DRAFT }}
+                                                {{ number_format($data->DRAFT, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Gross Tonnage (GT) / m³</label>
-                                                {{ $data->GROSS_TON }}
+                                                {{ number_format($data->GROSS_TON, 2, ',', '.')  }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Dead Tonnage (DT) / m³</label>
-                                                {{ $data->DEAD_TON }}
+                                                {{ number_format($data->DEAD_TON, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Displacement / m³</label>
-                                                {{ $data->DISPLACEMENT }}
+                                                {{ number_format($data->DISPLACEMENT, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Mesin</label>
-                                                {{ $data->JENIS_MESIN }}
+                                                {{ number_format($data->JENIS_MESIN, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
@@ -162,19 +162,19 @@
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kecepatan Maksimal</label>
-                                                {{ $data->KODE_KAPAL }}
+                                                {{ number_format($data->KECEPATAN_MAX, 2, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kapasitas Kargo</label>
-                                                {{ $data->KAPASITAS_KARGO }}
+                                                {{ number_format($data->KAPASITAS_KARGO, 0, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kapasitas Penumpang</label>
-                                                {{ $data->KAPASITAS_PENUMPANG }}
+                                                {{ number_format($data->KAPASITAS_PENUMPANG, 0, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
