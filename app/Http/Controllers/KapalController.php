@@ -70,9 +70,7 @@ class KapalController extends Controller
             'kecepatan_max.regex'       => 'Format :attribute tidak valid',
             'kapasitas_kargo.regex'     => 'Format :attribute tidak valid',
             'kapasitas_penumpang.regex' => 'Format :attribute tidak valid'
-        ]
-    
-    );
+        ]);
 
         if(!$data){
 

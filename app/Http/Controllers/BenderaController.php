@@ -29,11 +29,9 @@ class BenderaController extends Controller
         ],
         [
             'required'  => 'Data :attribute belum diisi',
-        ]
-    
-    );    
+        ]);    
 
-        if($data === null){
+        if(!$data){
 
             $input['KODE_BENDERA']          = $request->kode_bendera;
             $input['ASAL_NEGARA']           = $request->asal_negara;
@@ -53,7 +51,7 @@ class BenderaController extends Controller
 
         } else {
 
-            return redirect()->route('bendera.create')->with('danger','Data bendera kapal sudah ada!');
+            return redirect()->route('bendera.create')->with('danger','Kode bendera sudah ada!');
 
         }
 
