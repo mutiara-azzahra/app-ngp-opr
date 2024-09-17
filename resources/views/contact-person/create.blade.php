@@ -174,7 +174,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Tanggal Lahir</label>
-                                                <input class="form-control mb-2" placeholder="Select a date" id="datepicker-default" value="2020-06-20"/>
+                                                <input class="form-control mb-2" nama="tanggal_lahir" placeholder="Select a date" id="datepicker-default" value="2020-06-20"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
@@ -198,25 +198,25 @@
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kelurahan</label>
-                                                <input type="number" class="form-control" name="kelurahan2" placeholder="Isi kelurahan">
+                                                <input type="text" class="form-control" name="kelurahan2" placeholder="Isi kelurahan">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kecamatan</label>
-                                                <input type="email" class="form-control" name="kecamatan2" placeholder="Isi kecamatan">
+                                                <input type="text" class="form-control" name="kecamatan2" placeholder="Isi kecamatan">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Kabupaten/Kota</label>
-                                                <input type="number" class="form-control" name="kota2" placeholder="Isi kota">
+                                                <input type="text" class="form-control" name="kota2" placeholder="Isi kota">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Provinsi</label>
-                                                <input type="number" class="form-control" name="provinsi2" placeholder="Isi provinsi">
+                                                <input type="text" class="form-control" name="provinsi2" placeholder="Isi provinsi">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">

@@ -27,7 +27,7 @@ class ContactPersonController extends Controller
         $lastest_data = ContactPerson::orderBy('FLAG_IDX', 'desc')->first();
 
         $request->validate([
-            'nik'              => 'required|min:16|max:16',
+            'nik'              => 'required|min:15|max:16',
             'kode_cp'          => 'required',
             'nama_cp'          => 'required',
             'tempat_lahir'     => 'required',
@@ -51,8 +51,14 @@ class ContactPersonController extends Controller
             $input['TEMPAT_LAHIR']      = $request->tempat_lahir;
             $input['TANGGAL_LAHIR']     = $request->tanggal_lahir;
             $input['EMAIL']             = $request->email;
-            $input['TELP2']             = $request->telp1;
-            $input['ALAMAT2']           = $request->alamat1;
+            $input['TELP2']             = $request->telp2;
+            $input['ALAMAT2']           = $request->alamat2;
+            $input['KELURAHAN2']        = $request->kelurahan2;
+            $input['KECAMATAN2']        = $request->kecamatan2;
+            $input['KOTA2']             = $request->kota2;
+            $input['PROVINSI2']         = $request->provinsi2;
+            $input['NEGARA2']           = $request->negara2;
+            $input['KODEPOS']           = $request->kodepos2;
             if(!$lastest_data){
                 $input['FLAG_IDX']      = $lastest_data->FLAG_IDX + 1;
             } else {
