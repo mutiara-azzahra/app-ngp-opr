@@ -10,26 +10,19 @@ class RepairList extends Model
     use HasFactory;
 
     protected $connection = 'third_db';
-    protected $table      = 'MKT_OS';
+    protected $table      = 'MST_REPAIR_LIST';
     public $timestamps    = false;
 
     protected $fillable = [
         'KODE_REPAIR_LIST',
         'KODE_JENIS_KAPAL',
-        '',
-        'CLASS',
-        'STATUS',
-        'NAMA_PEMILIK_TERDAFTAR',
-        'NAMA_PEMILIK_MANFAAT',
-        'OPERATOR_KAPAL',
-        'OPERATOR_PIHAK_KETIGA',
-        'MANAJER_TEKNIS',
-        'MANAJER_KOMERSIAL',
-        'NPWP',
-        'EMAIL',
-        'FAX',
-        'TELPON',
-        'ALAMAT',
+        'BAGIAN_KAPAL',
+        'JENIS_PERBAIKAN',
+        'DESKRIPSI',
+        'SATUAN',
+        'INTERVAL_WAKTU_HARI',
+        'HPP',
+        'NOTE',
         'FLAG_IDX',
         'FLAG_SYSTEM',
         'FLAG_DEFAULT',

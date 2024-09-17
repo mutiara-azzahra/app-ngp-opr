@@ -128,7 +128,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact-person/edit/{id}', [ContactPersonController::class, 'edit'])->name('contact-person.edit');
     Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
     Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
-    Route::get('/contact-person/print', [ContactPersonController::class, 'print'])->name('contact-person.print');
+    Route::get('/contact-person/cetak', [ContactPersonController::class, 'cetak'])->name('contact-person.cetak');
 
     //MASTER REPAIR LIST
     Route::get('/repair-list', [RepairListController::class, 'index'])->name('repair-list.index');

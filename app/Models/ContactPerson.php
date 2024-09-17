@@ -10,7 +10,7 @@ class ContactPerson extends Model
     use HasFactory;
 
     protected $connection = 'third_db';
-    protected $table      = 'MKT_OS';
+    protected $table      = 'MKT_CP';
     public $timestamps    = false;
 
     protected $fillable = [
