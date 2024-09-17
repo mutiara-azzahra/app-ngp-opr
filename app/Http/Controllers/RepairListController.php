@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\RepairList;
+use App\Exports\RepairListExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RepairListController extends Controller
 {
@@ -15,55 +21,40 @@ class RepairListController extends Controller
 
     public function create(){
         
-        $kapal   = Kapal::where('FLAG_STATUS', 1)->where('KODE_OS', null)->get();
-        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
+        $jenis_kapal   = JenisKapal::where('FLAG_STATUS', 1)->get();
 
-        return view('repair-list.create', compact('kapal', 'bendera'));
+        return view('repair-list.create', compact('jenis_kapal'));
     }
 
     public function store(Request $request){
 
-        $data = RepairList::where('KODE_OS', $request->kode_os)->first();
-        $lastest_data = RepairList::where('KODE_OS', $request->kode_os)->get();
+        $data         = RepairList::where('KODE_REPAIR_LIST', $request->kode_repair_list)->first();
+        $lastest_data = RepairList::where('KODE_REPAIR_LIST', $request->kode_repair_list)->get();
 
         $request->validate([
-            'kode_os'                 => 'required',
-            'kode_kapal'              => 'required',
-            'class'                   => 'required',
-            'nama_pemilik_terdaftar'  => 'required',
-            'nama_pemilik_manfaat'    => 'required',
-            'operator_kapal'          => 'required',
-            'operator_pihak_ketiga'   => 'required',
-            'manajer_teknis'          => 'required',
-            'manajer_komersial'       => 'required',
-            'npwp'                    => 'required|min:15|max:16',
-            'email'                   => 'required', 
-            'fax'                     => 'required',
-            'telpon'                  => 'required',
-            'alamat'                  => 'required',
+            'kode_repair_list'      => 'required',
+            'kode_jenis_kapal'      => 'required',
+            'bagian_kapal'          => 'required',
+            'jenis_perbaikan'       => 'required',
+            'deskripsi'             => 'required',
+            'satuan'                => 'required',
+            'interval_waktu_hari'   => 'required',
+            'hpp'                   => 'required',
         ],
         [
-            'required'         => 'Data :attribute belum diisi',
-            'min'              => 'NPWP minimal 15 digit angka',
-            'max'              => 'NPWP maksimal 16 digit angka'
+            'required'  => 'Data :attribute belum diisi',
         ]);
 
         if(!$data){
 
-            $input['KODE_OS']                   = $request->kode_os;
-            $input['KODE_KAPAL']                = $request->kode_kapal;
-            $input['CLASS']                     = $request->class;
-            $input['NAMA_PEMILIK_TERDAFTAR']    = $request->nama_pemilik_terdaftar;
-            $input['NAMA_PEMILIK_MANFAAT']      = $request->nama_pemilik_manfaat;
-            $input['OPERATOR_KAPAL']            = $request->operator_kapal;
-            $input['OPERATOR_PIHAK_KETIGA']     = $request->operator_pihak_ketiga;
-            $input['MANAJER_TEKNIS']            = $request->manajer_teknis;
-            $input['MANAJER_KOMERSIAL']         = $request->manajer_komersial;
-            $input['NPWP']                      = $request->npwp;
-            $input['EMAIL']                     = $request->email;
-            $input['FAX']                       = $request->fax;
-            $input['TELPON']                    = $request->telpon;
-            $input['ALAMAT']                    = $request->alamat;
+            $input['KODE_REPAIR_LIST']          = $request->kode_os;
+            $input['KODE_JENIS_KAPAL']          = $request->kode_kapal;
+            $input['BAGIAN_KAPAL']              = $request->bagian_kapal;
+            $input['JENIS_PERBAIKAN']           = $request->jenis_perbaikan;
+            $input['DESKRIPSI']                 = $request->deskripsi;
+            $input['SATUAN']                    = $request->satuan;
+            $input['INTERVAL_WAKTU_HARI']       = $request->interval_waktu_hari;
+            $input['HPP']                       = $request->hpp;
             if(!$lastest_data){
                 $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
             } else {
@@ -106,46 +97,32 @@ class RepairListController extends Controller
     public function update(Request $request, $id){
 
         $request->validate([
-            'kode_os'                 => 'required',
-            'kode_kapal'              => 'required',
-            'class'                   => 'required',
-            'nama_pemilik_terdaftar'  => 'required',
-            'nama_pemilik_manfaat'    => 'required',
-            'operator_kapal'          => 'required',
-            'operator_pihak_ketiga'   => 'required',
-            'manajer_teknis'          => 'required',
-            'manajer_komersial'       => 'required',
-            'npwp'                    => 'required|min:15|max:16',
-            'email'                   => 'required', 
-            'fax'                     => 'required',
-            'telpon'                  => 'required',
-            'alamat'                  => 'required',
+            'kode_repair_list'      => 'required',
+            'kode_jenis_kapal'      => 'required',
+            'bagian_kapal'          => 'required',
+            'jenis_perbaikan'       => 'required',
+            'deskripsi'             => 'required',
+            'satuan'                => 'required',
+            'interval_waktu_hari'   => 'required',
+            'hpp'                   => 'required',
         ],
         [
-            'required'         => 'Data :attribute belum diisi',
-            'min'              => 'NPWP minimal 15 digit angka',
-            'max'              => 'NPWP maksimal 16 digit angka'
+            'required'  => 'Data :attribute belum diisi'
         ]);
 
         try {
 
             RepairList::where('FLAG_IDX', $id)->update([
-                'KODE_OS'                   => $request->kode_os,
-                'KODE_KAPAL'                => $request->kode_kapal,
-                'CLASS'                     => $request->class,
-                'NAMA_PEMILIK_TERDAFTAR'    => $request->nama_pemilik_terdaftar,
-                'NAMA_PEMILIK_MANFAAT'      => $request->nama_pemilik_manfaat,
-                'OPERATOR_KAPAL'            => $request->operator_kapal,
-                'OPERATOR_PIHAK_KETIGA'     => $request->operator_pihak_ketiga,
-                'MANAJER_TEKNIS'            => $request->manajer_teknis,
-                'MANAJER_KOMERSIAL'         => $request->manajer_komersial,
-                'NPWP'                      => $request->npwp,
-                'EMAIL'                     => $request->email,
-                'FAX'                       => $request->fax,
-                'TELPON'                    => $request->telpon,
-                'ALAMAT'                    => $request->alamat,
-                'LOG_EDIT_NAME'           => Auth::user()->USERNAME,
-                'LOG_EDIT_DATE'           => NOW(),
+                'KODE_REPAIR_LIST'      => $request->kode_os,
+                'KODE_JENIS_KAPAL'      => $request->kode_kapal,
+                'BAGIAN_KAPAL'          => $request->bagian_kapal,
+                'JENIS_PERBAIKAN'       => $request->jenis_perbaikan,
+                'DESKRIPSI'             => $request->deskripsi,
+                'SATUAN'                => $request->satuan,
+                'INTERVAL_WAKTU_HARI'   => $request->interval_waktu_hari,
+                'HPP'                   => $request->hpp,
+                'LOG_EDIT_NAME'         => Auth::user()->USERNAME,
+                'LOG_EDIT_DATE'         => NOW(),
             ]);
 
             return redirect()->route('repair-list.index')->with('success', 'Data repair-list berhasil diubah!');

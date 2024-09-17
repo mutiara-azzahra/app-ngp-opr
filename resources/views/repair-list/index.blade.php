@@ -14,7 +14,6 @@
         </div>
     </div>
 </div>
-
 <!-- Page body -->
 <div class="page-body">
     <div class="container-xl">
@@ -105,7 +104,7 @@
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
-                                        <a href="{{ route('repair-list.print') }}" class="btn btn-warning w-100">
+                                        <a href="{{ route('repair-list.cetak') }}" class="btn btn-warning w-100">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-share-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z" /></svg>
                                         Cetak
                                         </a>
@@ -117,9 +116,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Pilih</th>
-                                    <th class="text-center">KODE </th>
-                                    <th class="text-center">NAMA KAPAL</th>
-                                    <th class="text-center">CALL SIGN</th>
+                                    <th class="text-center">KODE</th>
+                                    <th class="text-center">JENIS KAPAL</th>
+                                    <th class="text-center">JENIS PERBAIKAN</th>
+                                    <th class="text-center">DESKRIPSI</th>
+                                    <th class="text-center">SATUAN</th>
+                                    <th class="text-center">WAKTU PENGERJAAN (HARIAN)</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                                 <tr>
@@ -127,6 +129,9 @@
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable1"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable2"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable3"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable4"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable5"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable6"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -135,14 +140,16 @@
                                 <tr>
                                     <td class="text-center">
                                         <label class="form-check">
-                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->KODE_KAPAL }}" id="checkbox" type="checkbox" onchange="updateCount()">
+                                            <input class="form-check-input" name="selected_items[]" value="{{ $i->FLAG_IDX }}" id="checkbox" type="checkbox" onchange="updateCount()">
                                         </label>
                                     </td>
-                                    <td class="text-left">{{ $i->KODE_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->NAMA_KAPAL }}</td>
-                                    <td class="text-left">{{ $i->CALLSIGN }}</td>
+                                    <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
+                                    <td class="text-left">{{ $i->JENIS_PERBAIKAN }}</td>
+                                    <td class="text-left">{{ $i->DESKRIPSI }}</td>
+                                    <td class="text-left">{{ $i->SATUAN }}</td>
+                                    <td class="text-left">{{ $i->INTERVAL_PENGERJAAN_HARIAN }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('repair-list.edit', $i->KODE_KAPAL) }}" class="btn btn-info w-5 btn-icon" aria-label="">
+                                        <a href="{{ route('repair-list.edit', $i->FLAG_IDX) }}" class="btn btn-info w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                                         </a>
                                     </td>
@@ -166,20 +173,7 @@
 @endsection
 
 @section('script')
-
 <script>
-
-// refresh table
-$(document).ready(function() {
-
-   function RefreshTable() {
-       $( "#mytable" ).load( "index.php #mytable" );
-   }
-
-   $("#refresh-btn").on("click", RefreshTable);
-
-});
-
 // count
 function updateCount() {
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
@@ -195,7 +189,5 @@ function updateCount() {
         button.style.display = 'none'
     }
 }
-
 </script>
-
 @endsection

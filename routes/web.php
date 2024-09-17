@@ -137,7 +137,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/repair-list/edit/{id}', [RepairListController::class, 'edit'])->name('repair-list.edit');
     Route::post('/repair-list/update', [RepairListController::class, 'update'])->name('repair-list.update');
     Route::post('/repair-list/destroy', [RepairListController::class, 'destroy'])->name('repair-list.destroy');
-    Route::get('/repair-list/print', [RepairListController::class, 'print'])->name('repair-list.print');
+    Route::get('/repair-list/cetak', [RepairListController::class, 'cetak'])->name('repair-list.cetak');
 });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
