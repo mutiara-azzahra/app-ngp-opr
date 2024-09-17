@@ -30,7 +30,7 @@ class RepairListController extends Controller
     public function store(Request $request){
 
         $data         = RepairList::where('KODE_REPAIR_LIST', $request->kode_repair_list)->first();
-        $lastest_data = RepairList::where('KODE_REPAIR_LIST', $request->kode_repair_list)->get();
+        $lastest_data = RepairList::orderBy('FLAG_IDX', 'desc')->first();
 
         $request->validate([
             'kode_repair_list'      => 'required',
@@ -48,40 +48,42 @@ class RepairListController extends Controller
 
         if(!$data){
 
-            $input['KODE_REPAIR_LIST']          = $request->kode_os;
-            $input['JENIS_KAPAL']               = $request->kode_kapal;
-            $input['BAGIAN_KAPAL']              = $request->bagian_kapal;
-            $input['JENIS_PERBAIKAN']           = $request->jenis_perbaikan;
-            $input['DESKRIPSI']                 = $request->deskripsi;
+            $input['KODE_REPAIR_LIST']          = strtoupper($request->kode_repair_list);
+            $input['JENIS_KAPAL']               = strtoupper($request->jenis_kapal);
+            $input['BAGIAN_KAPAL']              = strtoupper($request->bagian_kapal);
+            $input['JENIS_PERBAIKAN']           = strtoupper($request->jenis_perbaikan);
+            $input['DESKRIPSI']                 = strtoupper($request->deskripsi);
             $input['INTERVAL_WAKTU_HARI']       = $request->interval_waktu_hari;
             $input['HPP']                       = $request->hpp;
             $input['SATUAN']                    = $request->satuan;
-            if(!$lastest_data){
+            if($lastest_data){
                 $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
             } else {
                 $input['FLAG_IDX']              = 1;
             }
-            $input['FLAG_STATUS1_NAME']         = Auth::user()->USERNAME;
+            $input['FLAG_STATUS1_NAME']         = strtoupper(Auth::user()->USERNAME);
             $input['FLAG_STATUS1_DATE']         = NOW();
 
             $created    = RepairList::create($input);
             
-            return redirect()->route('repair-list.index')->with('success','Data kode repair-list baru berhasil ditambahkan!');
+            return redirect()->route('repair-list.index')->with('success','Data kode repair list baru berhasil ditambahkan!');
 
             if($created){
-                return redirect()->route('repair-list.index')->with('success','Data kode repair-list baru berhasil ditambahkan!');
+                return redirect()->route('repair-list.index')->with('success','Data kode repair list baru berhasil ditambahkan!');
             } else {
                 return redirect()->route('repair-list.create')->with('danger','Maaf! ada data yang belum terisi');
             }
+
         } else {
-            return redirect()->route('repair-list.create')->with('danger','Data kode repair-list sudah ada!');
+
+            return redirect()->route('repair-list.create')->with('danger','Data kode repairlist sudah ada!');
         }
 
     }
 
     public function show($id){
 
-        $data        = RepairList::where('KODE_KAPAL', $id)->first();
+        $data        = RepairList::where('FLAG_IDX', $id)->first();
 
         return view('repair-list.show', compact('data'));
 
@@ -90,9 +92,9 @@ class RepairListController extends Controller
     public function edit($id){
 
         $data  = RepairList::where('FLAG_IDX', $id)->first();
-        $kapal = Kapal::where('FLAG_STATUS', 1)->get();
+        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
 
-        return view('repair-list.edit', compact('data', 'kapal'));
+        return view('repair-list.edit', compact('data', 'jenis_kapal'));
     }
 
     public function update(Request $request, $id){

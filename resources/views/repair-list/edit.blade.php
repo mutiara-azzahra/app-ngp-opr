@@ -7,13 +7,13 @@
         <div class="row g-2 align-items-center">
             <div class="col">
                 <h2 class="page-title">
-                Ubah Data Kapal
+                Jenis Data Kapal
                 </h2>
             </div>
              <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
                 <div class="btn-list">
-                    <a href="{{ route('kapal.index') }}" class="btn btn-info d-none d-sm-inline-block">
+                    <a href="{{ route('repair-list.index') }}" class="btn btn-info d-none d-sm-inline-block">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                     Kembali
                     </a>
@@ -31,42 +31,14 @@
                     <div class="col-lg-8 col-lg-12">
                         <div class="row row-cards">
                             <div class="col-12">
-                            <form class="card" action="{{ route('kapal.store', $data->KODE_KAPAL) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                            <form class="card" action="{{ route('repair-list.store', $data->FLAG_IDX) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                    <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Kode Kapal</label>
-                                                <input type="text " class="form-control" name="KODE_KAPAL" value="{{ $data->KODE_KAPAL }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Call Sign</label>
-                                                <input type="text" class="form-control" name="CALLSIGN" value="{{ $data->CALLSIGN }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Nama Kapal</label>
-                                                <input type="text" class="form-control" name="NAMA_KAPAL" value="{{ $data->NAMA_KAPAL }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Bendera</label>
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <div>
-                                                            <select name="KODE_BENDERA" id="select-tags" class="form-select">
-                                                                <option value="">-- Pilih --</option>
-                                                                <option value="A">A</option>
-                                                                <!-- <option value="{{ $data->KODE_BENDERA }}" {{ $data->KODE_BENDERA == available ? 'selected' : '' }}>{{ $data->KODE_BENDERA}}</option> -->
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label class="form-label">Kode Repair List</label>
+                                                <input type="text" class="form-control" name="kode_repair_list" value="{{ $data->KODE_REPAIR_LIST }}" placeholder="Isi Kode Repair List">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
@@ -75,9 +47,11 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
-                                                            <select name="JENIS_KAPAL" id="select-tags" class="form-select">
+                                                            <select type="text" name="jenis_kapal"  id="jenis_kapal" class="form-select">
                                                                 <option value="">-- Pilih --</option>
-                                                                <option value="A">A</option>
+                                                                @foreach($jenis_kapal as $a)
+                                                                    <option value="{{ $a->JENIS_KAPAL }}" {{ $data->JENIS_KAPAL == $a->JENIS_KAPAL ? 'selected' : '' }}>{{ $a->JENIS_KAPAL }} /{{ $a->G1 }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -86,105 +60,39 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label">Panjang</label>
-                                                <input type="text" class="form-control" name="PANJANG" value="{{ $data->PANJANG }}">
+                                                <label class="form-label">Bagian Kapal</label>
+                                                <input type="text" class="form-control" value="{{ $data->BAGIAN_KAPAL }}" placeholder="Isi bagian kapal">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Lebar</label>
-                                                <input type="text" class="form-control" name="LEBAR" value="{{ $data->LEBAR }}">
+                                                <label class="form-label">Jenis Perbaikan</label>
+                                                <input type="text" class="form-control" value="{{ $data->JENIS_PERBAIKAN }}" placeholder="Isi jenis perbaikan">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Tinggi</label>
-                                                <input type="text" class="form-control" name="TINGGI" value="{{ $data->TINGGI }}">
+                                                <label class="form-label">Deskripsi</label>
+                                                <input type="text" class="form-control" value="{{ $data->DESKRIPSI }}" placeholder="Isi deskripsi">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Draft</label>
-                                                <input type="text" class="form-control" value="{{ $data->DRAFT }}" value="0">
+                                                <label class="form-label">Lama Pengerjaan</label>
+                                                <input type="number" class="form-control" value="{{ $data->INTERVAL_WAKTU_HARI }}" placeholder="Isi lama perngerjaan dalam satuan hari">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Gross Ton</label>
-                                                <input type="text" class="form-control" value="{{ $data->GROSS_TON }}" value="0">
+                                                <label class="form-label">HPP</label>
+                                                <input type="text" class="form-control" value="{{ $data->HPP }}" placeholder="Isi HPP">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Dead Ton</label>
-                                                <input type="text" class="form-control" value="{{ $data->DEAD_TON }}" value="0">
+                                                <label class="form-label">Satuan</label>
+                                                <input type="text" class="form-control" value="{{ $data->SATUAN }}" placeholder="Isi satuan">
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Displacement</label>
-                                                <input type="text" class="form-control" value="{{ $data->DISPLACEMENT }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Jenis Mesin</label>
-                                                <input type="text" class="form-control" value="{{ $data->JENIS_MESIN }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Daya Mesin</label>
-                                                <input type="text" class="form-control" value="{{ $data->DAYA_MESIN }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Kecepatan Maksimal</label>
-                                                <input type="text" class="form-control" value="{{ $data->KECEPATAN_MAX }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Kapasitas Kargo</label>
-                                                <input type="text" class="form-control" value="{{ $data->KAPASITAS_KARGO }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Kapasitas Penumpang</label>
-                                                <input type="text" class="form-control" value="{{ $data->KAPASITAS_PENUMPANG }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Jenis Kapal</label>
-                                                <div>
-                                                    <select name="JENIS_KAPAL" id="select-tags" class="form-select">
-                                                        <option value="">-- Pilih --</option>
-                                                        <option value="A">A</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Galangan Kapal</label>
-                                                <input type="text" class="form-control" name="{{ $data->GALANGAN_KAPAL }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
-                                            <div class="mb-3">
-                                                <label class="form-label">Klasifikasi</label>
-                                                <input type="text" class="form-control" name="{{ $data->KLASIFIKASI }}" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-8">
-                                        <div class="mb-3">
-                                            <label class="form-label">Tahun</label>
-                                            <select name="tahun" class="form-select" id="year-dropdown">    
-                                            </select>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -203,20 +111,29 @@
 @endsection
 
 @section('script')
-
 <script>
-    let dateDropdown = document.getElementById('year-dropdown'); 
-        
-    let currentYear = new Date().getFullYear();    
-    let earliestYear = 1970;
-
-    while (currentYear >= earliestYear) {      
-        let dateOption = document.createElement('option');          
-        dateOption.text = currentYear;      
-        dateOption.value = currentYear;        
-        dateDropdown.add(dateOption);      
-        currentYear -= 1;    
-        }
+//JENIS KAPAL
+document.addEventListener("DOMContentLoaded", function () {
+    var el;
+    window.TomSelect && (new TomSelect(el = document.getElementById("jenis_kapal"), {
+        copyClassesToDropdown: false,
+        dropdownParent: 'body',
+        controlInput: '<input>',
+        render:{
+            item: function(data,escape) {
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+            option: function(data,escape){
+                if( data.customProperties ){
+                    return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+                }
+                return '<div>' + escape(data.text) + '</div>';
+            },
+        },
+    }));
+});
 </script>
-
 @endsection
