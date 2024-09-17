@@ -15,7 +15,7 @@ class RepairList extends Model
 
     protected $fillable = [
         'KODE_REPAIR_LIST',
-        'KODE_JENIS_KAPAL',
+        'JENIS_KAPAL',
         'BAGIAN_KAPAL',
         'JENIS_PERBAIKAN',
         'DESKRIPSI',
@@ -36,4 +36,9 @@ class RepairList extends Model
         'LOG_EDIT_NAME',
         'LOG_EDIT_DATE',
     ];
+
+    public function jenis_kapal()
+    {
+        return $this->belongsTo(JenisKapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
+    }
 }

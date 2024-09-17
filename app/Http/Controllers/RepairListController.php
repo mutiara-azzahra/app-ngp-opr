@@ -7,6 +7,7 @@ use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\RepairList;
+use App\Models\JenisKapal;
 use App\Exports\RepairListExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -33,13 +34,13 @@ class RepairListController extends Controller
 
         $request->validate([
             'kode_repair_list'      => 'required',
-            'kode_jenis_kapal'      => 'required',
+            'jenis_kapal'           => 'required',
             'bagian_kapal'          => 'required',
             'jenis_perbaikan'       => 'required',
             'deskripsi'             => 'required',
-            'satuan'                => 'required',
             'interval_waktu_hari'   => 'required',
             'hpp'                   => 'required',
+            'satuan'                => 'required',
         ],
         [
             'required'  => 'Data :attribute belum diisi',
@@ -48,13 +49,13 @@ class RepairListController extends Controller
         if(!$data){
 
             $input['KODE_REPAIR_LIST']          = $request->kode_os;
-            $input['KODE_JENIS_KAPAL']          = $request->kode_kapal;
+            $input['JENIS_KAPAL']               = $request->kode_kapal;
             $input['BAGIAN_KAPAL']              = $request->bagian_kapal;
             $input['JENIS_PERBAIKAN']           = $request->jenis_perbaikan;
             $input['DESKRIPSI']                 = $request->deskripsi;
-            $input['SATUAN']                    = $request->satuan;
             $input['INTERVAL_WAKTU_HARI']       = $request->interval_waktu_hari;
             $input['HPP']                       = $request->hpp;
+            $input['SATUAN']                    = $request->satuan;
             if(!$lastest_data){
                 $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
             } else {

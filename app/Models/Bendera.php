@@ -10,7 +10,7 @@ class Bendera extends Model
     use HasFactory;
     
     protected $connection = 'third_db';
-    protected $table = 'REF_KODE_BENDERA';
+    protected $table      = 'REF_KODE_BENDERA';
     public $timestamps    = false;
 
     protected $fillable = [

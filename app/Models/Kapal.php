@@ -11,7 +11,6 @@ class Kapal extends Model
 
     protected $connection = 'third_db';
     protected $table      = 'OPR_KAPAL';
-    
     public $timestamps    = false;
 
     protected $fillable = [

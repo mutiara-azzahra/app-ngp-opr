@@ -10,8 +10,7 @@ class Perusahaan extends Model
     use HasFactory;
 
     protected $connection = 'db_firebird';
-
-    protected $table = 'MST_PERUSAHAAN';
+    protected $table      = 'MST_PERUSAHAAN';
 
     protected $fillable = [
     ];

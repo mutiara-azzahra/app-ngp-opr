@@ -11,7 +11,6 @@ class JenisKapal extends Model
 
     protected $connection = 'third_db';
     protected $table      = 'REF_JENIS_KAPAL';
-    
     public $timestamps    = false;
 
     protected $fillable = [
@@ -35,5 +34,10 @@ class JenisKapal extends Model
     public function kapal()
     {
         return $this->hasMany(Kapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
+    }
+
+    public function repair_list()
+    {
+        return $this->hasMany(RepairList::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
     }
 }
