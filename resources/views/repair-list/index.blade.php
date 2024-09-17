@@ -120,6 +120,7 @@
                                     <th class="text-center">JENIS KAPAL</th>
                                     <th class="text-center">JENIS PERBAIKAN</th>
                                     <th class="text-center">DESKRIPSI</th>
+                                    <th class="text-center">HPP</th>
                                     <th class="text-center">SATUAN</th>
                                     <th class="text-center">WAKTU PENGERJAAN (HARIAN)</th>
                                     <th class="text-center">Aksi</th>
@@ -132,6 +133,7 @@
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable4"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable5"></th>
                                     <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable6"></th>
+                                    <th class="text-center"><input type="text" class="form-control form-control-sm" aria-label="" id="dataTable7"></th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -147,8 +149,9 @@
                                     <td class="text-left">{{ $i->JENIS_KAPAL }}</td>
                                     <td class="text-left">{{ $i->JENIS_PERBAIKAN }}</td>
                                     <td class="text-left">{{ $i->DESKRIPSI }}</td>
+                                    <td class="text-left">Rp. {{ number_format($i->HPP, 2, ',', '.') }}</td>
                                     <td class="text-left">{{ $i->SATUAN }}</td>
-                                    <td class="text-left">{{ $i->INTERVAL_PENGERJAAN_HARIAN }}</td>
+                                    <td class="text-left">{{ $i->INTERVAL_WAKTU_HARI }} HARI</td>
                                     <td class="text-center">
                                         <a href="{{ route('repair-list.show', $i->FLAG_IDX) }}" class="btn btn-warning w-5 btn-icon" aria-label="">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>

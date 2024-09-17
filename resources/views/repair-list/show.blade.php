@@ -74,37 +74,43 @@
                             <div class="col-12">
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Repair List</label>
                                                 {{ $data->KODE_REPAIR_LIST }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Kapal</label>
                                                 {{ $data->JENIS_KAPAL }} / {{ $data->jenis_kapal->G1 }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Perbaikan</label>
                                                 {{ $data->JENIS_PERBAIKAN }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Deskripsi</label>
                                                 {{ $data->DESKRIPSI }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">HPP</label>
+                                                Rp. {{ number_format($data->HPP, 2, ',', '.') }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Satuan</label>
                                                 {{ $data->SATUAN }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Waktu Pengerjaan</label>
                                                 {{ $data->INTERVAL_WAKTU_HARI }} hari
@@ -157,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
 </script>
 
 @endsection

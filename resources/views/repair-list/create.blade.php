@@ -38,16 +38,17 @@
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
                 @elseif($message = Session::get('danger'))
-                <div class="alert alert-important alert-success alert-dismissible" role="alert">
+                <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 9v4" /><path d="M12 16v.01" /></svg>
                         </div>
-                        <div>{{ $message }}</div>
+                        <div> {{ $message }}</div>
                     </div>
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
                 @endif
+
                 @if($errors->any())
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">
@@ -76,13 +77,13 @@
                             @csrf
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Repair List</label>
                                                 <input type="text" class="form-control" name="kode_repair_list" placeholder="Isi Kode Repair List">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Kapal</label>
                                                 <div class="col-12">
@@ -99,37 +100,37 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Bagian Kapal</label>
                                                 <input type="text" class="form-control" name="bagian_kapal" placeholder="Isi bagian kapal">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Jenis Perbaikan</label>
                                                 <input type="text" class="form-control" name="jenis_perbaikan" placeholder="Isi jenis perbaikan">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Deskripsi</label>
                                                 <input type="text" class="form-control" name="deskripsi" placeholder="Isi deskripsi">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Lama Pengerjaan</label>
+                                                <label class="form-label">Lama Pengerjaan (dalam hari)</label>
                                                 <input type="number" class="form-control" name="interval_waktu_hari" placeholder="Isi lama perngerjaan dalam satuan hari">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">HPP</label>
-                                                <input type="text" class="form-control" name="hpp" placeholder="Isi HPP">
+                                                <input type="text" class="form-control" id="nominal" name="hpp" placeholder="Isi HPP">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Satuan</label>
                                                 <input type="text" class="form-control" name="satuan" placeholder="Isi satuan">
@@ -177,6 +178,19 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         },
     }));
+});
+
+//NOMINAL
+function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+document.getElementById('nominal').addEventListener('input', function() {
+    
+    let valueWithoutCommas = this.value.replace(/,/g, '');
+    let formattedValue = formatNumberWithCommas(valueWithoutCommas);
+    
+    this.value = formattedValue;
 });
 </script>
 @endsection

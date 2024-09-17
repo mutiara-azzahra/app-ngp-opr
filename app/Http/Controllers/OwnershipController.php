@@ -36,6 +36,7 @@ class OwnershipController extends Controller
         $lastest_data = Ownership::where('KODE_OS', $request->kode_os)->get();
 
         $request->validate([
+            'nik'                     => 'required',
             'kode_os'                 => 'required',
             'kode_kapal'              => 'required',
             'class'                   => 'required',
@@ -58,7 +59,7 @@ class OwnershipController extends Controller
         ]);
 
         if(!$data){
-
+            
             $input['KODE_OS']                   = $request->kode_os;
             $input['KODE_KAPAL']                = $request->kode_kapal;
             $input['CLASS']                     = $request->class;

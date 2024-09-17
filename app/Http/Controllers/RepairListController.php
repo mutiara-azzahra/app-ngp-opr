@@ -54,23 +54,26 @@ class RepairListController extends Controller
             $input['JENIS_PERBAIKAN']           = strtoupper($request->jenis_perbaikan);
             $input['DESKRIPSI']                 = strtoupper($request->deskripsi);
             $input['INTERVAL_WAKTU_HARI']       = $request->interval_waktu_hari;
-            $input['HPP']                       = $request->hpp;
+            $input['HPP']                       = str_replace(',', '', $request->hpp);
             $input['SATUAN']                    = $request->satuan;
             if($lastest_data){
                 $input['FLAG_IDX']              = $lastest_data->FLAG_IDX + 1;
             } else {
                 $input['FLAG_IDX']              = 1;
             }
-            $input['FLAG_STATUS1_NAME']         = strtoupper(Auth::user()->USERNAME);
-            $input['FLAG_STATUS1_DATE']         = NOW();
+            $input['LOG_ENTRY_NAME']            = strtoupper(Auth::user()->USERNAME);
+            $input['FLAG_ENTRY_DATE']           = NOW();
 
             $created    = RepairList::create($input);
             
             return redirect()->route('repair-list.index')->with('success','Data kode repair list baru berhasil ditambahkan!');
 
             if($created){
+
                 return redirect()->route('repair-list.index')->with('success','Data kode repair list baru berhasil ditambahkan!');
+
             } else {
+
                 return redirect()->route('repair-list.create')->with('danger','Maaf! ada data yang belum terisi');
             }
 
@@ -101,7 +104,7 @@ class RepairListController extends Controller
 
         $request->validate([
             'kode_repair_list'      => 'required',
-            'kode_jenis_kapal'      => 'required',
+            'jenis_kapal'           => 'required',
             'bagian_kapal'          => 'required',
             'jenis_perbaikan'       => 'required',
             'deskripsi'             => 'required',
@@ -116,14 +119,14 @@ class RepairListController extends Controller
         try {
 
             RepairList::where('FLAG_IDX', $id)->update([
-                'KODE_REPAIR_LIST'      => $request->kode_os,
-                'KODE_JENIS_KAPAL'      => $request->kode_kapal,
-                'BAGIAN_KAPAL'          => $request->bagian_kapal,
-                'JENIS_PERBAIKAN'       => $request->jenis_perbaikan,
-                'DESKRIPSI'             => $request->deskripsi,
+                'KODE_REPAIR_LIST'      => strtoupper($request->kode_repair_list),
+                'JENIS_KAPAL'           => strtoupper($request->jenis_kapal),
+                'BAGIAN_KAPAL'          => strtoupper($request->bagian_kapal),
+                'JENIS_PERBAIKAN'       => strtoupper($request->jenis_perbaikan),
+                'DESKRIPSI'             => strtoupper($request->deskripsi),
                 'SATUAN'                => $request->satuan,
                 'INTERVAL_WAKTU_HARI'   => $request->interval_waktu_hari,
-                'HPP'                   => $request->hpp,
+                'HPP'                   => str_replace(',', '', $request->hpp),
                 'LOG_EDIT_NAME'         => Auth::user()->USERNAME,
                 'LOG_EDIT_DATE'         => NOW(),
             ]);
@@ -132,7 +135,7 @@ class RepairListController extends Controller
 
         } catch (Exception $e) {
 
-            return redirect()->route('repair-list.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data repair-list.');
+            return redirect()->route('repair-list.edit', $id)->with('danger', 'Terjadi kesalahan saat mengubah data repair list.');
         }
         
     }

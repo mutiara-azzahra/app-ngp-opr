@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact-person/create', [ContactPersonController::class, 'create'])->name('contact-person.create');
     Route::post('/contact-person/store', [ContactPersonController::class, 'store'])->name('contact-person.store');
     Route::get('/contact-person/edit/{id}', [ContactPersonController::class, 'edit'])->name('contact-person.edit');
-    Route::post('/contact-person/update', [ContactPersonController::class, 'update'])->name('contact-person.update');
+    Route::post('/contact-person/update/{id}', [ContactPersonController::class, 'update'])->name('contact-person.update');
     Route::post('/contact-person/destroy', [ContactPersonController::class, 'destroy'])->name('contact-person.destroy');
     Route::get('/contact-person/cetak', [ContactPersonController::class, 'cetak'])->name('contact-person.cetak');
 
@@ -136,7 +136,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/repair-list/store', [RepairListController::class, 'store'])->name('repair-list.store');
     Route::get('/repair-list/edit/{id}', [RepairListController::class, 'edit'])->name('repair-list.edit');
     Route::get('/repair-list/show/{id}', [RepairListController::class, 'show'])->name('repair-list.show');
-    Route::post('/repair-list/update', [RepairListController::class, 'update'])->name('repair-list.update');
+    Route::post('/repair-list/update/{id}', [RepairListController::class, 'update'])->name('repair-list.update');
     Route::post('/repair-list/destroy', [RepairListController::class, 'destroy'])->name('repair-list.destroy');
     Route::get('/repair-list/cetak', [RepairListController::class, 'cetak'])->name('repair-list.cetak');
 });
