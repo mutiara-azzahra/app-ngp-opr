@@ -45,7 +45,6 @@
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
                 @endif
-
                 @if($message = Session::get('danger'))
                 <div class="alert alert-important alert-danger alert-dismissible" role="alert">
                     <div class="d-flex">

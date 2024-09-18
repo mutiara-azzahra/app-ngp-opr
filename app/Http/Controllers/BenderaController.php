@@ -34,7 +34,7 @@ class BenderaController extends Controller
         ]);   
         
         $data = Bendera::where('KODE_BENDERA', $request->kode_bendera)->first();
-        $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->get();
+        $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
 
         if(!$data){
 
@@ -42,9 +42,9 @@ class BenderaController extends Controller
             $input['ASAL_NEGARA']           = $request->asal_negara;
             $input['NOTE']                  = $request->note;
             if(!$lastest_data){
-                $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
-            } else {
                 $input['FLAG_IDX']           = 1;
+            } else {
+                $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
             }
             $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
             $input['LOG_ENTRY_DATE']         = NOW();
@@ -84,11 +84,11 @@ class BenderaController extends Controller
 
     public function destroy(Request $request){
 
-        $selectedItems = $request->input('selected_items', []);
-        
+        $checkedValue = $request->input('id');
+
         try {
             
-            $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();
+            $data = Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
 
             return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
 
@@ -110,7 +110,7 @@ class BenderaController extends Controller
 
         } else {
 
-            $data   = Kapal::where('KODE_KAPAL', $selectedItems)->get();
+            $data   = Bendera::where('FLAG_IDX', $selectedItems)->get();
             $pdf    = PDF::loadView('reports.bendera', ['data'=>$data]);
             $pdf->setPaper('a4', 'potrait');
 

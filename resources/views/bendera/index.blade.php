@@ -58,7 +58,7 @@
                 </div>
                 @endif
             </div>
-            <div class="col-12">
+            <div class="col-md-12 col-lg-6">
                 <div class="card">
                     <div class="table-responsive">
                         <div class="card-header d-flex">
@@ -114,8 +114,6 @@
                                         <h3>Hapus data ini?</h3>
                                         <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
                                     </div>
-                                    <form action="{{ route('bendera.destroy') }}" method="POST" id="data-table">
-                                    @csrf
                                     <div class="modal-footer" id="deleteButton" style="display: none">
                                         <div class="w-100">
                                             <div class="row">
@@ -123,7 +121,7 @@
                                                     Batal
                                                 </a></div>
                                                 <div class="col">
-                                                    <button class="btn btn-danger btn w-100" type="submit">
+                                                    <button class="btn btn-danger btn w-100" type="submit" id="coba">
                                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                                         Hapus Data
                                                     </button>
@@ -142,8 +140,6 @@
                                         <h5 class="modal-title">Cetak Data</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('bendera.print') }}" method="POST" id="data-table">
-                                    @csrf
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -163,7 +159,7 @@
                                             <a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">Batal</a>
                                         </div>
                                         <div class="col">
-                                            <button class="btn btn-primary btn w-100" type="submit">Cetak Data</button>
+                                            <button class="btn btn-primary btn w-100" type="submit" target="_blank">Cetak Data</button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +188,7 @@
                                             <input class="form-check-input m-0 align-middle" name="selected_items[]" value="{{ $i->FLAG_IDX }}" type="checkbox" onchange="updateCount()">
                                         </div>
                                     </td>
+                                    </form>
                                     <td class="text-left">{{ $i->KODE_BENDERA }}</td>
                                     <td class="text-left">{{ $i->ASAL_NEGARA }}</td>
                                     <td class="text-center">
@@ -203,7 +200,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        </form>
                         <div class="card-footer d-flex">
                             <ul class="pagination-sm m-0">
                                 {!! $data->links('pagination::bootstrap-4') !!}
@@ -221,18 +217,39 @@
 <script>
 // count
 function updateCount() {
+
+    const id = []
+
+    $('input[name="selected_items[]"]:checked').each(function(){
+        id.push(parseInt($(this).val()));
+    }).get();
+
     const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
     document.getElementById('selectedCount').textContent = checkboxes.length;
 
     const button = document.getElementById('deleteButton');
-
-    console.log(checkboxes.length)
 
     if(checkboxes.length > 0){
         button.style.display = 'block'
     } else {
         button.style.display = 'none'
     }
+
+    $('#coba').click(function(){  
+        $.ajax({  
+            url     :"{{ route('bendera.destroy') }}",  
+            method  :"GET", 
+            data    :{
+                id: id
+            },  
+            success :function(data){  
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+               
+            }
+        });  
+    });
 }
 </script>
 @endsection

@@ -102,6 +102,36 @@
         dateDropdown.add(dateOption);      
         currentYear -= 1;    
         }
+
+
+
+        function updateCount() {
+
+const checkedValue = $('input[name="selected_items[]"]:checked').val();
+const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
+document.getElementById('selectedCount').textContent = checkboxes.length;
+
+const button = document.getElementById('deleteButton');
+
+if(checkboxes.length > 0){
+    button.style.display = 'block'
+} else {
+    button.style.display = 'none'
+}
+
+$('#coba').click(function(){  
+    $.ajax({  
+        url     :"{{ route('bendera.destroy') }}",  
+        method  :"POST",  
+        data    :{ checkedValue },  
+        success : (response) => {
+            alert('Form submitted successfully');
+        }  error:  (response) => {
+            alert('Error');
+        }
+    });  
+});
+}
 </script>
 
 @endsection

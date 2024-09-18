@@ -67,7 +67,7 @@
                 </div>
                 @endif
             </div>
-            <div class="col-12">
+            <div class="col-md-12 col-lg-8">
                 <div class="card">
                     <div class="col-lg-8 col-lg-12">
                         <div class="row row-cards">
