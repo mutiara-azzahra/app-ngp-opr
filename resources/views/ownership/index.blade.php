@@ -109,6 +109,7 @@
                                                                     Hapus Data
                                                                 </button>
                                                             </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,11 +168,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <table class="table card-table table-vcenter text-nowrap datatable" id="data-table">
+                        <table class="table card-table table-vcenter text-nowrap datatable">
                             <thead>
                                 <tr>
                                     <th class="text-center">Pilih</th>
@@ -233,7 +235,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </form>
                         <div class="card-footer d-flex">
                             <ul class="pagination-sm m-0">
                                 {!! $data->links('pagination::bootstrap-4') !!}

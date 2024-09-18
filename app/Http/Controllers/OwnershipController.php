@@ -84,6 +84,13 @@ class OwnershipController extends Controller
             $input['LOG_ENTRY_DATE']            = NOW();
 
             $created    = Ownership::create($input);
+
+            //UPDATE OWNERSHIP KAPAL
+            Kapal::where('KODE_KAPAL', $request->kode_kapal)->update([
+                'KODE_OS'       => $request->kode_os,
+                'LOG_EDIT_NAME' => Auth::user()->USERNAME,
+                'LOG_EDIT_DATE' => NOW(),
+            ]);
             
             return redirect()->route('ownership.index')->with('success','Data kode ownership baru berhasil ditambahkan!');
 

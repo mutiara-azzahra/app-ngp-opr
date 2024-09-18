@@ -13,7 +13,7 @@
              <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
                 <div class="btn-list">
-                    <a href="{{ route('kapal.index') }}" class="btn btn-info d-none d-sm-inline-block">
+                    <a href="{{ route('ownership.index') }}" class="btn btn-info d-none d-sm-inline-block">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                     Kembali
                     </a>
@@ -33,85 +33,85 @@
                             <div class="col-12">
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Ownership</label>
                                                 {{ $data->KODE_OS }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Kode Kapal</label>
                                                 {{ $data->KODE_KAPAL }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Class</label>
                                                 {{ $data->CLASS }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Nama Pemilik Terdaftar</label>
                                                 {{ $data->NAMA_PEMILIK_TERDAFTAR }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Nama Pemilik Manfaat</label>
                                                 {{ $data->NAMA_PEMILIK_MANFAAT }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Operator Kapal</label>
                                                 {{ $data->OPERATOR_KAPAL }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Operator Pihak Ketiga</label>
                                                 {{ $data->OPERATOR_PIHAK_KETIGA }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Manajer Teknis</label></label>
                                                 {{ $data->MANAJER_TEKNIS }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Manajer Komersial</label>
                                                 {{ $data->MANAJER_KOMERSIAL }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">NPWP</label>
                                                 {{ $data->NPWP }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Email</label>
                                                 {{ $data->EMAIL }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Fax</label>
                                                 {{ $data->FAX }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Telpon</label>
                                                 {{ $data->TELPON }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-4">
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Alamat</label>
                                                 {{ $data->ALAMAT }}

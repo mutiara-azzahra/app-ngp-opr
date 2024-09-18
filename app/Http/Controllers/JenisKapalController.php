@@ -23,9 +23,8 @@ class JenisKapalController extends Controller
 
     public function store(Request $request){    
 
-        $idx    = JenisKapal::orderBy('FLAG_IDX', 'desc')->first();
-
-        $data   = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
+        $lastest_data   = JenisKapal::orderBy('FLAG_IDX', 'desc')->first();
+        $data           = JenisKapal::where('JENIS_KAPAL', $request->jenis_kapal)->first();
 
         $request->validate([
             'jenis_kapal' => 'required',
@@ -39,7 +38,7 @@ class JenisKapalController extends Controller
 
             $input['JENIS_KAPAL']       = $request->jenis_kapal;
             $input['G1']                = $request->g1;
-            $input['FLAG_IDX']          = $idx->FLAG_IDX + 1;
+            $input['FLAG_IDX']          = $lastest_data->FLAG_IDX + 1;
             $input['LOG_ENTRY_DATE']    = NOW();
 
             $created    = JenisKapal::create($input);

@@ -30,33 +30,22 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
     public function collection()
     {
         return Kapal::where('KODE_KAPAL', $this->selectedItems)->get()->map(function($item){
-            $item->no                  = '-';
-            $item->kode_kapal          = $item->KODE_KAPAL;
-            $item->nama_kapal          = $item->NAMA_KAPAL;
-            $item->callsign            = $item->CALLSIGN;
-            $item->jenis_kapal         = $item->jenis_kapal->JENIS_KAPAL;
-            $item->kode_bendera        = $item->bendera->KODE_BENDERA.'/'.$item->bendera->ASAL_NEGARA;
-            $item->panjang             = $item->PANJANG;
-            $item->lebar               = $item->LEBAR;
-            $item->draft               = $item->DRAFT;
-            $item->tinggi              = $item->TINGGI;
-            $item->gross_ton           = $item->GROSS_TON;
-            $item->dead_ton            = $item->DEAD_TON;
-            $item->displacement        = $item->DISPLACEMENT;
-            $item->jenis_mesin         = $item->JENIS_MESIN;
-            $item->daya_mesin          = $item->DAYA_MESIN;
-            $item->kecepatan_max       = $item->KECEPATAN_MAX;
-            $item->kapasitas_kargo     = $item->KAPASITAS_KARGO;
-            $item->kapasitas_penumpang = $item->KAPASITAS_PENUMPANG;
-            $item->tahun_pembuatan     = $item->TAHUN_PEMBUATAN;
-            $item->galangan_kapal      = $item->GALANGAN_KAPAL;
-            $item->klasifikasi         = $item->KLASIFIKASI;
+            $item->no                     = '-';
+            $item->kode_os                = $item->KODE_OS;
+            $item->kode_kapal             = $item->KODE_KAPAL;
+            $item->class                  = $item->CLASS;
+            $item->nama_pemilik_terdaftar = $item->NAMA_PEMILIK_TERDAFTAR;
+            $item->nama_pemilik_manfaat   = $item->NAMA_PEMILIK_MANFAAT;
+            $item->operator_kapal         = $item->OPERATOR_KAPAL;
+            $item->manajer_teknis         = $item->MANAJER_TEKNIS;
+            $item->manajer_komersial      = $item->MANAJER_KOMERSIAL;
+            $item->npwp                   = $item->NPWP;
+            $item->email                  = $item->EMAIL;
+            $item->fax                    = $item->FAX;
+            $item->telpon                 = $item->TELPON;
          
-            return $item->only(['no','kode_kapal','nama_kapal',
-                'callsign','jenis_kapal','kode_bendera','panjang','lebar',
-                'draft','tinggi','gross_ton',
-                'dead_ton','displacement','jenis_mesin', 
-                'daya_mesin', 'kecepatan_max', 'kapasitas_kargo', 'kapasitas_penumpang', 'tahun_pembuatan', 'galangan_kapal', 'klasifikasi']);
+            return $item->only(['no','kode_os','kode_kapal','class','nama_pemilik_terdaftar','nama_pemilik_manfaat','operator_kapal','manajer_teknis',
+                'manajer_komersial','npwp','email','fax','telpon']);
         });
 
     }
@@ -64,16 +53,15 @@ class MasterKapalExport implements FromCollection, WithHeadings, ShouldAutoSize,
     public function headings(): array
     {
         return [
-            ['DATA KAPAL'],
+            ['DATA OWNERSHIP KAPAL'],
             [
                 ''
             ],
             [
                 ''
             ],
-            ['NO.','KODE KAPAL','NAMA KAPAL','CALLSIGN','JENIS KAPAL','BENDERA','PANJANG', 'LEBAR','DRAFT','TINGGI',
-                'GROSS TON','DEAD TON','DISPLACEMENT','JENIS MESIN', 'DAYA MESIN', 'KECEPATAN MAX', 'KAPASITAS KARGO',
-                'KAPASITAS PENUMPANG', 'TAHUN PEMBUATAN', 'GALANGAN KAPAL', 'KLASIFIKASI'],
+            ['NO.','KODE OS','KODE KAPAL','CLASS','NAMA PEMILIK TERDAFTAR','NAMA PEMILIK MANFAAT','OPERATOR KAPAL', 'MANAJER TEKNIS','MANAJER KOMERSIAL','NPWP',
+                'EMAIL','FAX','TELPON'],
         ];
     }
 
