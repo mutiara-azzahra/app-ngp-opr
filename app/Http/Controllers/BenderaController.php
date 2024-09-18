@@ -85,9 +85,7 @@ class BenderaController extends Controller
     public function destroy(Request $request){
 
         $selectedItems = $request->input('selected_items', []);
-
-        dd($request->all());
-
+        
         try {
             
             $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();
@@ -99,5 +97,25 @@ class BenderaController extends Controller
             return redirect()->route('bendera.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
         }
         
+    }
+
+    public function print(Request $request)
+    {
+
+        $selectedItems = $request->input('selected_items', []);
+
+        if($request->pilih_cetak == 1){
+
+            return Excel::download(new MasterKapalExport($selectedItems), 'data-kapal.xlsx');
+
+        } else {
+
+            $data   = Kapal::where('KODE_KAPAL', $selectedItems)->get();
+            $pdf    = PDF::loadView('reports.bendera', ['data'=>$data]);
+            $pdf->setPaper('a4', 'potrait');
+
+            return $pdf->stream('data-bendera.pdf');
+        }
+
     }
 }

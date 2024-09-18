@@ -13,7 +13,6 @@
         </div>
     </div>
 </div>
-
 <!-- Page body -->
 <div class="page-body">
     <div class="container-xl">
@@ -81,41 +80,6 @@
                                         Hapus
                                         </button>
                                     </div>
-                                    <div class="modal" id="exampleModal" tabindex="-1">
-                                        <div class="modal-dialog modal-sm" role="document">
-                                            <div class="modal-content">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            <div class="modal-status bg-danger"></div>
-                                                <div class="modal-body text-center py-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M12 9v2m0 4v.01" />
-                                                    <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
-                                                    </svg>
-                                                    <h3>Hapus data ini?</h3>
-                                                    <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
-                                                </div>
-                                                <div class="modal-footer" id="deleteButton" style="display: none">
-                                                    <div class="w-100">
-                                                        <div class="row">
-                                                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
-                                                                Batal
-                                                            </a></div>
-                                                            <div class="col">
-                                                            <form action="{{ route('bendera.destroy') }}" method="POST" id="data-table">
-                                                                @csrf
-                                                                <button class="btn btn-danger btn w-100" type="submit">
-                                                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                                                    Hapus Data
-                                                                </button>
-                                                            </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-auto ms-auto d-print-none">
                                     <div class="btn-list">
@@ -135,7 +99,77 @@
                                 </div>
                             </div>
                         </div>
-                        <table class="table card-table table-vcenter text-nowrap datatable" id="search-input">
+                        <!-- MODAL HAPUS -->
+                        <div class="modal" id="exampleModal" tabindex="-1">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-status bg-danger"></div>
+                                    <div class="modal-body text-center py-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 9v2m0 4v.01" />
+                                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+                                        </svg>
+                                        <h3>Hapus data ini?</h3>
+                                        <div class="text-secondary"><span id="selectedCount">0</span> data akan dihapus dan tidak dapat kembali</div>
+                                    </div>
+                                    <form action="{{ route('bendera.destroy') }}" method="POST" id="data-table">
+                                    @csrf
+                                    <div class="modal-footer" id="deleteButton" style="display: none">
+                                        <div class="w-100">
+                                            <div class="row">
+                                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
+                                                    Batal
+                                                </a></div>
+                                                <div class="col">
+                                                    <button class="btn btn-danger btn w-100" type="submit">
+                                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                                        Hapus Data
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MODAL CETAK -->
+                        <div class="modal" id="modal-report" tabindex="-1">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Cetak Data</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('bendera.print') }}" method="POST" id="data-table">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Jenis File</label>
+                                                    <select name ="pilih_cetak" class="form-select">
+                                                        <option value="">--Pilih--</option>
+                                                        <option value="1">Excel</option>
+                                                        <option value="2">PDF</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="col">
+                                            <a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">Batal</a>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-primary btn w-100" type="submit">Cetak Data</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table card-table table-vcenter text-nowrap datatable" id="data-table">
                             <thead>
                                 <tr>
                                     <th class="text-center"></th>
@@ -169,7 +203,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </form>
+                        </form>
                         <div class="card-footer d-flex">
                             <ul class="pagination-sm m-0">
                                 {!! $data->links('pagination::bootstrap-4') !!}
@@ -178,42 +212,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="modal-report" tabindex="-1">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Cetak Data</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('bendera.print') }}" method="POST" id="data-table">
-            @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <label class="form-label">Jenis File</label>
-                                <select name ="pilih_cetak" class="form-select">
-                                    <option value="">--Pilih--</option>
-                                    <option value="1">Excel</option>
-                                    <option value="2">PDF</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col">
-                        <a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">Batal</a>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary btn w-100" type="submit">Cetak Data</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>
