@@ -138,7 +138,7 @@
                                         <div class="col-sm-6 col-md-12 col-lg-4">
                                             <div class="mb-3">
                                                 <label class="form-label">Kapasitas Kargo <span  class="error-message" style="display: none">*wajib angka, desimal menggunakan "." (titik)</span></label>
-                                                <input type="text" class="form-control data-input" name="kapasitas_kargo" placeholder="0">
+                                                <input type="text" class="form-control data-input" name="kapasitas_kargo" value="{{ $data->KAPASITAS_KARGO }}" placeholder="0">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-4">
