@@ -86,6 +86,8 @@ class BenderaController extends Controller
 
         $selectedItems = $request->input('selected_items', []);
 
+        dd($request->all());
+
         try {
             
             $data = Bendera::whereIn('FLAG_IDX', $selectedItems)->delete();

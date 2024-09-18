@@ -118,8 +118,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ownership/edit/{id}', [OwnershipController::class, 'edit'])->name('ownership.edit');
     Route::post('/ownership/update/{id}', [OwnershipController::class, 'update'])->name('ownership.update');
     Route::post('/ownership/destroy', [OwnershipController::class, 'destroy'])->name('ownership.destroy');
-    Route::get('/ownership/print', [OwnershipController::class, 'print'])->name('ownership.print');
-    Route::post('/ownership/cetak', [OwnershipController::class, 'cetak'])->name('ownership.cetak');
+    Route::post('/ownership/print', [OwnershipController::class, 'print'])->name('ownership.print');
     Route::get('/ownership/show/{id}', [OwnershipController::class, 'show'])->name('ownership.show');
 
     //MASTER CONTACT PERSON

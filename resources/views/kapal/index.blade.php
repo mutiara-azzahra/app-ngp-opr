@@ -133,44 +133,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Cetak Data</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{ route('kapal.cetak') }}" method="POST" id="data-table">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Jenis File</label>
-                                                            <select name ="pilih_cetak" class="form-select">
-                                                                <option value="">--Pilih--</option>
-                                                                <option value="1">Excel</option>
-                                                                <option value="2">PDF</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">
-                                                    Batal
-                                                </a></div>
-                                                <div class="col">
-                                                    <button class="btn btn-primary btn w-100" type="submit">
-                                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
-                                                        Cetak Data
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <table class="table card-table table-vcenter text-nowrap datatable" id="search-input">
@@ -228,6 +190,42 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-report" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cetak Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('kapal.cetak') }}" method="POST" id="data-table">
+            @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Jenis File</label>
+                                <select name ="pilih_cetak" class="form-select">
+                                    <option value="">--Pilih--</option>
+                                    <option value="1">Excel</option>
+                                    <option value="2">PDF</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col">
+                        <a href="#" class="btn w-100" data-bs-dismiss="modal" type="submit">Batal</a>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary btn w-100" type="submit">Cetak Data</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
