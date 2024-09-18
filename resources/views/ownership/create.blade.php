@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Kapal</label>
+                                                <label class="form-label">Pilih Kapal</label>
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <div>
@@ -110,6 +110,12 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Nama Pemilik Terdaftar</label>
                                                 <input type="text" class="form-control" name="nama_pemilik_terdaftar" placeholder="Isi nama pemilik terdaftar">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-12 col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">NIK Pemilik Terdaftar</label>
+                                                <input type="text" class="form-control" name="nik" placeholder="Isi NIK pemilik terdaftar">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-12 col-lg-6">

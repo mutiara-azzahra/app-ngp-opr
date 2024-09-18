@@ -96,8 +96,6 @@ class KapalController extends Controller
             $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
 
             $created    = Kapal::create($input);
-            
-            return redirect()->route('kapal.index')->with('success','Data kode kapal baru berhasil ditambahkan!');
 
             if($created){
                 

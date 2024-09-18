@@ -63,6 +63,7 @@ class OwnershipController extends Controller
             $input['KODE_OS']                   = $request->kode_os;
             $input['KODE_KAPAL']                = $request->kode_kapal;
             $input['CLASS']                     = $request->class;
+            $input['NIK']                       = $request->nik;
             $input['NAMA_PEMILIK_TERDAFTAR']    = $request->nama_pemilik_terdaftar;
             $input['NAMA_PEMILIK_MANFAAT']      = $request->nama_pemilik_manfaat;
             $input['OPERATOR_KAPAL']            = $request->operator_kapal;
@@ -79,8 +80,8 @@ class OwnershipController extends Controller
             } else {
                 $input['FLAG_IDX']              = 1;
             }
-            $input['FLAG_STATUS1_NAME']         = Auth::user()->USERNAME;
-            $input['FLAG_STATUS1_DATE']         = NOW();
+            $input['LOG_ENTRY_NAME']            = Auth::user()->USERNAME;
+            $input['LOG_ENTRY_DATE']            = NOW();
 
             $created    = Ownership::create($input);
             
@@ -99,7 +100,7 @@ class OwnershipController extends Controller
 
     public function show($id){
 
-        $data        = Ownership::where('KODE_KAPAL', $id)->first();
+        $data        = Ownership::where('FLAG_IDX', $id)->first();
 
         return view('ownership.show', compact('data'));
 
@@ -119,27 +120,37 @@ class OwnershipController extends Controller
             'kode_os'                 => 'required',
             'kode_kapal'              => 'required',
             'class'                   => 'required',
+            'nik'                     => 'required|digits:16',
             'nama_pemilik_terdaftar'  => 'required',
             'nama_pemilik_manfaat'    => 'required',
             'operator_kapal'          => 'required',
             'operator_pihak_ketiga'   => 'required',
             'manajer_teknis'          => 'required',
             'manajer_komersial'       => 'required',
-            'npwp'                    => 'required|min:15|max:16',
+            'npwp'                    => [
+                'required',
+                'digits_between:15,16',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^\d+$/', $value)) {
+                        $fail(':attribute harus terdiri dari angka saja.');
+                    }
+                },
+            ],
             'email'                   => 'required', 
             'fax'                     => 'required',
             'telpon'                  => 'required',
             'alamat'                  => 'required',
         ],
         [
-            'required'         => 'Data :attribute belum diisi',
-            'min'              => 'NPWP minimal 15 digit angka',
-            'max'              => 'NPWP maksimal 16 digit angka'
+            'required'       => 'Data :attribute belum diisi',
+            'digits'         => ':attribute harus terdiri dari :digits digit angka',
+            'digits_between' => ':attribute harus terdiri dari antara :min hingga :max digit angka',
         ]);
 
         try {
 
             Ownership::where('FLAG_IDX', $id)->update([
+                'NIK'                       => $request->nik,
                 'KODE_OS'                   => $request->kode_os,
                 'KODE_KAPAL'                => $request->kode_kapal,
                 'CLASS'                     => $request->class,

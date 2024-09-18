@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use PDF;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Bendera;
 
@@ -21,21 +25,30 @@ class BenderaController extends Controller
 
     public function store(Request $request){
 
-        $data = Bendera::where('KODE_BENDERA', $request->KODE_BENDERA)->first();
-
         $request->validate([
             'kode_bendera'        => 'required',
             'asal_negara'         => 'required',
         ],
         [
-            'required'  => 'Data :attribute belum diisi',
-        ]);    
+            'required'  => 'Data :attribute belum diisi'
+        ]);   
+        
+        $data = Bendera::where('KODE_BENDERA', $request->kode_bendera)->first();
+        $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->get();
 
         if(!$data){
 
             $input['KODE_BENDERA']          = $request->kode_bendera;
             $input['ASAL_NEGARA']           = $request->asal_negara;
             $input['NOTE']                  = $request->note;
+            if(!$lastest_data){
+                $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
+            } else {
+                $input['FLAG_IDX']           = 1;
+            }
+            $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
+            $input['LOG_ENTRY_DATE']         = NOW();
+            
 
             $created    = Bendera::create($input);
 
