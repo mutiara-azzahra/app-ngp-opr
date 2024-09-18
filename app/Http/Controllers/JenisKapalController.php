@@ -39,6 +39,7 @@ class JenisKapalController extends Controller
             $input['JENIS_KAPAL']       = $request->jenis_kapal;
             $input['G1']                = $request->g1;
             $input['FLAG_IDX']          = $lastest_data->FLAG_IDX + 1;
+            $input['LOG_ENTRY_NAME']    = Auth::user()->USERNAME;
             $input['LOG_ENTRY_DATE']    = NOW();
 
             $created    = JenisKapal::create($input);

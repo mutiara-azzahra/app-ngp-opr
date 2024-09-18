@@ -27,7 +27,7 @@ class ContactPersonController extends Controller
         $lastest_data = ContactPerson::orderBy('FLAG_IDX', 'desc')->first();
 
         $request->validate([
-            'nik'              => 'required|min:15|max:16',
+            'nik'              => 'required|digits:16',
             'kode_cp'          => 'required',
             'nama_cp'          => 'required',
             'tempat_lahir'     => 'required',
@@ -38,8 +38,7 @@ class ContactPersonController extends Controller
         ],
         [
             'required'         => 'Data :attribute belum diisi',
-            'min'              => 'NPWP minimal 15 digit angka',
-            'max'              => 'NPWP maksimal 16 digit angka'
+            'digits'           => ':attribute harus terdiri dari :digits digit angka',
         ]);
 
         if(!$data){

@@ -127,7 +127,6 @@ class OwnershipController extends Controller
             'kode_os'                 => 'required',
             'kode_kapal'              => 'required',
             'class'                   => 'required',
-            'nik'                     => 'required|digits:16',
             'nama_pemilik_terdaftar'  => 'required',
             'nama_pemilik_manfaat'    => 'required',
             'operator_kapal'          => 'required',
@@ -150,14 +149,12 @@ class OwnershipController extends Controller
         ],
         [
             'required'       => 'Data :attribute belum diisi',
-            'digits'         => ':attribute harus terdiri dari :digits digit angka',
             'digits_between' => ':attribute harus terdiri dari antara :min hingga :max digit angka',
         ]);
 
         try {
 
             Ownership::where('FLAG_IDX', $id)->update([
-                'NIK'                       => $request->nik,
                 'KODE_OS'                   => $request->kode_os,
                 'KODE_KAPAL'                => $request->kode_kapal,
                 'CLASS'                     => $request->class,
@@ -172,8 +169,8 @@ class OwnershipController extends Controller
                 'FAX'                       => $request->fax,
                 'TELPON'                    => $request->telpon,
                 'ALAMAT'                    => $request->alamat,
-                'LOG_EDIT_NAME'           => Auth::user()->USERNAME,
-                'LOG_EDIT_DATE'           => NOW(),
+                'LOG_EDIT_NAME'             => Auth::user()->USERNAME,
+                'LOG_EDIT_DATE'             => NOW(),
             ]);
 
             return redirect()->route('ownership.index')->with('success', 'Data ownership berhasil diubah!');
