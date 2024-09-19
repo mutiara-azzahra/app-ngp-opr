@@ -102,19 +102,22 @@ class BenderaController extends Controller
     public function print(Request $request)
     {
 
-        $selectedItems = $request->input('selected_items', []);
+        $checkedValue = $request->input('id');
+        $pilih_cetak  = $request->input('value');
 
-        if($request->pilih_cetak == 1){
+        if($pilih_cetak == 1){
 
-            return Excel::download(new MasterKapalExport($selectedItems), 'data-kapal.xlsx');
+            return Excel::download(new MasterKapalExport($checkedValue), 'data-bendera.xlsx');
 
         } else {
 
-            $data   = Bendera::where('FLAG_IDX', $selectedItems)->get();
+            $data   = Bendera::where('FLAG_IDX', $checkedValue)->get();
             $pdf    = PDF::loadView('reports.bendera', ['data'=>$data]);
             $pdf->setPaper('a4', 'potrait');
 
             return $pdf->stream('data-bendera.pdf');
+
+            return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dicetak!');
         }
 
     }
