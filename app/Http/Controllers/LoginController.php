@@ -37,54 +37,6 @@ class LoginController extends Controller
         return back()->with('error', 'Username dan Password');
     }
 
-    // public function login(Request $request)
-    // {
-    //    $credentials = $request->only('username', 'password');
-    //    $user        = User::where('username', $request->username)->where('status', '1')->first();
-    //    $pw2         = md5($request->password);
-
-    //    if($Hash::check($request->password, $user->PASSWORD)){
-    //         if($pw2 == $user->PASSWORD2){
-    //             if (Auth::attempt($credentials)) {
-
-    //                 return redirect()->route('dashboard.index');
-    //             } else {
-    //                 return back()->with('danger', 'Username atau password salah');
-    //             }
-    //         } else {
-    //             //bypass without auth
-    //             return back()->with('danger', 'Ada yang salah');
-    //         }
-    //     } elseif ($request->password !== null && $user->password == '') {
-    //             if($pw2 == $user->PASSWORD2){
-    //                 if (Auth::attempt($credentials)) {
-
-    //                     return redirect()->route('dashboard.index');
-    //                 } else {
-    //                     return back()->with('danger', 'Username atau password salah');
-    //                 }
-    //                 return back()->with('danger', 'Username atau password salah!');
-    //     } else {
-    //         dd($request->all());
-    //     }
-    //     return back()->with('danger', 'Username anda tidak aktif');
-    // }
-    // public function login(Request $request){
-    //     $hash = Hash::make($request->password);
-    //     $credentials = $request->only('username', 'password');
-    //     $user = User::where('USERNAME', $request->username)
-    //                 ->where('PASSWORD2', md5($request->password))
-    //                 ->where('STATUS', 1)
-    //                 ->first();
-    //     $check_password = Hash::check($user->PASSWORD3, $user->PASSWORD);
-    //     if ($user->PASSWORD == "") {
-
-    //         if (Auth::attempt($credentials)) {
-    //             return redirect()->route('dashboard.index');
-    //         if ($user->PASSWORD2 == md5($request->password)) {
-    //             Auth::login($user);
-    //         return back()->with('danger', 'Username atau password salah!');
-
     public function logout(Request $request)
     {
         Auth::logout();

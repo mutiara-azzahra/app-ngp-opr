@@ -35,4 +35,6 @@ class Bendera extends Model
     {
         return $this->hasMany(Kapal::class, 'KODE_BENDERA', 'KODE_BENDERA');
     }
+    
+    // Bendera:;where()->kapal->get() [KAPAL 1 2 3]
 }
