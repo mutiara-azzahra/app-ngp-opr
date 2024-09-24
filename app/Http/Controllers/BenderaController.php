@@ -86,14 +86,8 @@ class BenderaController extends Controller
 
         $checkedValue = $request->input('id');
 
-        try {
+        Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
 
-            $data = Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
-
-            return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
-        } catch (\Exception $e) {
-
-            return redirect()->route('bendera.index')->with('danger', 'Terjadi kesalahan saat menghapus data Master Kapal.');
-        }
+        return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
     }
 }

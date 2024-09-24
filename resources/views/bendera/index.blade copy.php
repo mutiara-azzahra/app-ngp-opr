@@ -124,7 +124,7 @@
             <button class="ui primary deny button">
                 Batal
             </button>
-            <button class="ui negative icon button buttonHapus" type="submit">
+            <button class="ui negative icon button buttonHapus" onclick="tes()" type="submit">
                 <i class="trash icon"></i>
                 Hapus
             </button>
@@ -168,18 +168,13 @@
 
         $('input[name="selected_items[]"]:checked').each(function(i) {
             id[i] = $(this).val();
-
         });
 
-        $('.ui.button.buttonHapus').click(function() {
+        function tes() {
+            document.getElementById(id).remove();
+        }
 
-            //  id.forEach((element) => document.getElementById(element).remove());
-            id.forEach(function(element) {
-                const el = document.getElementById(element);
-                if (el) {
-                    el.remove();
-                }
-            });
+        $('.ui.button.buttonHapus').click(function() {
 
             $.ajax({
                 url: "{{ route('bendera.destroy') }}",

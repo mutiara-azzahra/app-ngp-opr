@@ -14,32 +14,28 @@
         <thead>
             <tr>
                 <th></th>
-                <th class="center aligned">
-                    <div class="ui checkbox">
-                        <input class="ui checkbox semua" type="checkbox" tabindex="0">
-                    </div>
-                </th>
                 <th class="center aligned">Kode Bendera</th>
                 <th class="center aligned">Asal Negara</th>
                 <th class="center aligned">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($bendera as $i)
-            <tr id="{{ $i->FLAG_IDX }}">
-                <td>{{ $no++ }}</td>
-                <td class="center aligned">
-                    <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="updateCountBendera()">
-                    </div>
-                </td>
-                <td>{{ $i->KODE_BENDERA }}</td>
-                <td>{{ $i->ASAL_NEGARA }}</td>
+            <tr id="DELETE">
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
                 <td class="center aligned">
                     <a class="ui icon blue button"><i class="edit icon" style="visibility: visible;"></i></a>
                 </td>
             </tr>
-            @endforeach
+            <tr id="DELETE1">
+                <td>B</td>
+                <td>B</td>
+                <td>B</td>
+                <td class="center aligned">
+                    <a class="ui icon blue button"><i class="edit icon" style="visibility: visible;"></i></a>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -124,7 +120,7 @@
             <button class="ui primary deny button">
                 Batal
             </button>
-            <button class="ui negative icon button buttonHapus" type="submit">
+            <button class="ui negative icon button buttonHapus" onclick="tes()">
                 <i class="trash icon"></i>
                 Hapus
             </button>
@@ -160,45 +156,9 @@
 @script
 
 <script>
-    function updateCountBendera() {
+    function tes() {
 
-        const button = document.getElementById('deleteButton');
-
-        const id = []
-
-        $('input[name="selected_items[]"]:checked').each(function(i) {
-            id[i] = $(this).val();
-
-        });
-
-        $('.ui.button.buttonHapus').click(function() {
-
-            //  id.forEach((element) => document.getElementById(element).remove());
-            id.forEach(function(element) {
-                const el = document.getElementById(element);
-                if (el) {
-                    el.remove();
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('bendera.destroy') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: id
-
-                },
-                success: function(data) {
-
-                },
-
-                error: function(xhr, status, error) {
-
-                }
-            });
-
-        });
+        document.getElementById("DELETE").remove();
     }
 </script>
 

@@ -13,7 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
     Route::get('/bendera/edit/{id}', [BenderaController::class, 'edit'])->name('bendera.edit');
     Route::post('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
-    Route::get('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
+    Route::post('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
     Route::post('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
 

@@ -14,9 +14,11 @@
   <script src="../assets/fomantic-ui/dist/semantic.js"></script>
   <script src="../assets/fomantic-ui/dist/semantic.min.js?v=2.9.3"></script>
 
+
   <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/semantic.css">
   <link rel="stylesheet" type="text/css" class="ui" media="screen,print" href="../assets/fomantic-ui/dist/semantic.min.css?v=2.9.3">
   <link rel="stylesheet/less" type="text/css" href="../assets/fomantic-ui/src/definitions/collections/form.less" />
+
 
   <style type="text/css">
     body {
@@ -84,9 +86,19 @@
     $('.ui.modal.edit').modal('show');
   });
 
+  //BUTTON DELETE DATA
+  $('.ui.button.delete').click(function() {
+    $('.ui.modal.delete').modal('show');
+  });
+
   //BUTTON SHOW DATA
   $('.ui.button.show').click(function() {
     $('.ui.modal.show').modal('show');
+  });
+
+  //BUTTON CETAK DATA
+  $('.ui.button.cetak').click(function() {
+    $('.ui.modal.cetak').modal('show');
   });
 
   // SEARCH DROPDOWN
@@ -124,49 +136,6 @@
       });
     });
   });
-
-  //COUNT MASTER DATA BENDERA
-  function updateCountBendera() {
-
-    const id = []
-
-    $('input[name="selected_items[]"]:checked').each(function() {
-      id.push(parseInt($(this).val()));
-    }).get();
-
-    const e = document.getElementById('pilihan_cetak')
-    const value = e.value
-
-    //COUNT DATA > 0, BUTTON HAPUS MUNCUL
-    const checkboxes = document.querySelectorAll('input[name="selected_items[]"]:checked');
-    document.getElementById('selectedCount').textContent = checkboxes.length;
-
-    const button = document.getElementById('deleteButton');
-
-    if (checkboxes.length > 0) {
-      button.style.display = 'block'
-    } else {
-      button.style.display = 'none'
-    }
-
-    $('#buttonHapus').click(function() {
-      $.ajax({
-        url: "",
-        method: "GET",
-        data: {
-          id: id
-        },
-        success: function(data) {
-
-          // loading
-          window.location.reload();
-        },
-        error: function(xhr, status, error) {
-
-        }
-      });
-    });
-  }
 </script>
 
 </html>
