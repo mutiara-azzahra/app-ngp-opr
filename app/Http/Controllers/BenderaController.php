@@ -14,7 +14,7 @@ class BenderaController extends Controller
     public function index()
     {
 
-        $data = Bendera::paginate(20);
+        $data = Bendera::all();
 
         return view('bendera.index', compact('data'));
     }

@@ -46,9 +46,9 @@
       <div class="menu">
         <div class="divider"></div>
         <div class="header">Master Data</div>
-        <a class="item" href="{{ route('kapal.index') }}">Kapal</a>
+        <a class="item" href="#">Kapal</a>
         <a class="item" href="#">Jenis Kapal</a>
-        <a class="item" href="#">Bendera</a>
+        <a class="item" href="{{ route('bendera.index') }}">Bendera</a>
         <div class="divider"></div>
         <div class="header">Header Item</div>
         <div class="item">

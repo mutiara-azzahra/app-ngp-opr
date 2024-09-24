@@ -34,11 +34,11 @@
         </tbody>
     </table>
 
-    <!-- MODAL VIEW DATA -->
+    <!-- MODAL ADD DATA -->
     <div class="ui modal add">
-        <div class="header">Tambah Data Kapal</div>
+        <div class="header">Tambah Data Bendera</div>
         <div class="content">
-            <form class="ui form" action="" method="POST" enctype="multipart/form-data">
+            <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="two fields">
                     <div class="field">
@@ -53,11 +53,20 @@
                     </div>
                 </div>
         </div>
+        <div class="actions">
+            <button class="ui negative deny button">
+                Batal
+            </button>
+            <button class="ui positive right labeled icon button">
+                Simpan
+                <i class="checkmark icon"></i>
+            </button>
+        </div>
     </div>
 
     <!-- MODAL SHOW DATA -->
     <div class="ui modal show">
-        <div class="header">Detail Data Kapal</div>
+        <div class="header">Detail Data Bendera</div>
         <div class="content">
             <div class="two fields">
                 <div class="field">
@@ -67,6 +76,15 @@
                 <div class="field">
                     <label>Asal Negara</label>
                     <span class="ui red text"></span>
+                </div>
+                <div class="actions">
+                    <div class="ui negative button">
+                        Batal
+                    </div>
+                    <div class="ui positive right labeled icon button">
+                        Ya
+                        <i class="checkmark icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
