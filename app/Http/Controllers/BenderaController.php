@@ -14,9 +14,10 @@ class BenderaController extends Controller
     public function index()
     {
 
-        $data = Bendera::all();
+        $bendera = Bendera::all();
+        $no = 1;
 
-        return view('bendera.index', compact('data'));
+        return view('bendera.index', compact('bendera', 'no'));
     }
 
     public function create()

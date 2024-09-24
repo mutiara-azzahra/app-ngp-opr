@@ -93,6 +93,19 @@
   $('.selection.dropdown')
     .dropdown();
 
+  //CHECKBOX
+  $('.ui.checkbox')
+    .checkbox();
+
+  //CHECKED ALL
+  $('.ui.checkbox.semua').change(function() {
+    if (this.checked) {
+      $("input[type='checkbox']").prop('checked', this.checked);
+    } else {
+      $("input[type='checkbox']").prop('checked', false);
+    }
+  });
+
   //CHECK INPUT NUMBER ONLY
   document.addEventListener('DOMContentLoaded', function() {
     const decimalRegex = /^\d*(\.\d*)?$/;

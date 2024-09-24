@@ -14,23 +14,32 @@
         <thead>
             <tr>
                 <th></th>
-                <th>Kode Bendera</th>
-                <th>Asal Negara</th>
-                <th>Aksi</th>
+                <th class="center aligned">
+                    <div class="ui checkbox">
+                        <input class="ui checkbox semua" type="checkbox" tabindex="0" class="hidden" onchange="hehe()">
+                    </div>
+                </th>
+                <th class="center aligned">Kode Bendera</th>
+                <th class="center aligned">Asal Negara</th>
+                <th class="center aligned">Aksi</th>
             </tr>
         </thead>
         <tbody>
+            @foreach($bendera as $i)
             <tr>
-                <td>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" name="selected_items[]" type="checkbox" onchange="updateCount()" tabindex="0" class="hidden">
-                        </div>
+                <td>{{ $no++ }}</td>
+                <td class="center aligned">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden" name="selected_items[]" onchange="updateCount()">
                     </div>
                 </td>
-                <td>Tes</td>
-                <td>Unknown</td>
+                <td>{{ $i->KODE_BENDERA }}</td>
+                <td>{{ $i->ASAL_NEGARA }}</td>
+                <td class="center aligned">
+                    <a class="ui icon blue button"><i class="edit icon" style="visibility: visible;"></i></a>
+                </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -57,11 +66,12 @@
             <button class="ui negative deny button">
                 Batal
             </button>
-            <button class="ui positive right labeled icon button">
+            <button class="ui positive right labeled icon button" type="submit">
                 Simpan
                 <i class="checkmark icon"></i>
             </button>
         </div>
+        </form>
     </div>
 
     <!-- MODAL SHOW DATA -->
