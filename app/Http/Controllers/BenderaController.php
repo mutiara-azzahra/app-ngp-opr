@@ -79,6 +79,14 @@ class BenderaController extends Controller
         return view('bendera.edit', compact('data'));
     }
 
+    public function show($id)
+    {
+
+        $data = Bendera::where('FLAG_IDX', $id)->first();
+
+        return response()->json(['data' => $data]);
+    }
+
     public function update($id) {}
 
     public function destroy(Request $request)
@@ -88,6 +96,7 @@ class BenderaController extends Controller
 
         Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
 
-        return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
+        //return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
+
     }
 }
