@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bendera extends Model
+class JenisKapal extends Model
 {
     use HasFactory;
 
     protected $connection = 'third_db';
-    protected $table      = 'OPR_KAPAL';
+    protected $table      = 'REF_JENIS_KAPAL';
     public $timestamps    = false;
 
     protected $fillable = [
-        'KODE_BENDERA',
-        'ASAL_NEGARA',
+        'JENIS_KAPAL',
+        'G1',
         'NOTE',
         'FLAG_IDX',
         'FLAG_SYSTEM',

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bendera extends Model
+class Kapal extends Model
 {
     use HasFactory;
 
     protected $connection = 'third_db';
-    protected $table      = 'OPR_KAPAL';
+    protected $table      = 'REF_JENIS_KAPAL';
     public $timestamps    = false;
 
     protected $fillable = [
