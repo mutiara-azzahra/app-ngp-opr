@@ -4,6 +4,7 @@ use App\Http\Middleware\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BenderaController;
+use App\Http\Controllers\KapalController;
 use App\Http\Controllers\JenisKapalController;
 use App\Http\Controllers\DashboardController;
 
@@ -25,6 +26,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/jenis-kapal/destroy', [JenisKapalController::class, 'destroy'])->name('jenis-kapal.destroy');
     Route::get('/jenis-kapal/checkbox', [JenisKapalController::class, 'checkbox'])->name('jenis-kapal.checkbox');
     Route::post('/jenis-kapal/print', [JenisKapalController::class, 'print'])->name('jenis-kapal.print');
+
+    //REFERENSI KAPAL
+    Route::get('/kapal', [KapalController::class, 'index'])->name('kapal.index');
+    Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
+    Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
+    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
+    Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
+    Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
+    Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
 
     //DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

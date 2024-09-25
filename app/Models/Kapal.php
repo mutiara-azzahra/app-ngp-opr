@@ -10,7 +10,7 @@ class Kapal extends Model
     use HasFactory;
 
     protected $connection = 'third_db';
-    protected $table      = 'REF_JENIS_KAPAL';
+    protected $table      = 'OPR_KAPAL';
     public $timestamps    = false;
 
     protected $fillable = [
@@ -56,6 +56,6 @@ class Kapal extends Model
 
     public function bendera()
     {
-        return $this->hasOne(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
+        return $this->belongsTo(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
     }
 }

@@ -8,16 +8,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JenisKapal;
 use App\Models\Kapal;
+use App\Models\Bendera;
 
 class KapalController extends Controller
 {
     public function index()
     {
 
-        $jenis_kapal = Kapal::all();
+        $kapal = Kapal::where('FLAG_STATUS', 1)->get();
+        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
+        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
         $no = 1;
 
-        return view('kapal.index', compact('kapal', 'no'));
+        return view('kapal.index', compact('kapal', 'no', 'jenis_kapal', 'bendera'));
     }
 
     public function store(Request $request)
