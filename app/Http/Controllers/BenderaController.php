@@ -87,7 +87,20 @@ class BenderaController extends Controller
         return response()->json(['data' => $data]);
     }
 
-    public function update($id) {}
+    public function update(Request $request)
+    {
+
+        $kode_bendera = $request->input('kode_bendera');
+        $asal_negara = $request->input('asal_negara');
+
+        Bendera::where('KODE_BENDERA', $kode_bendera)->update([
+            'ASAL_NEGARA'   => $asal_negara,
+            'LOG_EDIT_NAME' => Auth::user()->USERNAME,
+            'LOG_EDIT_DATE' => Carbon::now(),
+        ]);
+
+        return redirect()->route('bendera.index')->with('danger', 'Kode bendera sudah ada!');
+    }
 
     public function destroy(Request $request)
     {
@@ -95,8 +108,5 @@ class BenderaController extends Controller
         $checkedValue = $request->input('id');
 
         Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
-
-        //return redirect()->route('bendera.index')->with('success', 'Data Master Kapal berhasil dihapus!');
-
     }
 }

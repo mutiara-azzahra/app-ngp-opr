@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Standard Meta -->
   <meta charset="utf-8" />
@@ -34,99 +35,100 @@
     body {
       background-color: #dadada;
     }
-    body > .grid {
+
+    body>.grid {
       height: 100%;
     }
+
     .image {
       margin-top: -100px;
     }
+
     .column {
       max-width: 450px;
     }
   </style>
   <script>
-  $(document)
-    .ready(function() {
-      $('.ui.form')
-        .form({
-          fields: {
-            email: {
-              identifier  : 'email',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your e-mail'
-                },
-                {
-                  type   : 'email',
-                  prompt : 'Please enter a valid e-mail'
-                }
-              ]
-            },
-            password: {
-              identifier  : 'password',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your password'
-                },
-                {
-                  type   : 'length[6]',
-                  prompt : 'Your password must be at least 6 characters'
-                }
-              ]
+    $(document)
+      .ready(function() {
+        $('.ui.form')
+          .form({
+            fields: {
+              email: {
+                identifier: 'email',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please enter your e-mail'
+                  },
+                  {
+                    type: 'email',
+                    prompt: 'Please enter a valid e-mail'
+                  }
+                ]
+              },
+              password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please enter your password'
+                  },
+                  {
+                    type: 'length[6]',
+                    prompt: 'Your password must be at least 6 characters'
+                  }
+                ]
+              }
             }
-          }
-        })
-      ;
-    })
-  ;
+          });
+      });
   </script>
 </head>
-  <body>
-    <div class="ui middle aligned center aligned grid">
-      <div class="column">
-        <h2 class="ui teal image header">
-          <img src="../img/nogo.png" class="image">
-          <div class="content">
-            Masuk APP NGP OPR
-          </div>
-        </h2>
-        @if ($message = Session::get('danger'))
-        <div class="ui error message">Test</div>
-        @endif
 
-        <form class="ui large form" action="{{ route('login') }}" method="POST">
-          @csrf
-          <div class="ui stacked segment">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="text" name="username" placeholder="username">
-              </div>
+<body>
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <h2 class="ui teal image header">
+        <img src="../img/nogo.png" class="image">
+        <div class="content">
+          Masuk APP NGP OPR
+        </div>
+      </h2>
+      @if ($message = Session::get('danger'))
+      <div class="ui error message">Test</div>
+      @endif
+
+      <form class="ui large form" action="{{ route('login') }}" method="POST">
+        @csrf
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="username" placeholder="username">
             </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="password">
-              </div>
-            </div>
-            <button class="ui fluid large teal submit button" type="submit">Login</button>
           </div>
-        </form>
-      </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="password">
+            </div>
+          </div>
+          <button class="ui fluid large teal submit button" type="submit">Login</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <script>
+  <script>
     // Password toggle
-      function myPassword() {
-        var x = document.getElementById("password");
-        if (x.type === "password") {
-          x.type = "text";
-        } else {
-          x.type = "password";
-        }
+    function myPassword() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
       }
+    }
   </script>
-  </body>
+</body>
+
 </html>
