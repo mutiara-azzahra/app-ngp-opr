@@ -28,30 +28,22 @@ class KapalController extends Controller
 
         $request->validate(
             [
-                'KODE_KAPAL'            => 'required',
-                'NAMA_KAPAL'            => 'required',
-                'CALLSIGN'              => 'required',
-                'JENIS_KAPAL'           => 'required',
-                'KODE_BENDERA'          => 'required',
-                'PANJANG'               => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'LEBAR'                 => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'TINGGI'                => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'DRAFT'                 => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'GROSS_TON'             => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'DEAD_TON'              => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'DISPLACEMENT'          => 'required|regex:/^-?\d*(\.\d+)?$/',
-                'JENIS_MESIN'           => 'required',
-                'DAYA_MESIN'            => 'required',
-                'KECEPATAN_MAX'         => 'required',
-                'KAPASITAS_KARGO'       => 'required',
-                'KAPASITAS_PENUMPANG'   => 'required',
-                'TAHUN_PEMBUATAN'       => 'required',
-                'GALANGAN_KAPAL'        => 'required',
-                'KLASIFIKASI'           => 'required',
+                'kode_kapal'            => 'required',
+                'nama_kapal'            => 'required',
+                'jenis_kapal'           => 'required',
+                'panjang'               => 'required',
+                'lebar'                 => 'required',
+                'tinggi'                => 'required',
+                'draft'                 => 'required',
+                'gross_ton'             => 'required',
+                'dead_ton'              => 'required',
+                'displacement'          => 'required',
+                'jenis_mesin'           => 'required',
+                'daya_mesin'            => 'required',
+                'galangan_kapal'        => 'required',
             ],
             [
                 'required'  => 'Data :attribute belum diisi',
-                'regex'  => 'Data :attribute hanya memuat angka dan "."'
             ]
         );
 
@@ -60,11 +52,11 @@ class KapalController extends Controller
 
         if (!$data) {
 
-            $input['KODE_KAPAL']            = $request->kode_kapal;
-            $input['NAMA_KAPAL']            = $request->nama_kapal;
-            $input['CALLSIGN']              = $request->callsign;
-            $input['JENIS_KAPAL']           = $request->jenis_kapal;
-            $input['KODE_BENDERA']          = $request->kode_bendera;
+            $input['KODE_KAPAL']            = strtoupper($request->kode_kapal);
+            $input['NAMA_KAPAL']            = strtoupper($request->nama_kapal);
+            $input['CALLSIGN']              = strtoupper($request->callsign);
+            $input['JENIS_KAPAL']           = strtoupper($request->jenis_kapal);
+            $input['KODE_BENDERA']          = strtoupper($request->kode_bendera);
             $input['PANJANG']               = $request->panjang;
             $input['LEBAR']                 = $request->lebar;
             $input['DRAFT']                 = $request->draft;
@@ -80,7 +72,6 @@ class KapalController extends Controller
             $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
             $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
             $input['KLASIFIKASI']           = $request->klasifikasi;
-            $input['NOTE']                  = $request->note;
             if (!$lastest_data) {
                 $input['FLAG_IDX']         = 1;
             } else {
@@ -88,7 +79,6 @@ class KapalController extends Controller
             }
             $input['LOG_ENTRY_NAME']       = Auth::user()->USERNAME;
             $input['LOG_ENTRY_DATE']       = NOW();
-
 
             $created    = Kapal::create($input);
 

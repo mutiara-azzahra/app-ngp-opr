@@ -111,6 +111,14 @@
   $('.ui.checkbox')
     .checkbox();
 
+  //CLOSE ALERT
+  $('.message .close')
+    .on('click', function() {
+      $(this)
+        .closest('.message')
+        .transition('fade');
+    });
+
   //CHECKED ALL
   $('.ui.checkbox.semua').change(function() {
     if (this.checked) {
