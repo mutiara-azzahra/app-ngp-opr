@@ -33,8 +33,6 @@ class JenisKapal extends Model
 
     public function kapal()
     {
-        return $this->hasMany(Kapal::class, 'KODE_BENDERA', 'KODE_BENDERA');
+        return $this->hasMany(Kapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
     }
-
-    // Bendera:;where()->kapal->get() [KAPAL 1 2 3]
 }

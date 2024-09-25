@@ -14,8 +14,26 @@ class Kapal extends Model
     public $timestamps    = false;
 
     protected $fillable = [
+        'KODE_KAPAL',
+        'NAMA_KAPAL',
+        'CALLSIGN',
+        'JENIS_KAPAL',
         'KODE_BENDERA',
-        'ASAL_NEGARA',
+        'PANJANG',
+        'LEBAR',
+        'TINGGI',
+        'DRAFT',
+        'GROSS_TON',
+        'DEAD_TON',
+        'DISPLACEMENT',
+        'JENIS_MESIN',
+        'DAYA_MESIN',
+        'KECEPATAN_MAX',
+        'KAPASITAS_KARGO',
+        'KAPASITAS_PENUMPANG',
+        'TAHUN_PEMBUATAN',
+        'GALANGAN_KAPAL',
+        'KLASIFIKASI',
         'NOTE',
         'FLAG_IDX',
         'FLAG_SYSTEM',
@@ -31,10 +49,13 @@ class Kapal extends Model
         'LOG_EDIT_DATE',
     ];
 
-    public function kapal()
+    public function jenis_kapal()
     {
-        return $this->hasMany(Kapal::class, 'KODE_BENDERA', 'KODE_BENDERA');
+        return $this->hasOne(JenisKapal::class, 'JENIS_KAPAL', 'JENIS_KAPAL');
     }
 
-    // Bendera:;where()->kapal->get() [KAPAL 1 2 3]
+    public function bendera()
+    {
+        return $this->hasOne(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
+    }
 }
