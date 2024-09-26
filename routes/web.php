@@ -7,6 +7,8 @@ use App\Http\Controllers\BenderaController;
 use App\Http\Controllers\KapalController;
 use App\Http\Controllers\JenisKapalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\ContactPersonController;
 
 Route::middleware('auth')->group(function () {
     //REFERENSI BENDERA
@@ -37,6 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
     Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
+
+    //OWNERSHIP
+    Route::get('/ownership', [OwnershipController::class, 'index'])->name('ownership.index');
+
+    //CONTACT PERSON
+    Route::get('/contact-person', [ContactPersonController::class, 'index'])->name('contact-person.index');
 
     //DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

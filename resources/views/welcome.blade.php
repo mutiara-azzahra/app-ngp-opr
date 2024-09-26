@@ -51,17 +51,8 @@
         <a class="item" href="{{ route('kapal.index') }}">Kapal</a>
         <a class="item" href="{{ route('jenis-kapal.index') }}">Jenis Kapal</a>
         <a class="item" href="{{ route('bendera.index') }}">Bendera</a>
-        <div class="divider"></div>
-        <div class="header">Header Item</div>
-        <div class="item">
-          <i class="dropdown icon"></i>
-          Sub Menu
-          <div class="menu">
-            <a class="item" href="#">Link Item</a>
-            <a class="item" href="#">Link Item</a>
-          </div>
-        </div>
-        <a class="item" href="#">Link Item</a>
+        <a class="item" href="{{ route('ownership.index') }}">Ownership</a>
+        <a class="item" href="">Contact Person</a>
       </div>
     </div>
   </div>

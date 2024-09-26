@@ -38,31 +38,35 @@
                         <input class="ui checkbox semua" type="checkbox" tabindex="0">
                     </div>
                 </th>
-                <th class="center aligned">Kode Kapal</th>
-                <th class="center aligned">Nama Kapal</th>
-                <th class="center aligned">Callsign</th>
-                <th class="center aligned">Jenis Kapal</th>
-                <th class="center aligned">Bendera</th>
+                <th class="center aligned">Kode Ownership</th>
+                <th class="center aligned">Class</th>
+                <th class="center aligned">Nama Pemilik</th>
+                <th class="center aligned">Operator Kapal</th>
+                <th class="center aligned">Operator Pihak Ketiga</th>
+                <th class="center aligned">Email</th>
+                <th class="center aligned">Nomor Telpon</th>
                 <th class="center aligned">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($kapal as $i)
+            @foreach($ownership as $i)
             <tr id="{{ $i->FLAG_IDX }}">
                 <td>{{ $no++ }}</td>
                 <td class="center aligned">
                     <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="hapusCheckboxKapal()">
+                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="hapusCheckboxOwnership()">
                     </div>
                 </td>
-                <td class="kode">{{ $i->KODE_KAPAL }}</td>
-                <td class="asal">{{ $i->NAMA_KAPAL }}</td>
-                <td class="asal">{{ $i->CALLSIGN }}</td>
-                <td class="asal">{{ $i->JENIS_KAPAL }}</td>
-                <td class="asal">{{ $i->bendera->ASAL_NEGARA }}</td>
+                <td class="kode">{{ $i->KODE_OS }}</td>
+                <td class="asal">{{ $i->CLASS }}</td>
+                <td class="asal">{{ $i->NAMA_PEMILIK_TERDAFTAR }}</td>
+                <td class="asal">{{ $i->OPERATOR_KAPAL }}</td>
+                <td class="asal">{{ $i->OPERATOR_PIHAK_KETIGA }}</td>
+                <td class="asal">{{ $i->EMAIL }}</td>
+                <td class="asal">{{ $i->TELPON }}</td>
                 <td class="center aligned">
-                    <button class="ui icon orange button show" id="{{ $i->FLAG_IDX }}" onclick="showDataKapal(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
-                    <button class="ui icon primary button edit" id="{{ $i->FLAG_IDX }}" onclick="editDataKapal(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
+                    <button class="ui icon orange button" id="{{ $i->FLAG_IDX }}" onclick="showDataKapal(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                    <button class="ui icon primary button" id="{{ $i->FLAG_IDX }}" onclick="editDataKapal(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
                 </td>
             </tr>
             @endforeach
@@ -71,20 +75,20 @@
 
     <!-- MODAL UBAH DATA -->
     <div class="ui modal edit">
-        <div class="header">Ubah Data Kapal</div>
+        <div class="header">Ubah Data Ownership</div>
         <div class="content">
-            <form class="ui form" action="{{ route('kapal.update') }}" method="POST" enctype="multipart/form-data">
+            <form class="ui form" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="two fields">
                     <div class="field">
-                        <label>Kode Kapal
+                        <label>Kode Ownership
                         </label>
-                        <input type="text" id="edit-kode-kapal" name="kode_kapal" readonly>
+                        <input type="text" id="edit-kode-ownership" name="kode_kapal" readonly>
                     </div>
                     <div class="field">
-                        <label>Nama Kapal
+                        <label>Nama Ownership
                         </label>
-                        <input type="text" id="edit-nama-kapal" name="nama_kapal">
+                        <input type="text" id="edit-nama-ownership" name="nama_kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -94,9 +98,9 @@
                         <input type="text" id="edit-callsign" name="callsign" readonly>
                     </div>
                     <div class="field">
-                        <label>Jenis Kapal
+                        <label>Jenis Ownership
                         </label>
-                        <input type="text" id="edit-jenis-kapal" name="jenis_kapal">
+                        <input type="text" id="edit-jenis-ownership" name="jenis_kapal">
                         <div class="ui fluid search selection dropdown">
                             <input type="hidden" name="country">
                             <i class="dropdown icon"></i>
@@ -195,9 +199,9 @@
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Galangan Kapal
+                            <label>Galangan Ownership
                             </label>
-                            <input type="text" id="edit-galangan-kapal" name="galangan_kapal" readonly>
+                            <input type="text" id="edit-galangan-ownership" name="galangan_kapal" readonly>
                         </div>
                         <div class="field">
                             <label>Klasifikasi
@@ -216,18 +220,18 @@
         </div>
 
         <div class="ui modal add">
-            <div class="header">Tambah Data Kapal</div>
+            <div class="header">Tambah Data Ownership</div>
             <div class="content">
-                <form class="ui form" action="{{ route('kapal.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="ui form" action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="two fields">
                         <div class="field">
-                            <label>Kode Kapal
+                            <label>Kode Ownership
                             </label>
                             <input type="text" name="kode_kapal">
                         </div>
                         <div class="field">
-                            <label>Nama Kapal
+                            <label>Nama Ownership
                             </label>
                             <input type="text" name="nama_kapal">
                         </div>
@@ -239,17 +243,14 @@
                             <input type="text" name="callsign">
                         </div>
                         <div class="field">
-                            <label>Jenis Kapal
+                            <label>Jenis Ownership
                             </label>
                             <div class="field">
                                 <div class="ui fluid search selection dropdown">
                                     <input type="hidden" name="jenis_kapal">
                                     <i class="dropdown icon"></i>
-                                    <div class="default text">Pilih Jenis Kapal</div>
+                                    <div class="default text">Pilih Jenis Ownership</div>
                                     <div class="menu">
-                                        @foreach($jenis_kapal as $i)
-                                        <div class="item" value="{{ $i->JENIS_KAPAL }}">{{ $i->JENIS_KAPAL}}</div>
-                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -265,9 +266,7 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Pilih Bendera</div>
                                     <div class="menu">
-                                        @foreach($bendera as $i)
-                                        <div class="item" value="{{ $i->KODE_BENDERA }}">{{ $i->KODE_BENDERA}}</div>
-                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -352,7 +351,7 @@
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Galangan Kapal
+                            <label>Galangan Ownership
                             </label>
                             <input type="text" name="galangan_kapal">
                         </div>
@@ -377,11 +376,11 @@
 
         <!-- MODAL SHOW DATA -->
         <div class="ui modal show" id="dataModal">
-            <div class="header">Detail Data Kapal</div>
+            <div class="header">Detail Data Ownership</div>
             <div class="content">
                 <div class="ui form">
                     <div class="field">
-                        <label>Kode Kapal</label>
+                        <label>Kode Ownership</label>
                         <input type="text" id="kode-bendera" readonly>
                     </div>
                     <div class="field">
@@ -438,7 +437,7 @@
             }
 
             //HAPUS DATA CHECKBOXES
-            function hapusCheckboxKapal() {
+            function hapusCheckboxOwnership() {
 
                 let id = []
 
