@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="ui main container fluid">
-    <h1 class="ui header">Master Kapal</h1>
+    <h1 class="ui header">Master Ownership</h1>
     <div class="ui divider"></div>
     <div class="column">
         <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
@@ -12,14 +12,23 @@
     <div class="ui divider"></div>
 
     @if ($message = Session::get('success'))
+    <div class="ui positive message">
+        <i class="close icon"></i>
+        <div class="header">
+            Data tesimpan
+        </div>
+        <p>{{ $message }}</p>
+    </div>
+    @elseif ($message = Session::get('danger'))
     <div class="ui negative message">
         <i class="close icon"></i>
         <div class="header">
-            Maaf ada yang salah!
+            Data gagal disimpan
         </div>
         <p>{{ $message }}</p>
     </div>
     @endif
+
     <table class="ui compact table celled" id="tableBendera">
         <thead>
             <tr>

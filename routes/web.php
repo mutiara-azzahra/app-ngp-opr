@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
     Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
     Route::post('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
-    Route::post('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
+    Route::get('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
     Route::post('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
 
@@ -30,9 +30,11 @@ Route::middleware('auth')->group(function () {
     //REFERENSI KAPAL
     Route::get('/kapal', [KapalController::class, 'index'])->name('kapal.index');
     Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
+    Route::get('/kapal/show', [KapalController::class, 'show'])->name('kapal.show');
+    Route::get('/kapal/edit', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
-    Route::post('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
+    Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
     Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
 

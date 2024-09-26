@@ -44,8 +44,8 @@ class BenderaController extends Controller
 
         if (!$data) {
 
-            $input['KODE_BENDERA']          = $request->kode_bendera;
-            $input['ASAL_NEGARA']           = $request->asal_negara;
+            $input['KODE_BENDERA']          = strtoupper($request->kode_bendera);
+            $input['ASAL_NEGARA']           = strtoupper($request->asal_negara);
             $input['NOTE']                  = $request->note;
             if (!$lastest_data) {
                 $input['FLAG_IDX']           = 1;
@@ -105,7 +105,7 @@ class BenderaController extends Controller
     public function destroy(Request $request)
     {
 
-        $checkedValue = $request->input('id');
+        $checkedValue = $request->hapus_data;
 
         Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
     }

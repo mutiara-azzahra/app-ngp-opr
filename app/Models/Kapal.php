@@ -34,7 +34,6 @@ class Kapal extends Model
         'TAHUN_PEMBUATAN',
         'GALANGAN_KAPAL',
         'KLASIFIKASI',
-        'NOTE',
         'FLAG_IDX',
         'FLAG_SYSTEM',
         'FLAG_DEFAULT',
@@ -56,6 +55,6 @@ class Kapal extends Model
 
     public function bendera()
     {
-        return $this->belongsTo(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
+        return $this->hasOne(Bendera::class, 'KODE_BENDERA', 'KODE_BENDERA');
     }
 }

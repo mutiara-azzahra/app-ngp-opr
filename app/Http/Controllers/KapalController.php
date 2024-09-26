@@ -23,6 +23,34 @@ class KapalController extends Controller
         return view('kapal.index', compact('kapal', 'no', 'jenis_kapal', 'bendera'));
     }
 
+    public function show(Request $request)
+    {
+
+        $flag_idx = $request->input('id');
+
+        $data = Kapal::where('FLAG_IDX', $flag_idx)->first();
+
+        if (!$data) {
+            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
+        }
+
+        return response()->json($data);
+    }
+
+    public function edit(Request $request)
+    {
+
+        $flag_idx = $request->input('id');
+
+        $data = Kapal::where('FLAG_IDX', $flag_idx)->first();
+
+        if (!$data) {
+            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
+        }
+
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
 
@@ -37,17 +65,15 @@ class KapalController extends Controller
                 'draft'                 => 'required',
                 'gross_ton'             => 'required',
                 'dead_ton'              => 'required',
-                'displacement'          => 'required',
                 'jenis_mesin'           => 'required',
-                'daya_mesin'            => 'required',
-                'galangan_kapal'        => 'required',
+
             ],
             [
                 'required'  => 'Data :attribute belum diisi',
             ]
         );
 
-        $data = Kapal::where('KODE_KAPAL', $request->kode_kapal)->first();
+        $data = Kapal::where('KODE_KAPAL', strtoupper($request->kode_kapal))->first();
         $lastest_data = Kapal::orderBy('FLAG_IDX', 'desc')->first();
 
         if (!$data) {
@@ -64,7 +90,7 @@ class KapalController extends Controller
             $input['GROSS_TON']             = $request->gross_ton;
             $input['DEAD_TON']              = $request->dead_ton;
             $input['DISPLACEMENT']          = $request->displacement;
-            $input['JENIS_MESIN']           = $request->jenis_mesin;
+            $input['JENIS_MESIN']           = strtoupper($request->jenis_mesin);
             $input['DAYA_MESIN']            = $request->daya_mesin;
             $input['KECEPATAN_MAX']         = $request->kecepatan_max;
             $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
@@ -87,22 +113,22 @@ class KapalController extends Controller
                 return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil ditambahkan!');
             } else {
 
-                return redirect()->route('kapal.create')->with('danger', 'Maaf! ada data yang belum terisi');
+                return redirect()->route('kapal.index')->with('danger', 'Maaf! ada data yang belum terisi');
             }
         } else {
 
-            return redirect()->route('kapal.create')->with('danger', 'Kode kapal sudah ada!');
+            return redirect()->route('kapal.index')->with('danger', 'Kode kapal sudah ada!');
         }
     }
 
     public function update(Request $request)
     {
 
-        Kapal::where('KODE_KAPAL', $request->kode_kapal)->update([
-            'NAMA_KAPAL'            => $request->nama_kapal,
-            'CALLSIGN'              => $request->callsign,
-            'JENIS_KAPAL'           => $request->jenis_kapal,
-            'KODE_BENDERA'          => $request->kode_bendera,
+        $update = Kapal::where('KODE_KAPAL', $request->kode_kapal)->update([
+            'NAMA_KAPAL'            => strtoupper($request->nama_kapal),
+            'CALLSIGN'              => strtoupper($request->callsign),
+            'JENIS_KAPAL'           => strtoupper($request->jenis_kapal),
+            'KODE_BENDERA'          => strtoupper($request->kode_bendera),
             'PANJANG'               => $request->panjang,
             'LEBAR'                 => $request->lebar,
             'TINGGI'                => $request->tinggi,
@@ -110,7 +136,7 @@ class KapalController extends Controller
             'GROSS_TON'             => $request->gross_ton,
             'DEAD_TON'              => $request->dead_ton,
             'DISPLACEMENT'          => $request->displacement,
-            'JENIS_MESIN'           => $request->jenis_mesin,
+            'JENIS_MESIN'           => strtoupper($request->jenis_mesin),
             'DAYA_MESIN'            => $request->daya_mesin,
             'KECEPATAN_MAX'         => $request->kecepatan_max,
             'KAPASITAS_KARGO'       => $request->kapasitas_kargo,
@@ -118,19 +144,24 @@ class KapalController extends Controller
             'TAHUN_PEMBUATAN'       => $request->tahun_pembuatan,
             'GALANGAN_KAPAL'        => $request->galangan_kapal,
             'KLASIFIKASI'           => $request->klasifikasi,
-            'NOTE'                  => $request->note,
             'LOG_EDIT_NAME'         => Auth::user()->USERNAME,
             'LOG_EDIT_DATE'         => Carbon::now(),
         ]);
 
-        return redirect()->route('kapal.index')->with('danger', 'Kode kapal sudah ada!');
+        if (!$update) {
+            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
+        }
+
+        return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil ditambahkan!');
     }
 
     public function destroy(Request $request)
     {
 
-        $checkedValue = $request->input('id');
+        $checkedValue = $request->hapus_data;
 
         Kapal::whereIn('FLAG_IDX', $checkedValue)->delete();
+
+        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus!');
     }
 }

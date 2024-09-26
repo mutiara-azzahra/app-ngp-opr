@@ -30,7 +30,7 @@
                 <td>{{ $no++ }}</td>
                 <td class="center aligned">
                     <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="hapusCheckboxBendera()">
+                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="pilihDataBendera(this.val)" name="_method">
                     </div>
                 </td>
                 <td class="kode">{{ $i->KODE_BENDERA }}</td>
@@ -128,9 +128,6 @@
             <p>Data ini tidak dapat kembali</p>
         </div>
         <div class="actions">
-            <button class="ui primary deny button">
-                Batal
-            </button>
             <button class="ui negative icon button buttonHapus" type="submit">
                 <i class="trash icon"></i>
                 Hapus
@@ -164,22 +161,19 @@
             })
         }
 
-        //HAPUS DATA CHECKBOXES
-        function hapusCheckboxBendera() {
+        //PILIH CHECKBOX
+        function pilihDataBendera(id) {
 
-            let id = []
+            let datas_id = [];
 
             $('input[name="selected_items[]"]:checked').each(function(i) {
-                id[i] = $(this).val();
-
+                datas_id[i] = parseInt($(this).val());
             });
 
             $('.ui.button.buttonHapus').click(function() {
 
-                id.forEach(function(element) {
+                datas_id.forEach(function(element) {
                     let el = document.getElementById(element);
-
-                    console.log(el)
                     if (el) {
                         el.remove();
                     }
@@ -187,22 +181,23 @@
 
                 $.ajax({
                     url: "{{ route('bendera.destroy') }}",
-                    type: "POST",
+                    type: "GET",
                     data: {
-                        _token: "{{ csrf_token() }}",
-                        id: id
-
+                        hapus_data: datas_id,
                     },
-                    success: function(data) {
+                    success: function(response) {
 
                     },
 
                     error: function(xhr, status, error) {
 
+                        console.error("Error fetching data: ", error);
+
                     }
                 });
 
             });
+
         }
 
         function editDataBendera(id) {
