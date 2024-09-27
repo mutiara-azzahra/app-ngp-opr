@@ -388,131 +388,10 @@
         </div>
 
         <!-- MODAL SHOW DATA -->
-        <div class="ui modal show" id="dataModal">
+        <div class="ui modal show">
             <div class="header">Lihat Data Kapal</div>
             <div class="content">
-                <div class="ui form">
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Kode Kapal
-                            </label>
-                            <input type="text" readonly id="kode-kapal" name="kode_kapal">
-                        </div>
-                        <div class="field">
-                            <label>Nama Kapal
-                            </label>
-                            <input type="text" readonly id="nama-kapal" name="nama_kapal">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Callsign
-                            </label>
-                            <input type="text" readonly id="callsign" name="callsign">
-                        </div>
-                        <div class="field">
-                            <label>Jenis Kapal
-                            </label>
-                            <input type="text" readonly id="jenis-kapal" name="jenis_kapal">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Bendera
-                            </label>
-                            <input type="text" readonly id="kode-bendera" name="kode_bendera">
-                        </div>
-                        <div class="field">
-                            <label>Panjang
-                            </label>
-                            <input type="text" readonly id="panjang" name="panjang">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Lebar
-                            </label>
-                            <input type="text" readonly id="lebar" name="lebar">
-                        </div>
-                        <div class="field">
-                            <label>Draft
-                            </label>
-                            <input type="text" readonly id="draft" name="draft">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Tinggi
-                            </label>
-                            <input type="text" readonly id="tinggi" name="tinggi">
-                        </div>
-                        <div class="field">
-                            <label>Gross Ton
-                            </label>
-                            <input type="text" readonly id="gross-ton" name="gross_ton">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Dead Ton
-                            </label>
-                            <input type="text" readonly id="dead-ton" name="dead_ton">
-                        </div>
-                        <div class="field">
-                            <label>Displacement
-                            </label>
-                            <input type="text" readonly id="displacement" name="displacement">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Jenis Mesin
-                            </label>
-                            <input type="text" readonly id="jenis-mesin" name="jenis_mesin">
-                        </div>
-                        <div class="field">
-                            <label>Daya Mesin
-                            </label>
-                            <input type="text" readonly id="daya-mesin" name="daya_mesin">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Kecepatan Maks.
-                            </label>
-                            <input type="text" readonly id="kecepatan-max" name="kecepatan_maksimal">
-                        </div>
-                        <div class="field">
-                            <label>Kapasitas Kargo / ton
-                            </label>
-                            <input type="text" readonly id="kapasitas-kargo" name="kapasitas_kargo">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Kapasitas Penumpang
-                            </label>
-                            <input type="text" readonly id="kapasitas-penumpang" name="kapasitas_penumpang">
-                        </div>
-                        <div class="field">
-                            <label>Tahun Pembuatan
-                            </label>
-                            <input type="number" readonly id="tahun-pembuatan" name="tahun_pembuatan">
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Galangan Kapal
-                            </label>
-                            <input type="text" readonly id="galangan-kapal" name="galangan_kapal">
-                        </div>
-                        <div class="field">
-                            <label>Klasifikasi
-                            </label>
-                            <input type="text" readonly id="klasifikasi" name="klasifikasi">
-                        </div>
-                    </div>
-                </div>
+                <div class="ui form" id="result-show"></div>
             </div>
         </div>
 
@@ -546,26 +425,111 @@
                         id: id
                     },
                     success: function(response) {
-                        $('#kode-kapal').val(response.KODE_KAPAL);
-                        $('#nama-kapal').val(response.NAMA_KAPAL);
-                        $('#callsign').val(response.CALLSIGN);
-                        $('#jenis-kapal').val(response.JENIS_KAPAL);
-                        $('#bendera').val(response.KODE_BENDERA);
-                        $('#panjang').val(response.PANJANG);
-                        $('#lebar').val(response.LEBAR);
-                        $('#tinggi').val(response.TINGGI);
-                        $('#draft').val(response.DRAFT);
-                        $('#gross-ton').val(response.GROSS_TON);
-                        $('#dead-ton').val(response.DEAD_TON);
-                        $('#displacement').val(response.DISPLACEMENT);
-                        $('#jenis-mesin').val(response.JENIS_MESIN);
-                        $('#daya-mesin').val(response.DAYA_MESIN);
-                        $('#kecepatan-max').val(response.KECEPATAN_MAX);
-                        $('#kapasitas-kargo').val(response.KAPASITAS_KARGO);
-                        $('#kapasitas-penumpang').val(response.KAPASITAS_PENUMPANG);
-                        $('#tahun-pembuatan').val(response.TAHUN_PEMBUATAN);
-                        $('#galangan-kapal').val(response.GALANGAN_KAPAL);
-                        $('#klasifikasi').val(response.KLASIFIKASI);
+                        $('#result-show').html(`
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kode Kapal</label>
+                                    <p>${response.KODE_KAPAL}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Nama Kapal</label>
+                                    <p>${response.NAMA_KAPAL}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Callsign</label>
+                                    <p>${response.CALLSIGN}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Jenis Kapal</label>
+                                    <p>${response.JENIS_KAPAL}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Bendera</label>
+                                    <p>${response.KODE_BENDERA}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Panjang</label>
+                                    <p>${response.PANJANG}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Lebar</label>
+                                    <p>${response.LEBAR}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Draft</label>
+                                    <p>${response.DRAFT}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Tinggi</label>
+                                    <p>${response.TINGGI}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Gross Ton</label>
+                                    <p>${response.GROSS_TON}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Dead Ton</label>
+                                    <p>${response.DEAD_TON}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Displacement
+                                    </label>
+                                    <p>${response.DISPLACEMENT}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Jenis Mesin</label>
+                                    <p>${response.JENIS_MESIN}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Daya Mesin</label>
+                                    <p>${response.DAYA_MESIN}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kecepatan Maks.</label>
+                                    <p>${response.KECEPATAN_MAX}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Kapasitas Kargo / ton</label>
+                                    <p>${response.KAPASITAS_KARGO}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kapasitas Penumpang</label>
+                                    <p>${response.KAPASITAS_PENUMPANG}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Tahun Pembuatan</label>
+                                    <p>${response.TAHUN_PEMBUATAN}</p>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Galangan Kapal</label>
+                                    <p>${response.GALANGAN_KAPAL}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Klasifikasi</label>
+                                    <p>${response.KLASIFIKASI}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `)
                     },
                     error: function(xhr, status, error) {
                         console.error("Error fetching data: ", error);

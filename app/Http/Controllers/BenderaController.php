@@ -79,12 +79,18 @@ class BenderaController extends Controller
         return view('bendera.edit', compact('data'));
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
 
-        $data = Bendera::where('FLAG_IDX', $id)->first();
+        $flag_idx = $request->input('id');
 
-        return response()->json(['data' => $data]);
+        $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+
+        if (!$data) {
+            return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+        }
+
+        return response()->json($data);
     }
 
     public function update(Request $request)

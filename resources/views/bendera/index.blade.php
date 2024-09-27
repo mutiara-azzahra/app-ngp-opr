@@ -72,6 +72,7 @@
         </form>
     </div>
 
+    <!-- MODAL ADD DATA BENDERA -->
     <div class="ui modal add">
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
@@ -104,19 +105,8 @@
 
     <!-- MODAL SHOW DATA -->
     <div class="ui modal show" id="dataModal">
-        <div class="header">Detail Data Bendera</div>
-        <div class="content">
-            <div class="ui form">
-                <div class="field">
-                    <label>Kode Bendera</label>
-                    <input type="text" id="kode-bendera" readonly>
-                </div>
-                <div class="field">
-                    <label>Asal Negara</label>
-                    <input type="text" id="asal-negara" readonly>
-                </div>
-            </div>
-        </div>
+        <div class="header">Tampil Data Bendera</div>
+        <div class="content" id="result-show"></div>
     </div>
 
     <!-- MODAL HAPUS DATA -->
@@ -136,28 +126,36 @@
     </div>
     @endsection
 
-
     @script
-
     <script>
         //SHOW DATA
         function showDataBendera(id) {
-
-            let get = document.getElementById(id);
-            let kodeBendera = get.getElementsByTagName("td")[2].innerHTML;
-            let asalNegara = get.getElementsByTagName("td")[3].innerHTML;
-
             $.ajax({
-                url: "{{ route('bendera.index') }}",
+                url: "{{ route('bendera.show') }}",
                 type: "GET",
+                dataType: "json",
                 data: {
-                    asalNegara: asalNegara,
-                    kodeBendera: kodeBendera,
+                    id: id
                 },
-                success: function(data) {
-                    $('#kode-bendera').val(kodeBendera);
-                    $('#asal-negara').val(asalNegara);
+                success: function(response) {
+                    $('#result-show').html(`
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kode Bendera</label>
+                                    <p>${response.KODE_BENDERA}</p>
+                                </div>
+                                <div class="field">
+                                    <label>Asal Negara</label>
+                                    <p>${response.ASAL_NEGARA}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `)
                 },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching data: ", error);
+                }
             })
         }
 
