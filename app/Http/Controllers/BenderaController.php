@@ -95,17 +95,11 @@ class BenderaController extends Controller
 
     public function update(Request $request)
     {
-
         $kode_bendera = $request->input('kode_bendera');
-        $asal_negara = $request->input('asal_negara');
 
-        Bendera::where('KODE_BENDERA', $kode_bendera)->update([
-            'ASAL_NEGARA'   => $asal_negara,
-            'LOG_EDIT_NAME' => Auth::user()->USERNAME,
-            'LOG_EDIT_DATE' => Carbon::now(),
-        ]);
+        $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
 
-        return redirect()->route('bendera.index')->with('danger', 'Kode bendera sudah ada!');
+        dd($data);
     }
 
     public function destroy(Request $request)

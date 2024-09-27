@@ -42,9 +42,15 @@ class KapalController extends Controller
 
         $flag_idx = $request->input('id');
 
-        $data = Kapal::where('FLAG_IDX', $flag_idx)->first();
+        $get_data = Kapal::where('FLAG_IDX', $flag_idx)->first();
 
-        if (!$data) {
+        $data = [
+
+            'nama'
+        ];
+
+
+        if (!$get_data) {
             return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
         }
 

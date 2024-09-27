@@ -44,34 +44,6 @@
         </tbody>
     </table>
 
-    <!-- MODAL ADD DATA -->
-    <div class="ui modal edit">
-        <div class="header">Ubah Data Bendera</div>
-        <div class="content">
-            <form class="ui form" action="{{ route('bendera.update') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="two fields">
-                    <div class="field">
-                        <label>Kode Bendera
-                        </label>
-                        <input type="text" id="edit-kode-bendera" name="kode_bendera" readonly>
-                    </div>
-                    <div class="field">
-                        <label>Asal Negara
-                        </label>
-                        <input type="text" id="edit-asal-negara" name="asal_negara">
-                    </div>
-                </div>
-        </div>
-        <div class=" actions">
-            <button class="ui positive right labeled icon button" type="submit">
-                Simpan
-                <i class="checkmark icon"></i>
-            </button>
-        </div>
-        </form>
-    </div>
-
     <!-- MODAL ADD DATA BENDERA -->
     <div class="ui modal add">
         <div class="header">Tambah Data Bendera</div>
@@ -104,9 +76,24 @@
     </div>
 
     <!-- MODAL SHOW DATA -->
-    <div class="ui modal show" id="dataModal">
+    <div class="ui modal show">
         <div class="header">Tampil Data Bendera</div>
         <div class="content" id="result-show"></div>
+    </div>
+
+    <!-- MODAL EDIT DATA -->
+    <div class="ui modal edit">
+        <div class="header">Ubah Data Bendera</div>
+        <div class="content" id="result-edit">
+
+        </div>
+        <div class=" actions">
+            <button class="ui positive right labeled icon button buttonUpdate" type="submit">
+                Simpan
+                <i class="checkmark icon"></i>
+            </button>
+        </div>
+        </form>
     </div>
 
     <!-- MODAL HAPUS DATA -->
@@ -128,7 +115,6 @@
 
     @script
     <script>
-        //SHOW DATA
         function showDataBendera(id) {
             $.ajax({
                 url: "{{ route('bendera.show') }}",
@@ -150,8 +136,7 @@
                                     <p>${response.ASAL_NEGARA}</p>
                                 </div>
                             </div>
-                        </div>
-                        `)
+                        </div>`)
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching data: ", error);
@@ -159,7 +144,6 @@
             })
         }
 
-        //PILIH CHECKBOX
         function pilihDataBendera(id) {
 
             let datas_id = [];
@@ -195,56 +179,58 @@
                 });
 
             });
-
         }
 
         function editDataBendera(id) {
 
-            let get = document.getElementById(id);
-            let kodeBendera = get.getElementsByTagName("td")[2].innerHTML;
-            let asalNegara = get.getElementsByTagName("td")[3].innerHTML;
-
             $.ajax({
-                url: "{{ route('bendera.index') }}",
+                url: "{{ route('bendera.show') }}",
                 type: "GET",
                 data: {
-                    asalNegara: asalNegara,
-                    kodeBendera: kodeBendera,
+                    id: id
                 },
-                success: function(data) {
-                    $('#edit-kode-bendera').val(kodeBendera);
-                    $('#edit-asal-negara').val(asalNegara);
+                success: function(response) {
+                    $('#result-edit').html(`
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Kode Bendera
+                                </label>
+                                <input type="text" id="edit-kode-bendera" name="kode_bendera" value="${response.KODE_BENDERA}">
+                            </div>
+                            <div class="field">
+                                <label>Asal Negara
+                                </label>
+                                <input type="text" id="edit-asal-negara" name="asal_negara" value="${response.ASAL_NEGARA}">
+                            </div>
+                        </div>
+                    </div>`)
                 },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching data: ", error);
+                }
             })
 
+            $('.ui.button.buttonUpdate').click(function() {
 
-            $('.ui.button.buttonEdit').click(function() {
-
-                console.log('tes')
-
-                let id = $('#edit-id').val();
-                let kodeBendera = $('#edit-kode-bendera').val();
-                let asalNegara = $('#edit-asal-negara').val();
+                let kode_bendera = $('#edit-kode-bendera').val();
+                let asal_negara = $('#edit-asal-negara').val();
 
                 $.ajax({
                     url: "{{ route('bendera.update') }}",
                     type: "POST",
                     data: {
-                        _token: "{{ csrf_token() }}",
-                        id: id,
-                        kodeBendera: kodeBendera,
-                        asalNegara: asalNegara
+                        kode_bendera: kode_bendera,
+                        asal_negara: asal_negara
                     },
-                    success: function(data) {
-
+                    success: function(response) {
+                        console.log(reponse)
                     },
-
                     error: function(xhr, status, error) {
-
+                        console.error("Error fetching data: ", error);
                     }
-                });
-
-            });
+                })
+            })
         }
     </script>
 

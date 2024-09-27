@@ -10,15 +10,9 @@
   <!-- Site Properties -->
   <title>APP NGP</title>
 
-  <script src="../javascript/library/jquery.min.js"></script>
-  <script src="../assets/fomantic-ui/dist/semantic.js"></script>
-  <script src="../assets/fomantic-ui/dist/semantic.min.js?v=2.9.3"></script>
-
-
-  <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/semantic.css">
-  <link rel="stylesheet" type="text/css" class="ui" media="screen,print" href="../assets/fomantic-ui/dist/semantic.min.css?v=2.9.3">
-  <link rel="stylesheet/less" type="text/css" href="../assets/fomantic-ui/src/definitions/collections/form.less" />
-
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/fomantic-ui/dist/semantic.css') }} ">
+  <link rel="stylesheet" type="text/css" class="ui" media="screen,print" href="{{ asset('assets/fomantic-ui/dist/semantic.min.css?v=2.9.3') }}">
+  <link rel="stylesheet/less" type="text/css" href="{{ asset('assets/fomantic-ui/src/definitions/collections/form.less') }} " />
 
   <style type="text/css">
     body {
@@ -43,7 +37,7 @@
 <body>
   <!-- BEGIN MENU =============================================================================================== -->
   <div class="ui fixed inverted menu">
-    <a href="#" class="header item"><img class="logo" src="../img/nogo.png">APP NGP OPR</a>
+    <a href="#" class="header item"><img class="logo" src="{{ asset('img/nogo.png') }}">APP NGP OPR</a>
     <div class="ui simple dropdown item">Master<i class="dropdown icon"></i>
       <div class="menu">
         <div class="divider"></div>
@@ -67,8 +61,10 @@
   <!-- BEGIN FOOTER ============================================================================================= -->
 </body>
 
-
-<script type="text/javascript">
+<script src="{{ asset('javascript/library/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/fomantic-ui/dist/semantic.js') }} "></script>
+<script src="{{ asset('assets/fomantic-ui/dist/semantic.min.js?v=2.9.3') }} "></script>
+<script>
   //BUTTON ADD DATA
   $('.ui.button.add').click(function() {
     $('.ui.modal.add').modal('show');
@@ -138,9 +134,9 @@
     });
   });
 </script>
+
 @yield('script')
 
 </html>
-
 
 <!-- END FOOTER ================================================================================================= -->
