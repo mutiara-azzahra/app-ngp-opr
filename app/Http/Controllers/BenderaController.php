@@ -55,7 +55,6 @@ class BenderaController extends Controller
             $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
             $input['LOG_ENTRY_DATE']         = NOW();
 
-
             $created    = Bendera::create($input);
 
             if ($created) {
@@ -93,13 +92,37 @@ class BenderaController extends Controller
         return response()->json($data);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Bendera $bendera)
     {
+        $request->validate([
+            'kode_bendera' => 'required',
+            'asal_negara' => 'required'
+        ]);
+
+        $id = $request->input('id');
         $kode_bendera = $request->input('kode_bendera');
+        $asal_negara = $request->input('asal_negara');
 
-        $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
+        try {
 
-        dd($data);
+            Bendera::where('FLAG_IDX', $id)->update([
+                'KODE_BENDERA' => $kode_bendera,
+                'ASAL_NEGARA' => $asal_negara,
+            ]);
+
+            return response()->json([
+                'message' => 'Data updated successfully.',
+
+                'data' => [
+                    'id' => $id,
+                    'kode_bendera' => $kode_bendera,
+                    'asal_negara' => $asal_negara
+                ]
+            ], 200);
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => 'Failed to update the bendera.'], 500);
+        }
     }
 
     public function destroy(Request $request)

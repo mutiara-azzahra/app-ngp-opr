@@ -4,16 +4,18 @@
 <div class="ui main container fluid">
     <h1 class="ui header">Master Bendera</h1>
     <div class="ui divider"></div>
-
     <div class="column">
         <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
         <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus</a>
         <a class="ui orange button"><i class="print icon" style="visibility: visible;"></i> Cetak</a>
     </div>
+    <div class="ui divider"></div>
+
+    <div id="alert"></div>
+
     <table class="ui compact table celled" id="tableBendera">
         <thead>
             <tr>
-                <th></th>
                 <th class="center aligned">
                     <div class="ui checkbox">
                         <input class="ui checkbox semua" type="checkbox" tabindex="0">
@@ -26,8 +28,7 @@
         </thead>
         <tbody>
             @foreach($bendera as $i)
-            <tr id="{{ $i->FLAG_IDX }}">
-                <td>{{ $no++ }}</td>
+            <tr id="index_{{ $i->FLAG_IDX }}">
                 <td class="center aligned">
                     <div class="ui checkbox">
                         <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="pilihDataBendera(this.val)" name="_method">
@@ -197,6 +198,7 @@
                                 <label>Kode Bendera
                                 </label>
                                 <input type="text" id="edit-kode-bendera" name="kode_bendera" value="${response.KODE_BENDERA}">
+                                <input type="hidden" id="edit-id" name="id" value="${response.FLAG_IDX}">
                             </div>
                             <div class="field">
                                 <label>Asal Negara
@@ -213,21 +215,55 @@
 
             $('.ui.button.buttonUpdate').click(function() {
 
+                let id = $('#edit-id').val();
                 let kode_bendera = $('#edit-kode-bendera').val();
                 let asal_negara = $('#edit-asal-negara').val();
 
                 $.ajax({
                     url: "{{ route('bendera.update') }}",
-                    type: "POST",
+                    type: "GET",
                     data: {
+                        id: id,
                         kode_bendera: kode_bendera,
-                        asal_negara: asal_negara
+                        asal_negara: asal_negara,
                     },
                     success: function(response) {
-                        console.log(reponse)
+
+                        $(document).on('click', '.show', function() {
+                            showDataBendera(this.id);
+                        });
+
+                        $(document).on('click', '.edit', function() {
+                            editDataBendera(this.id);
+                        });
+
+                        let post = `
+                        <tr id="index_${response.data.id}">
+                            <td class="center aligned">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.val)" name="_method">
+                                </div>
+                            </td>
+                            <td class="kode">${response.data.kode_bendera}</td>
+                            <td class="asal">${response.data.asal_negara}</td>
+                            <td class="center aligned">
+                                <button class="ui icon orange button show" id="${response.data.id}"><i class="eye icon" style="visibility: visible;"></i></button>
+                                <button class="ui icon primary button edit" id="${response.data.id}"><i class="edit icon" style="visibility: visible;"></i></button>
+                            </td>
+                        </tr>`;
+
+                        $(`#index_${response.data.id}`).replaceWith(post)
+
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error fetching data: ", error);
+                        $('#alert').html(`
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Data tersimpan
+                            </div>
+                            <p>${response.message}</p>
+                        </div>`);
                     }
                 })
             })
