@@ -70,12 +70,18 @@ class BenderaController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
 
-        $data = Bendera::where('KODE_BENDERA', $id)->first();
+        $flag_idx = $request->input('id');
 
-        return view('bendera.edit', compact('data'));
+        $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+
+        if (!$data) {
+            return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+        }
+
+        return response()->json($data);
     }
 
     public function show(Request $request)
@@ -111,8 +117,7 @@ class BenderaController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Data updated successfully.',
-
+                'message' => 'Data berhasil diubah',
                 'data' => [
                     'id' => $id,
                     'kode_bendera' => $kode_bendera,
@@ -121,7 +126,7 @@ class BenderaController extends Controller
             ], 200);
         } catch (\Exception $e) {
 
-            return response()->json(['error' => 'Failed to update the bendera.'], 500);
+            return response()->json(['error' => 'Gagal ubah kode bendera'], 500);
         }
     }
 
@@ -131,5 +136,20 @@ class BenderaController extends Controller
         $checkedValue = $request->hapus_data;
 
         Bendera::whereIn('FLAG_IDX', $checkedValue)->delete();
+    }
+
+    public function print(Request $request)
+    {
+
+        $checkedValue = $request->checked_data;
+
+        $pdf   = PDF::loadView('reports.bendera', ['data' => $checkedValue]);
+        $pdf->setPaper('letter', 'potrait');
+
+        return $pdf->stream('bendera.pdf');
+
+        return response()->json([
+            'message' => 'Data berhasil diubah',
+        ], 200);
     }
 }

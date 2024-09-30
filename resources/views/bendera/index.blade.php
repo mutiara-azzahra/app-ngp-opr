@@ -17,25 +17,23 @@
         <thead>
             <tr>
                 <th class="center aligned">
-                    <div class="ui checkbox">
-                        <input class="ui checkbox semua" type="checkbox" tabindex="0">
-                    </div>
                 </th>
                 <th class="center aligned">Kode Bendera</th>
                 <th class="center aligned">Asal Negara</th>
                 <th class="center aligned">Aksi</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach($bendera as $i)
             <tr id="index_{{ $i->FLAG_IDX }}">
                 <td class="center aligned">
                     <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="pilihDataBendera(this.val)" name="_method">
+                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="pilihDataBendera(this.val)">
                     </div>
                 </td>
-                <td class="kode">{{ $i->KODE_BENDERA }}</td>
-                <td class="asal">{{ $i->ASAL_NEGARA }}</td>
+                <td>{{ $i->KODE_BENDERA }}</td>
+                <td>{{ $i->ASAL_NEGARA }}</td>
                 <td class="center aligned">
                     <button class="ui icon orange button show" id="{{ $i->FLAG_IDX }}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
                     <button class="ui icon primary button edit" id="{{ $i->FLAG_IDX }}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
@@ -43,6 +41,7 @@
             </tr>
             @endforeach
         </tbody>
+
     </table>
 
     <!-- MODAL ADD DATA BENDERA -->
@@ -54,13 +53,13 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
+                            <input type="text" name="kode_bendera" placeholder="Kode Bendera">
                         </label>
-                        <input type="text" name="kode_bendera" placeholder="Kode Bendera">
                     </div>
                     <div class="field">
                         <label>Asal Negara
+                            <input type="text" name="asal_negara" placeholder="Asal Negara">
                         </label>
-                        <input type="text" name="asal_negara" placeholder="Asal Negara">
                     </div>
                 </div>
         </div>
@@ -129,12 +128,14 @@
                         <div class="ui form">
                             <div class="two fields">
                                 <div class="field">
-                                    <label>Kode Bendera</label>
-                                    <p>${response.KODE_BENDERA}</p>
+                                    <label>Kode Bendera
+                                        <p>${response.KODE_BENDERA}</p>
+                                    </label>
                                 </div>
                                 <div class="field">
-                                    <label>Asal Negara</label>
-                                    <p>${response.ASAL_NEGARA}</p>
+                                    <label>Asal Negara
+                                        <p>${response.ASAL_NEGARA}</p>
+                                    </label>
                                 </div>
                             </div>
                         </div>`)
@@ -153,6 +154,7 @@
                 datas_id[i] = parseInt($(this).val());
             });
 
+            //Hapus Data Checked
             $('.ui.button.buttonHapus').click(function() {
 
                 datas_id.forEach(function(element) {
@@ -168,24 +170,38 @@
                     data: {
                         hapus_data: datas_id,
                     },
+                    success: function(response) {},
+
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching data: ", error);
+                    }
+                });
+            });
+
+            //Cetak Data Checked
+            $('.ui.button.buttonCetak').click(function() {
+
+                $.ajax({
+                    url: "{{ route('bendera.print') }}",
+                    type: "GET",
+                    data: {
+                        checked_data: datas_id,
+                    },
                     success: function(response) {
 
                     },
 
                     error: function(xhr, status, error) {
-
                         console.error("Error fetching data: ", error);
-
                     }
                 });
-
             });
         }
 
         function editDataBendera(id) {
 
             $.ajax({
-                url: "{{ route('bendera.show') }}",
+                url: "{{ route('bendera.edit') }}",
                 type: "GET",
                 data: {
                     id: id
@@ -196,14 +212,14 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Kode Bendera
+                                    <input type="text" id="edit-kode-bendera" name="kode_bendera" value="${response.KODE_BENDERA}">
+                                    <input type="hidden" id="edit-id" name="id" value="${response.FLAG_IDX}">
                                 </label>
-                                <input type="text" id="edit-kode-bendera" name="kode_bendera" value="${response.KODE_BENDERA}">
-                                <input type="hidden" id="edit-id" name="id" value="${response.FLAG_IDX}">
                             </div>
                             <div class="field">
                                 <label>Asal Negara
+                                    <input type="text" id="edit-asal-negara" name="asal_negara" value="${response.ASAL_NEGARA}">
                                 </label>
-                                <input type="text" id="edit-asal-negara" name="asal_negara" value="${response.ASAL_NEGARA}">
                             </div>
                         </div>
                     </div>`)
@@ -228,29 +244,20 @@
                         asal_negara: asal_negara,
                     },
                     success: function(response) {
-
-                        $(document).on('click', '.show', function() {
-                            showDataBendera(this.id);
-                        });
-
-                        $(document).on('click', '.edit', function() {
-                            editDataBendera(this.id);
-                        });
-
-                        let post = `
-                        <tr id="index_${response.data.id}">
-                            <td class="center aligned">
-                                <div class="ui checkbox">
-                                    <input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.val)" name="_method">
-                                </div>
-                            </td>
-                            <td class="kode">${response.data.kode_bendera}</td>
-                            <td class="asal">${response.data.asal_negara}</td>
-                            <td class="center aligned">
-                                <button class="ui icon orange button show" id="${response.data.id}"><i class="eye icon" style="visibility: visible;"></i></button>
-                                <button class="ui icon primary button edit" id="${response.data.id}"><i class="edit icon" style="visibility: visible;"></i></button>
-                            </td>
-                        </tr>`;
+                        let post = (` 
+                            <tr id="index_${response.data.id}">
+                                <td class="center aligned">
+                                    <div class="ui checkbox">
+                                        <label><input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.val)"></label>
+                                    </div>
+                                </td>
+                                <td>${response.data.kode_bendera}</td>
+                                <td>${response.data.asal_negara}</td>
+                                <td class="center aligned">
+                                    <button class="ui icon orange button show" id="${response.data.id}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                                    <button class="ui icon primary button edit" id="${response.data.id}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
+                                </td>
+                            </tr>`)
 
                         $(`#index_${response.data.id}`).replaceWith(post)
 

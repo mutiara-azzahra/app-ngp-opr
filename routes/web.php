@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
     Route::post('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
     Route::get('/bendera/show', [BenderaController::class, 'show'])->name('bendera.show');
+    Route::get('/bendera/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
 
     //REFERENSI JENIS KAPAL
     Route::get('/jenis-kapal', [JenisKapalController::class, 'index'])->name('jenis-kapal.index');
