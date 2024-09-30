@@ -49,6 +49,7 @@
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
             <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
@@ -112,19 +113,25 @@
     @script
     <script>
         function addDataBendera() {
+
+            // let token = "{{ csrf_token() }}"
+
             let kode_bendera = $('#kode-bendera').val();
             let asal_negara = $('#asal-negara').val();
-
             $.ajax({
                 url: "{{ route('bendera.store') }}",
                 type: "POST",
                 cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
-                    _token: token
+                    // _token: token
                 },
                 success: function(response) {
+
                     let post = (`
                     <tr id="index_${response.data.id}">
                         <td class="center aligned">
@@ -157,11 +164,14 @@
 
         function showDataBendera(id) {
 
-            let token = "{{  csrf_token() }}";
+            // let token = "{{  csrf_token() }}";
 
             $.ajax({
                 url: "{{ route('bendera.show') }}",
                 type: "GET",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     id: id,
                     _token: token

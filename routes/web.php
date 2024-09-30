@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BenderaController;
@@ -14,13 +13,21 @@ Route::middleware('auth')->group(function () {
     //REFERENSI BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
     Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
-    Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
     Route::post('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
     Route::get('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');
     Route::post('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
-    Route::get('/bendera/show', [BenderaController::class, 'show'])->name('bendera.show');
-    Route::get('/bendera/edit', [BenderaController::class, 'edit'])->middleware('web')->name('bendera.edit');
+
+
+    Route::middleware('ajax')->group(function () {
+        Route::get('/bendera/show', [BenderaController::class, 'show'])->name('bendera.show');
+        Route::get('/bendera/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
+    });
+
+    Route::middleware('ajax')->group(function () {
+
+        Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
+    });
 
     //REFERENSI JENIS KAPAL
     Route::get('/jenis-kapal', [JenisKapalController::class, 'index'])->name('jenis-kapal.index');

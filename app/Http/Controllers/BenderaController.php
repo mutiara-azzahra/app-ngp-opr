@@ -29,38 +29,42 @@ class BenderaController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(
-            [
-                'kode_bendera'        => 'required',
-                'asal_negara'         => 'required',
-            ],
-        );
+        if ($request->session()->token() == $request->input('_token')) {
 
-        $kode_bendera = $request->input('kode_bendera');
-        $asal_negara = $request->input('asal_negara');
+            $request->validate(
+                [
+                    'kode_bendera'        => 'required',
+                    'asal_negara'         => 'required',
+                ],
+            );
 
-        $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
-        $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
+            $kode_bendera = $request->input('kode_bendera');
+            $asal_negara = $request->input('asal_negara');
 
-        if (!$data) {
+            $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
+            $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
 
-            $input['KODE_BENDERA']          = strtoupper($kode_bendera);
-            $input['ASAL_NEGARA']           = strtoupper($asal_negara);
-            $input['NOTE']                  = $request->note;
-            if (!$lastest_data) {
-                $input['FLAG_IDX']           = 1;
-            } else {
-                $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
+            if (!$data) {
+
+                $input['KODE_BENDERA']          = strtoupper($kode_bendera);
+                $input['ASAL_NEGARA']           = strtoupper($asal_negara);
+                $input['NOTE']                  = $request->note;
+                if (!$lastest_data) {
+                    $input['FLAG_IDX']           = 1;
+                } else {
+                    $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
+                }
+                $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
+                $input['LOG_ENTRY_DATE']         = NOW();
+
+                $created    = Bendera::create($input);
+
+                return response()->json([
+                    'message' => 'Data berhasil ditambahkan',
+                    'data' => $created
+                ]);
             }
-            $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
-            $input['LOG_ENTRY_DATE']         = NOW();
-
-            $created    = Bendera::create($input);
-
-            return response()->json([
-                'message' => 'Data berhasil ditambahkan',
-                'data' => $created
-            ]);
+        } else {
         }
     }
 
