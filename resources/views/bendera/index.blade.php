@@ -13,7 +13,7 @@
 
     <div id="alert"></div>
 
-    <table class="ui compact table celled" id="tableBendera">
+    <table class="ui compact table celled" id="table-bendera">
         <thead>
             <tr>
                 <th class="center aligned">
@@ -53,12 +53,12 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
-                            <input type="text" name="kode_bendera" placeholder="Kode Bendera">
+                            <input type="text" id="kode-negara" name="kode_bendera" placeholder="Kode Bendera">
                         </label>
                     </div>
                     <div class="field">
                         <label>Asal Negara
-                            <input type="text" name="asal_negara" placeholder="Asal Negara">
+                            <input type="text" id="asal-negara" name="asal_negara" placeholder="Asal Negara">
                         </label>
                     </div>
                 </div>
@@ -115,6 +115,48 @@
 
     @script
     <script>
+        function addDataBendera() {
+            e.preventDefault();
+
+            let kode_bendera = $('kode-bendera').val();
+            let asal_negara = $('asal-negara').val();
+
+            $.ajax({
+                url: "{{ route('bendera.store') }}",
+                type: "GET",
+                data: {
+                    kode_bendera: kode_bendera,
+                    asal_negara: asal_negara,
+                },
+                succes: function(response) {
+                    let post = (` 
+                            <tr id="index_${response.data.id}">
+                                <td class="center aligned">
+                                    <div class="ui checkbox">
+                                        <label><input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.val)"></label>
+                                    </div>
+                                </td>
+                                <td>${response.data.kode_bendera}</td>
+                                <td>${response.data.asal_negara}</td>
+                                <td class="center aligned">
+                                    <button class="ui icon orange button show" id="${response.data.id}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                                    <button class="ui icon primary button edit" id="${response.data.id}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
+                                </td>
+                            </tr>`)
+
+                    $(`#table-bendera`).prepend(post)
+
+                    $('.ui.button.show').click(function() {
+                        $('.ui.modal.show').modal('show');
+                    });
+
+                    $('.ui.button.edit').click(function() {
+                        $('.ui.modal.edit').modal('show');
+                    });
+                }
+            })
+        }
+
         function showDataBendera(id) {
             $.ajax({
                 url: "{{ route('bendera.show') }}",
@@ -189,6 +231,8 @@
                     },
                     success: function(response) {
 
+                        console.log(response.checked_data)
+
                     },
 
                     error: function(xhr, status, error) {
@@ -235,6 +279,8 @@
                 let kode_bendera = $('#edit-kode-bendera').val();
                 let asal_negara = $('#edit-asal-negara').val();
 
+
+
                 $.ajax({
                     url: "{{ route('bendera.update') }}",
                     type: "GET",
@@ -260,6 +306,14 @@
                             </tr>`)
 
                         $(`#index_${response.data.id}`).replaceWith(post)
+
+                        $('.ui.button.show').click(function() {
+                            $('.ui.modal.show').modal('show');
+                        });
+
+                        $('.ui.button.edit').click(function() {
+                            $('.ui.modal.edit').modal('show');
+                        });
 
                     },
                     error: function(xhr, status, error) {

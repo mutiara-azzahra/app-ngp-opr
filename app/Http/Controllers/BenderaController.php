@@ -149,7 +149,8 @@ class BenderaController extends Controller
         return $pdf->stream('bendera.pdf');
 
         return response()->json([
-            'message' => 'Data berhasil diubah',
+            'message' => 'Data berhasil dicetak',
+            'data'    => $checkedValue
         ], 200);
     }
 }
