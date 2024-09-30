@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -79,18 +78,25 @@ class BenderaController extends Controller
         return response()->json($data);
     }
 
+    //2
     public function show(Request $request)
     {
 
-        $flag_idx = $request->input('id');
+        if ($request->session()->token() == $request->input('_token')) {
 
-        $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+            $flag_idx = $request->input('id');
 
-        if (!$data) {
-            return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+            $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+
+            if (!$data) {
+                return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+            }
+
+            return response()->json($data);
+        } else {
+
+            //disini
         }
-
-        return response()->json($data);
     }
 
     public function update(Request $request, Bendera $bendera)
