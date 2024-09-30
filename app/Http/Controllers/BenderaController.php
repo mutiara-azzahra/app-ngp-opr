@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -57,19 +58,10 @@ class BenderaController extends Controller
 
             $created    = Bendera::create($input);
 
-            if ($created) {
-
-                return response()->json([
-                    'message' => 'Data berhasil ditambahkan',
-                    'data' => $created
-                ]);
-            } else {
-
-                return redirect()->route('bendera.create')->with('danger', 'Maaf! ada data yang belum terisi');
-            }
-        } else {
-
-            return redirect()->route('bendera.create')->with('danger', 'Kode bendera sudah ada!');
+            return response()->json([
+                'message' => 'Data berhasil ditambahkan',
+                'data' => $created
+            ]);
         }
     }
 

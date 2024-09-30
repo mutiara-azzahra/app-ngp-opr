@@ -13,7 +13,7 @@
 
     <div id="alert"></div>
 
-    <table class="ui compact table celled" id="table-bendera">
+    <table class="ui compact table celled">
         <thead>
             <tr>
                 <th class="center aligned">
@@ -24,7 +24,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="table-bendera">
             @foreach($bendera as $i)
             <tr id="index_{{ $i->FLAG_IDX }}">
                 <td class="center aligned">
@@ -49,7 +49,6 @@
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
             <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
@@ -64,7 +63,7 @@
                 </div>
         </div>
         <div class="actions">
-            <button class="ui positive right labeled icon button addDataBendera" type="submit">
+            <button class="ui positive right labeled icon button" onclick="addDataBendera()" type="submit">
                 Simpan
                 <i class="checkmark icon"></i>
             </button>
@@ -113,35 +112,35 @@
     @script
     <script>
         function addDataBendera() {
-            e.preventDefault();
-
             let kode_bendera = $('#kode-bendera').val();
             let asal_negara = $('#asal-negara').val();
 
             $.ajax({
                 url: "{{ route('bendera.store') }}",
                 type: "POST",
+                cache: false,
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
+                    _token: token
                 },
                 success: function(response) {
-                    let post = (` 
-                            <tr id="index_${response.data.id}">
-                                <td class="center aligned">
-                                    <div class="ui checkbox">
-                                        <label><input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.val)"></label>
-                                    </div>
-                                </td>
-                                <td>${response.data.kode_bendera}</td>
-                                <td>${response.data.asal_negara}</td>
-                                <td class="center aligned">
-                                    <button class="ui icon orange button show" id="${response.data.id}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
-                                    <button class="ui icon primary button edit" id="${response.data.id}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
-                                </td>
-                            </tr>`)
+                    let post = (`
+                    <tr id="index_${response.data.id}">
+                        <td class="center aligned">
+                            <div class="ui checkbox">
+                                <label><input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.value)"></label>
+                            </div>
+                        </td>
+                        <td>${response.data.kode_bendera}</td>
+                        <td>${response.data.asal_negara}</td>
+                        <td class="center aligned">
+                            <button class="ui icon orange button show" id="${response.data.id}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                            <button class="ui icon primary button edit" id="${response.data.id}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
+                        </td>
+                    </tr>`)
 
-                    $(`#table-bendera`).prepend(post)
+                    $('#table-bendera').prepend(post);
 
                     $('.ui.button.show').click(function() {
                         $('.ui.modal.show').modal('show');
@@ -153,20 +152,23 @@
 
                     $('.ui.modal.add').modal('hide');
                 }
-            })
+            });
         }
 
         function showDataBendera(id) {
+
+            let token = "{{  csrf_token() }}";
+
             $.ajax({
                 url: "{{ route('bendera.show') }}",
                 type: "GET",
-                dataType: "json",
                 data: {
-                    id: id
+                    id: id,
+                    _token: token
                 },
                 success: function(response) {
                     $('#result-show').html(`
-                        <div class="ui form">
+                    <div class="ui form">
                             <div class="two fields">
                                 <div class="field">
                                     <label>Kode Bendera
@@ -179,7 +181,8 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>`)
+                        </div>
+                    `)
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching data: ", error);
@@ -208,8 +211,12 @@
                 $.ajax({
                     url: "{{ route('bendera.destroy') }}",
                     type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         hapus_data: datas_id,
+                        _token: token
                     },
                     success: function(response) {},
 
@@ -225,8 +232,12 @@
                 $.ajax({
                     url: "{{ route('bendera.print') }}",
                     type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         checked_data: datas_id,
+                        _token: token
                     },
                     success: function(response) {
 
@@ -243,11 +254,14 @@
 
         function editDataBendera(id) {
 
+            let token = "{{  csrf_token() }}";
+
             $.ajax({
                 url: "{{ route('bendera.edit') }}",
                 type: "GET",
                 data: {
-                    id: id
+                    id: id,
+                    _token: token
                 },
                 success: function(response) {
                     $('#result-edit').html(`
@@ -277,14 +291,19 @@
                 let id = $('#edit-id').val();
                 let kode_bendera = $('#edit-kode-bendera').val();
                 let asal_negara = $('#edit-asal-negara').val();
+                let token = "{{ csrf_token() }}";
 
                 $.ajax({
                     url: "{{ route('bendera.update') }}",
-                    type: "GET",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         id: id,
                         kode_bendera: kode_bendera,
                         asal_negara: asal_negara,
+                        _token: token
                     },
                     success: function(response) {
                         let post = (` 
