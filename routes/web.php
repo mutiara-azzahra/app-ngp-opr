@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     //REFERENSI BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
     Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
-    Route::get('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
+    Route::post('/bendera/store', [BenderaController::class, 'store'])->name('bendera.store');
     Route::get('/bendera/update', [BenderaController::class, 'update'])->name('bendera.update');
     Route::get('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');
     Route::get('/bendera/checkbox', [BenderaController::class, 'checkbox'])->name('bendera.checkbox');

@@ -53,7 +53,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
-                            <input type="text" id="kode-negara" name="kode_bendera" placeholder="Kode Bendera">
+                            <input type="text" id="kode-bendera" name="kode_bendera" placeholder="Kode Bendera">
                         </label>
                     </div>
                     <div class="field">
@@ -64,10 +64,7 @@
                 </div>
         </div>
         <div class="actions">
-            <button class="ui negative deny button">
-                Batal
-            </button>
-            <button class="ui positive right labeled icon button" type="submit">
+            <button class="ui positive right labeled icon button addDataBendera" type="submit">
                 Simpan
                 <i class="checkmark icon"></i>
             </button>
@@ -118,17 +115,17 @@
         function addDataBendera() {
             e.preventDefault();
 
-            let kode_bendera = $('kode-bendera').val();
-            let asal_negara = $('asal-negara').val();
+            let kode_bendera = $('#kode-bendera').val();
+            let asal_negara = $('#asal-negara').val();
 
             $.ajax({
                 url: "{{ route('bendera.store') }}",
-                type: "GET",
+                type: "POST",
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
                 },
-                succes: function(response) {
+                success: function(response) {
                     let post = (` 
                             <tr id="index_${response.data.id}">
                                 <td class="center aligned">
@@ -153,6 +150,8 @@
                     $('.ui.button.edit').click(function() {
                         $('.ui.modal.edit').modal('show');
                     });
+
+                    $('.ui.modal.add').modal('hide');
                 }
             })
         }
@@ -278,8 +277,6 @@
                 let id = $('#edit-id').val();
                 let kode_bendera = $('#edit-kode-bendera').val();
                 let asal_negara = $('#edit-asal-negara').val();
-
-
 
                 $.ajax({
                     url: "{{ route('bendera.update') }}",

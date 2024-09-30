@@ -34,18 +34,18 @@ class BenderaController extends Controller
                 'kode_bendera'        => 'required',
                 'asal_negara'         => 'required',
             ],
-            [
-                'required'  => 'Data :attribute belum diisi'
-            ]
         );
 
-        $data = Bendera::where('KODE_BENDERA', $request->kode_bendera)->first();
+        $kode_bendera = $request->input('kode_bendera');
+        $asal_negara = $request->input('asal_negara');
+
+        $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
         $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
 
         if (!$data) {
 
-            $input['KODE_BENDERA']          = strtoupper($request->kode_bendera);
-            $input['ASAL_NEGARA']           = strtoupper($request->asal_negara);
+            $input['KODE_BENDERA']          = strtoupper($kode_bendera);
+            $input['ASAL_NEGARA']           = strtoupper($asal_negara);
             $input['NOTE']                  = $request->note;
             if (!$lastest_data) {
                 $input['FLAG_IDX']           = 1;
@@ -59,7 +59,10 @@ class BenderaController extends Controller
 
             if ($created) {
 
-                return redirect()->route('bendera.index')->with('success', 'Data bendera kapal baru berhasil ditambahkan!');
+                return response()->json([
+                    'message' => 'Data berhasil ditambahkan',
+                    'data' => $created
+                ]);
             } else {
 
                 return redirect()->route('bendera.create')->with('danger', 'Maaf! ada data yang belum terisi');
