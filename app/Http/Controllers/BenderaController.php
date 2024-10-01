@@ -29,44 +29,53 @@ class BenderaController extends Controller
     public function store(Request $request)
     {
 
-        if ($request->session()->token() == $request->input('_token')) {
+        // $method = $request->method();
+        // dd($method);
 
-            $request->validate(
-                [
-                    'kode_bendera'        => 'required',
-                    'asal_negara'         => 'required',
-                ],
-            );
-
-            $kode_bendera = $request->input('kode_bendera');
-            $asal_negara = $request->input('asal_negara');
-
-            $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
-            $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
-
-            if (!$data) {
-
-                $input['KODE_BENDERA']          = strtoupper($kode_bendera);
-                $input['ASAL_NEGARA']           = strtoupper($asal_negara);
-                $input['NOTE']                  = $request->note;
-                if (!$lastest_data) {
-                    $input['FLAG_IDX']           = 1;
-                } else {
-                    $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
-                }
-                $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
-                $input['LOG_ENTRY_DATE']         = NOW();
-
-                $created    = Bendera::create($input);
-
-                return response()->json([
-                    'message' => 'tes',
-                    'data' => $created
-                ]);
-            }
+        if ($request->isMethod('get')) {
         } else {
+            if (Auth::check()) {
+                if ($request->session()->token() == $request->input('_token')) {
 
-            return response()->json(['error' => 'Data tidak dapat ditambahkan'], 404);
+                    $request->validate(
+                        [
+                            'kode_bendera'        => 'required',
+                            'asal_negara'         => 'required',
+                        ],
+                    );
+
+                    $kode_bendera = $request->input('kode_bendera');
+                    $asal_negara = $request->input('asal_negara');
+
+                    $data = Bendera::where('KODE_BENDERA', $kode_bendera)->first();
+                    $lastest_data = Bendera::orderBy('FLAG_IDX', 'desc')->first();
+
+                    if (!$data) {
+
+                        $input['KODE_BENDERA']          = strtoupper($kode_bendera);
+                        $input['ASAL_NEGARA']           = strtoupper($asal_negara);
+                        $input['NOTE']                  = $request->note;
+                        if (!$lastest_data) {
+                            $input['FLAG_IDX']           = 1;
+                        } else {
+                            $input['FLAG_IDX']           = $lastest_data->FLAG_IDX + 1;
+                        }
+                        $input['LOG_ENTRY_NAME']         = Auth::user()->USERNAME;
+                        $input['LOG_ENTRY_DATE']         = NOW();
+
+                        $created    = Bendera::create($input);
+
+                        return response()->json([
+                            'message' => 'tes',
+                            'data' => $created
+                        ]);
+                    }
+                } else {
+
+                    return response()->json(['error' => 'Data tidak dapat ditambahkan'], 404);
+                }
+            } else {
+            }
         }
     }
 

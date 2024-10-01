@@ -73,6 +73,7 @@
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
             <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
@@ -144,7 +145,7 @@
 
             $.ajax({
                 url: "{{ route('bendera.store') }}",
-                type: "POST",
+                method: "POST",
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
@@ -187,7 +188,7 @@
 
         function showDataBendera(id) {
 
-            let token = "{{  csrf_token() }}";
+            let token = "{{ csrf_token() }}";
 
             $.ajax({
                 url: "{{ route('bendera.show') }}",
@@ -215,7 +216,7 @@
                     `)
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error fetching data: ", error);
+                    console.error("Gagal mengambil data: ", error);
                 }
             })
         }
@@ -251,7 +252,7 @@
                     success: function(response) {},
 
                     error: function(xhr, status, error) {
-                        console.error("Error fetching data: ", error);
+                        console.error("Gagal mengambil data: ", error);
                     }
                 });
             });

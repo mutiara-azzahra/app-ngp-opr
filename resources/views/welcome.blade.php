@@ -43,10 +43,10 @@
       <div class="menu">
         <div class="divider"></div>
         <div class="header">Master Data</div>
-        <a class="item" href="{{ route('kapal.index') }}">Kapal</a>
-        <a class="item" href="{{ route('jenis-kapal.index') }}">Jenis Kapal</a>
+        <a class="item" href="">Kapal</a>
+        <a class="item" href="">Jenis Kapal</a>
         <a class="item" href="{{ route('bendera.index') }}">Bendera</a>
-        <a class="item" href="{{ route('ownership.index') }}">Ownership</a>
+        <a class="item" href="">Ownership</a>
         <a class="item" href="">Contact Person</a>
       </div>
     </div>
