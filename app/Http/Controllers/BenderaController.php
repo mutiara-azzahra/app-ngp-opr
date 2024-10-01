@@ -60,29 +60,33 @@ class BenderaController extends Controller
                 $created    = Bendera::create($input);
 
                 return response()->json([
-                    'message' => 'Data berhasil ditambahkan',
+                    'message' => 'tes',
                     'data' => $created
                 ]);
             }
         } else {
+
+            return response()->json(['error' => 'Data tidak dapat ditambahkan'], 404);
         }
     }
 
     public function edit(Request $request)
     {
 
-        $flag_idx = $request->input('id');
+        if ($request->session()->token() == $request->input('_token')) {
 
-        $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+            $flag_idx = $request->input('id');
 
-        if (!$data) {
-            return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+            $data = Bendera::where('FLAG_IDX', $flag_idx)->first();
+
+            if (!$data) {
+                return response()->json(['error' => 'Data Bendera tidak ditemukan'], 404);
+            }
+
+            return response()->json($data);
         }
-
-        return response()->json($data);
     }
 
-    //2
     public function show(Request $request)
     {
 

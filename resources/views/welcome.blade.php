@@ -50,6 +50,9 @@
         <a class="item" href="">Contact Person</a>
       </div>
     </div>
+    <div class="right menu">
+      <a class="item" href="{{ route('logout') }}"><i class="sign out icon" style="visibility: visible;"></i>Keluar</a>
+    </div>
   </div>
   <!-- END MENU ================================================================================================= -->
 

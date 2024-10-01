@@ -4,15 +4,40 @@
 <div class="ui main container fluid">
     <h1 class="ui header">Master Bendera</h1>
     <div class="ui divider"></div>
-    <div class="column">
-        <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
-        <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus</a>
-        <a class="ui orange button"><i class="print icon" style="visibility: visible;"></i> Cetak</a>
+    <div class="ui horizontal header">
+        <div class="row">
+            <h4 class="ui horizontal left aligned">
+                <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
+                <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus </a>
+                <a class="ui orange button cetak"><i class="print icon" style="visibility: visible;"></i> Cetak </a>
+            </h4>
+            <h4 class="ui horizontal right aligned">
+                <div class="ui right aligned">
+                    <div class="ui pagination menu">
+                        <a class="active item">
+                            1
+                        </a>
+                        <div class="disabled item">
+                            ...
+                        </div>
+                        <a class="item">
+                            10
+                        </a>
+                        <a class="item">
+                            11
+                        </a>
+                        <a class="item">
+                            12
+                        </a>
+                    </div>
+                </div>
+            </h4>
+        </div>
     </div>
+
+
     <div class="ui divider"></div>
-
     <div id="alert"></div>
-
     <table class="ui compact table celled">
         <thead>
             <tr>
@@ -41,7 +66,6 @@
             </tr>
             @endforeach
         </tbody>
-
     </table>
 
     <!-- MODAL ADD DATA BENDERA -->
@@ -49,7 +73,6 @@
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
             <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Bendera
@@ -113,37 +136,34 @@
     @script
     <script>
         function addDataBendera() {
+            event.preventDefault();
 
-            // let token = "{{ csrf_token() }}"
-
+            let token = "{{ csrf_token() }}"
             let kode_bendera = $('#kode-bendera').val();
             let asal_negara = $('#asal-negara').val();
+
             $.ajax({
                 url: "{{ route('bendera.store') }}",
                 type: "POST",
-                cache: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
-                    // _token: token
+                    _token: token
                 },
                 success: function(response) {
 
                     let post = (`
-                    <tr id="index_${response.data.id}">
+                    <tr id="index_${response.data.FLAG_IDX}">
                         <td class="center aligned">
                             <div class="ui checkbox">
-                                <label><input type="checkbox" tabindex="0" value="${response.data.id}" name="selected_items[]" onchange="pilihDataBendera(this.value)"></label>
+                                <label><input type="checkbox" tabindex="0" value="${response.data.FLAG_IDX}" name="selected_items[]" onchange="pilihDataBendera(this.value)"></label>
                             </div>
                         </td>
-                        <td>${response.data.kode_bendera}</td>
-                        <td>${response.data.asal_negara}</td>
+                        <td>${response.data.KODE_BENDERA}</td>
+                        <td>${response.data.ASAL_NEGARA}</td>
                         <td class="center aligned">
-                            <button class="ui icon orange button show" id="${response.data.id}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
-                            <button class="ui icon primary button edit" id="${response.data.id}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
+                            <button class="ui icon orange button show" id="${response.data.FLAG_IDX}" onclick="showDataBendera(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                            <button class="ui icon primary button edit" id="${response.data.FLAG_IDX}" onclick="editDataBendera(this.id)"><i class="edit icon" style="visibility: visible;"></i></button>
                         </td>
                     </tr>`)
 
@@ -158,20 +178,20 @@
                     });
 
                     $('.ui.modal.add').modal('hide');
+
+                    $('#kode-bendera').val('');
+                    $('#asal-negara').val('');
                 }
             });
         }
 
         function showDataBendera(id) {
 
-            // let token = "{{  csrf_token() }}";
+            let token = "{{  csrf_token() }}";
 
             $.ajax({
                 url: "{{ route('bendera.show') }}",
                 type: "GET",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 data: {
                     id: id,
                     _token: token
@@ -256,7 +276,7 @@
                     },
 
                     error: function(xhr, status, error) {
-                        console.error("Error fetching data: ", error);
+                        console.error("Gagal mengambil data: ", error);
                     }
                 });
             });
@@ -264,7 +284,7 @@
 
         function editDataBendera(id) {
 
-            let token = "{{  csrf_token() }}";
+            let token = "{{ csrf_token() }}";
 
             $.ajax({
                 url: "{{ route('bendera.edit') }}",
@@ -292,7 +312,7 @@
                     </div>`)
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error fetching data: ", error);
+                    console.error("Gagal mengambil data:", error);
                 }
             })
 

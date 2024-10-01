@@ -27,7 +27,7 @@ class LoginController extends Controller
     {
 
         $username = strtoupper($request->username);
-        $credentials = $request->only('username', 'password');
+        // $credentials = $request->only('username', 'password');
 
         if (Auth::attempt(['username' => $username, 'password' => $request->password])) {
 
@@ -35,15 +35,5 @@ class LoginController extends Controller
         }
 
         return back()->with('error', 'Username dan Password');
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login.formLogin')->with('success', 'Anda berhasil keluar!');
     }
 }
