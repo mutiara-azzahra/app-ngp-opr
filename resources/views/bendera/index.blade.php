@@ -11,34 +11,13 @@
                 <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus </a>
                 <a class="ui orange button cetak"><i class="print icon" style="visibility: visible;"></i> Cetak </a>
             </h4>
-            <h4 class="ui horizontal right aligned">
-                <div class="ui right aligned">
-                    <div class="ui pagination menu">
-                        <a class="active item">
-                            1
-                        </a>
-                        <div class="disabled item">
-                            ...
-                        </div>
-                        <a class="item">
-                            10
-                        </a>
-                        <a class="item">
-                            11
-                        </a>
-                        <a class="item">
-                            12
-                        </a>
-                    </div>
-                </div>
-            </h4>
         </div>
     </div>
 
 
     <div class="ui divider"></div>
     <div id="alert"></div>
-    <table class="ui compact table celled">
+    <table class="ui compact table celled" id="example">
         <thead>
             <tr>
                 <th class="center aligned">
@@ -48,7 +27,6 @@
                 <th class="center aligned">Aksi</th>
             </tr>
         </thead>
-
         <tbody id="table-bendera">
             @foreach($bendera as $i)
             <tr id="index_{{ $i->FLAG_IDX }}">
@@ -136,6 +114,7 @@
 
     @script
     <script>
+        //ADD DATA
         function addDataBendera() {
             event.preventDefault();
 
@@ -152,7 +131,6 @@
                     _token: token
                 },
                 success: function(response) {
-
                     let post = (`
                     <tr id="index_${response.data.FLAG_IDX}">
                         <td class="center aligned">
@@ -186,6 +164,7 @@
             });
         }
 
+        //SHOW DATA DETAIL
         function showDataBendera(id) {
 
             let token = "{{ csrf_token() }}";
@@ -212,8 +191,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
-                    `)
+                        </div>`)
                 },
                 error: function(xhr, status, error) {
                     console.error("Gagal mengambil data: ", error);
@@ -229,7 +207,7 @@
                 datas_id[i] = parseInt($(this).val());
             });
 
-            //Hapus Data Checked
+            //HAPUS DATA CHECKED
             $('.ui.button.buttonHapus').click(function() {
 
                 datas_id.forEach(function(element) {
@@ -257,7 +235,7 @@
                 });
             });
 
-            //Cetak Data Checked
+            //CETAK DATA CHECKED
             $('.ui.button.buttonCetak').click(function() {
 
                 $.ajax({
@@ -283,6 +261,7 @@
             });
         }
 
+        //UBAH DATA
         function editDataBendera(id) {
 
             let token = "{{ csrf_token() }}";

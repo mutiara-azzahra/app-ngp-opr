@@ -10,6 +10,10 @@ use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\ContactPersonController;
 
 Route::middleware('auth')->group(function () {
+    //DASHBOARD
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+
     //REFERENSI BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
     Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
@@ -29,7 +33,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'formRegister'])->name('login.formRegister');
-
 
 Route::get('/', [LoginController::class, 'formLogin'])->name('login.formLogin');
 Route::post('/', [LoginController::class, 'login'])->name('login');

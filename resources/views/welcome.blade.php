@@ -12,8 +12,10 @@
   <title>APP NGP</title>
 
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/fomantic-ui/dist/semantic.css') }} ">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/fomantic-ui/dist/semantic.min.css') }} ">
   <link rel="stylesheet" type="text/css" class="ui" media="screen,print" href="{{ asset('assets/fomantic-ui/dist/semantic.min.css?v=2.9.3') }}">
   <link rel="stylesheet/less" type="text/css" href="{{ asset('assets/fomantic-ui/src/definitions/collections/form.less') }} " />
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/dataTables.semanticui.css')}}">
 
   <style type="text/css">
     body {
@@ -68,6 +70,10 @@
 <script src="{{ asset('javascript/library/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/fomantic-ui/dist/semantic.js') }} "></script>
 <script src="{{ asset('assets/fomantic-ui/dist/semantic.min.js?v=2.9.3') }} "></script>
+<script src="{{ asset('javascript/library/dataTables.js') }}"></script>
+<script src="{{ asset('assets/fomantic-ui/dist/semantic.min.js') }}"></script>
+<script src="{{ asset('javascript/library/dataTables.semanticui.js') }}"></script>
+
 <script>
   //BUTTON ADD DATA
   $('.ui.button.add').click(function() {
@@ -137,6 +143,18 @@
       });
     });
   });
+
+  new DataTable('#example', {
+    layout: {
+      bottomEnd: {
+        paging: {
+          firstLast: false
+        }
+      }
+    }
+  });
+
+  //DATATABLES
 </script>
 
 @yield('script')
