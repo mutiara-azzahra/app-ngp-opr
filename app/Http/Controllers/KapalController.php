@@ -60,22 +60,24 @@ class KapalController extends Controller
     public function store(Request $request)
     {
 
+        $request->all();
+
         $request->validate(
             [
                 'kode_kapal'            => 'required',
                 'nama_kapal'            => 'required',
                 'jenis_kapal'           => 'required',
-                'panjang'               => 'required',
-                'lebar'                 => 'required',
-                'tinggi'                => 'required',
-                'draft'                 => 'required',
-                'gross_ton'             => 'required',
-                'dead_ton'              => 'required',
+                'panjang'               => 'required|regex:/^\d*(\.\d*)?$/',
+                'lebar'                 => 'required|regex:/^\d*(\.\d*)?$/',
+                'tinggi'                => 'required|regex:/^\d*(\.\d*)?$/',
+                'draft'                 => 'required|regex:/^\d*(\.\d*)?$/',
+                'gross_ton'             => 'required|regex:/^\d*(\.\d*)?$/',
+                'dead_ton'              => 'required|regex:/^\d*(\.\d*)?$/',
                 'jenis_mesin'           => 'required',
-
             ],
             [
                 'required'  => 'Data :attribute belum diisi',
+                'regex'  => 'Data :attribute harus angka dan menggunakan titik "." desimal',
             ]
         );
 
@@ -102,8 +104,8 @@ class KapalController extends Controller
             $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
             $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
             $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
-            $input['GALANGAN_KAPAL']        = $request->galangan_kapal;
-            $input['KLASIFIKASI']           = $request->klasifikasi;
+            $input['GALANGAN_KAPAL']        = strtoupper($request->galangan_kapal);
+            $input['KLASIFIKASI']           = strtoupper($request->klasifikasi);
             if (!$lastest_data) {
                 $input['FLAG_IDX']         = 1;
             } else {

@@ -14,7 +14,6 @@
         </div>
     </div>
 
-
     <div class="ui divider"></div>
     <div id="alert"></div>
     <table class="ui compact table celled" id="example">
@@ -50,6 +49,7 @@
     <div class="ui modal add">
         <div class="header">Tambah Data Bendera</div>
         <div class="content">
+            <div id="alert-data-exist"></div>
             <form class="ui form" action="{{ route('bendera.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="two fields">
@@ -114,9 +114,8 @@
 
     @script
     <script>
-        //ADD DATA
-        function addDataBendera() {
-            event.preventDefault();
+        $('#addDataBendera').click(function(e) {
+            e.preventDefault();
 
             let token = "{{ csrf_token() }}"
             let kode_bendera = $('#kode-bendera').val();
@@ -124,15 +123,19 @@
 
             $.ajax({
                 url: "{{ route('bendera.store') }}",
-                method: "POST",
+                type: "POST",
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     kode_bendera: kode_bendera,
                     asal_negara: asal_negara,
                     _token: token
                 },
                 success: function(response) {
-                    let post = (`
-                    <tr id="index_${response.data.FLAG_IDX}">
+
+                    let post = (`<tr id="index_${response.data.FLAG_IDX}">
                         <td class="center aligned">
                             <div class="ui checkbox">
                                 <label><input type="checkbox" tabindex="0" value="${response.data.FLAG_IDX}" name="selected_items[]" onchange="pilihDataBendera(this.value)"></label>
@@ -160,9 +163,13 @@
 
                     $('#kode-bendera').val('');
                     $('#asal-negara').val('');
+                },
+
+                error: function(xhr, status, error) {
+                    console.error("Gagal mengambil data: ", error);
                 }
             });
-        }
+        })
 
         //SHOW DATA DETAIL
         function showDataBendera(id) {
@@ -179,19 +186,19 @@
                 success: function(response) {
                     $('#result-show').html(`
                     <div class="ui form">
-                            <div class="two fields">
-                                <div class="field">
-                                    <label>Kode Bendera
-                                        <p>${response.KODE_BENDERA}</p>
-                                    </label>
-                                </div>
-                                <div class="field">
-                                    <label>Asal Negara
-                                        <p>${response.ASAL_NEGARA}</p>
-                                    </label>
-                                </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Kode Bendera
+                                    <p>${response.KODE_BENDERA}</p>
+                                </label>
                             </div>
-                        </div>`)
+                            <div class="field">
+                                <label>Asal Negara
+                                    <p>${response.ASAL_NEGARA}</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>`)
                 },
                 error: function(xhr, status, error) {
                     console.error("Gagal mengambil data: ", error);
@@ -347,7 +354,7 @@
                         <div class="ui negative message">
                             <i class="close icon"></i>
                             <div class="header">
-                                Data tersimpan
+                                Data gagal tersimpan
                             </div>
                             <p>${response.message}</p>
                         </div>`);

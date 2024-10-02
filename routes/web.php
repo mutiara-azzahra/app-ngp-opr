@@ -13,8 +13,18 @@ Route::middleware('auth')->group(function () {
     //DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    //MASTER KAPAL
+    Route::get('/kapal', [KapalController::class, 'index'])->name('kapal.index');
+    Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
+    Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
+    Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
+    Route::get('/kapal/show', [KapalController::class, 'show'])->name('kapal.show');
+    Route::get('/kapal/edit', [KapalController::class, 'edit'])->name('kapal.edit');
+    Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
+    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
+    Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
 
-    //REFERENSI BENDERA
+    //MASTER DATA BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
     Route::get('/bendera/create', [BenderaController::class, 'create'])->name('bendera.create');
     Route::get('/bendera/destroy', [BenderaController::class, 'destroy'])->name('bendera.destroy');

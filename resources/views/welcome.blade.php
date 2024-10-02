@@ -45,7 +45,7 @@
       <div class="menu">
         <div class="divider"></div>
         <div class="header">Master Data</div>
-        <a class="item" href="">Kapal</a>
+        <a class="item" href="{{ route('kapal.index') }}">Kapal</a>
         <a class="item" href="">Jenis Kapal</a>
         <a class="item" href="{{ route('bendera.index') }}">Bendera</a>
         <a class="item" href="">Ownership</a>
@@ -73,11 +73,14 @@
 <script src="{{ asset('javascript/library/dataTables.js') }}"></script>
 <script src="{{ asset('assets/fomantic-ui/dist/semantic.min.js') }}"></script>
 <script src="{{ asset('javascript/library/dataTables.semanticui.js') }}"></script>
-
 <script>
   //BUTTON ADD DATA
   $('.ui.button.add').click(function() {
     $('.ui.modal.add').modal('show');
+  });
+
+  $('.ui.button.closeAdd').click(function() {
+    $('.ui.modal.add').modal('hide');
   });
 
   //BUTTON EDIT DATA
@@ -116,6 +119,12 @@
         .transition('fade');
     });
 
+  //YEAR CALENDAR
+  $('#year_calendar')
+    .calendar({
+      type: 'year'
+    });
+
   //CHECKED ALL
   $('.ui.checkbox.semua').change(function() {
     if (this.checked) {
@@ -125,18 +134,17 @@
     }
   });
 
-  //CHECK INPUT NUMBER ONLY
+  // CHECK INPUT NUMBER DOT ONLY
   document.addEventListener('DOMContentLoaded', function() {
-    const decimalRegex = /^\d*(\.\d*)?$/;
+    let decimalRegex = /^\d*(\.\d*)?$/;
 
     document.querySelectorAll('.data-input').forEach(input => {
       input.addEventListener('input', function() {
-        const inputValue = this.value;
-        const errorMessage = this.parentElement.querySelector('.input-desimal');
+        let inputValue = this.value;
+        let errorMessage = this.parentElement.querySelector('.input-desimal');
 
         if (!decimalRegex.test(inputValue)) {
           errorMessage.style.display = 'inline';
-          errorMessage.style.color = 'red';
         } else {
           errorMessage.style.display = 'none';
         }
@@ -144,6 +152,7 @@
     });
   });
 
+  //DATATABLES UI
   new DataTable('#example', {
     layout: {
       bottomEnd: {
@@ -153,8 +162,6 @@
       }
     }
   });
-
-  //DATATABLES
 </script>
 
 @yield('script')
