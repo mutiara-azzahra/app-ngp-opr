@@ -194,18 +194,23 @@ class KapalController extends Controller
     public function print(Request $request)
     {
 
+        $jenis_cetak = $request->input('jenis_cetak');
+
         $checkedValue = $request->checked_data;
 
-        try {
+        if ($jenis_cetak == 1) {
 
-            $data   = Kapal::where('FLAG_IDX', $checkedValue)->first();
-            $pdf    = Pdf::loadView('reports.kapal', $data);
-            $pdf->setPaper('letter', 'landscape');
+            try {
 
-            return $pdf->stream('kapal.pdf');
-        } catch (\Throwable $e) {
+                $data   = Kapal::where('FLAG_IDX', $checkedValue)->first();
+                $pdf    = Pdf::loadView('reports.kapal', $data);
+                $pdf->setPaper('letter', 'landscape');
 
-            return response()->json(['error' => 'Gagal cetak data kapal yang dipilih'], 500);
+                return $pdf->stream('kapal.pdf');
+            } catch (\Throwable $e) {
+
+                return response()->json(['error' => 'Gagal cetak data kapal yang dipilih'], 500);
+            }
         }
     }
 }

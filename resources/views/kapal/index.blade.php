@@ -289,6 +289,15 @@
 
 @section('script')
 <script>
+    document.querySelectorAll('button').forEach(button => {
+        button.onclick = function() {
+            let result = jenisCetak(this.id);
+
+        };
+    });
+
+    console.log(result)
+
     function pilihDataKapal() {
 
         let datas_id = []
@@ -335,70 +344,58 @@
 
                 error: function(xhr, status, error) {
                     $('#alert_response').html(`
-                        <div class="ui negative message">
-                            <i class="close icon"></i>
-                            <div class="header">
-                                Data gagal dihapus
-                            </div>
-                            <p>${response.error}</p>
-                        </div>`);
+                    <div class="ui negative message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Data gagal dihapus
+                        </div>
+                        <p>${response.error}</p>
+                    </div>`);
                 }
             });
         });
 
-        function jenisCetak(id) {
-            let jenis_cetak = id
+        $('.ui.button.buttonPrint').click(function() {
 
-            $('.ui.button.buttonPrint').click(function() {
+            let token = "{{ csrf_token() }}"
 
-                let token = "{{ csrf_token() }}"
+            $(document).ready(function() {
+                alert_response();
+            });
 
-                datas_id.forEach(function(element) {
-                    let el = document.getElementById(`index_${element}`);
-                    if (el) {
-                        el.remove();
-                    }
-                });
-
-                $(document).ready(function() {
-                    alert_response();
-                });
-
-                $.ajax({
-                    url: "{{ route('kapal.destroy') }}",
-                    type: "DELETE",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        checked_data: datas_id,
-                        _token: token
-                    },
-                    success: function(response) {
-                        $('#alert_response').html(`
-                        <div class="ui positive message">
-                            <i class="close icon"></i>
-                            <div class="header">
-                                Data kapal berhasil dicetak
-                            </div>
-                            <p>${response.message}</p>
-                        </div>`);
-                    },
-
-                    error: function(xhr, status, error) {
-                        $('#alert_response').html(`
-                        <div class="ui negative message">
-                            <i class="close icon"></i>
-                            <div class="header">
-                                Data kapal gagal dicetak
-                            </div>
-                            <p>${response.error}</p>
-                        </div>`);
-                    }
-                })
+            $.ajax({
+                url: "{{ route('kapal.print') }}",
+                type: "GET",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    jenis_cetak: jenis_cetak,
+                    checked_data: datas_id,
+                    _token: token
+                },
+                success: function(response) {
+                    $('#alert_response').html(`
+                    <div class="ui positive message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Data kapal berhasil dicetak
+                        </div>
+                        <p>${response.message}</p>
+                    </div>`);
+                },
+                error: function(xhr, status, error) {
+                    $('#alert_response').html(`
+                    <div class="ui negative message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Data kapal gagal dicetak
+                        </div>
+                        <p>${response.error}</p>
+                    </div>`);
+                }
             })
-        }
-
+        })
     }
 </script>
 @endsection
