@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -27,7 +28,6 @@ class KapalController extends Controller
     {
 
         $flag_idx = $request->input('id');
-
         $data = Kapal::where('FLAG_IDX', $flag_idx)->first();
 
         if (!$data) {
@@ -37,30 +37,18 @@ class KapalController extends Controller
         return response()->json($data);
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
 
-        $flag_idx = $request->input('id');
+        $data = Kapal::where('FLAG_IDX', $id)->first();
+        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
+        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
 
-        $get_data = Kapal::where('FLAG_IDX', $flag_idx)->first();
-
-        $data = [
-
-            'nama'
-        ];
-
-
-        if (!$get_data) {
-            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
-        }
-
-        return response()->json($data);
+        return view('kapal.edit', compact('data', 'jenis_kapal', 'bendera'));
     }
 
     public function store(Request $request)
     {
-
-        $request->all();
 
         $request->validate(
             [
@@ -100,7 +88,7 @@ class KapalController extends Controller
             $input['DISPLACEMENT']          = $request->displacement;
             $input['JENIS_MESIN']           = strtoupper($request->jenis_mesin);
             $input['DAYA_MESIN']            = $request->daya_mesin;
-            $input['KECEPATAN_MAX']         = $request->kecepatan_max;
+            $input['KECEPATAN_MAX']         = $request->kecepatan_maksimal;
             $input['KAPASITAS_KARGO']       = $request->kapasitas_kargo;
             $input['KAPASITAS_PENUMPANG']   = $request->kapasitas_penumpang;
             $input['TAHUN_PEMBUATAN']       = $request->tahun_pembuatan;
@@ -132,7 +120,29 @@ class KapalController extends Controller
     public function update(Request $request)
     {
 
+        // dd($request->all());
+
+        $request->validate(
+            [
+                'kode_kapal'            => 'required',
+                'nama_kapal'            => 'required',
+                'jenis_kapal'           => 'required',
+                'panjang'               => 'required|regex:/^\d*(\.\d*)?$/',
+                'lebar'                 => 'required|regex:/^\d*(\.\d*)?$/',
+                'tinggi'                => 'required|regex:/^\d*(\.\d*)?$/',
+                'draft'                 => 'required|regex:/^\d*(\.\d*)?$/',
+                'gross_ton'             => 'required|regex:/^\d*(\.\d*)?$/',
+                'dead_ton'              => 'required|regex:/^\d*(\.\d*)?$/',
+                'jenis_mesin'           => 'required',
+            ],
+            [
+                'required'  => 'Data :attribute belum diisi',
+                'regex'  => 'Data :attribute harus angka dan menggunakan titik "." desimal',
+            ]
+        );
+
         $update = Kapal::where('KODE_KAPAL', $request->kode_kapal)->update([
+            'KODE_KAPAL'            => strtoupper($request->kode_kapal),
             'NAMA_KAPAL'            => strtoupper($request->nama_kapal),
             'CALLSIGN'              => strtoupper($request->callsign),
             'JENIS_KAPAL'           => strtoupper($request->jenis_kapal),
@@ -150,26 +160,35 @@ class KapalController extends Controller
             'KAPASITAS_KARGO'       => $request->kapasitas_kargo,
             'KAPASITAS_PENUMPANG'   => $request->kapasitas_penumpang,
             'TAHUN_PEMBUATAN'       => $request->tahun_pembuatan,
-            'GALANGAN_KAPAL'        => $request->galangan_kapal,
-            'KLASIFIKASI'           => $request->klasifikasi,
+            'GALANGAN_KAPAL'        => strtoupper($request->galangan_kapal),
+            'KLASIFIKASI'           => strtoupper($request->klasifikasi),
             'LOG_EDIT_NAME'         => Auth::user()->USERNAME,
             'LOG_EDIT_DATE'         => Carbon::now(),
         ]);
 
         if (!$update) {
-            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
+            return redirect()->route('kapal.index')->with('danger', 'Data kapal kapal baru gagal diubah');
         }
 
-        return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil ditambahkan!');
+        return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil diubah!');
     }
 
     public function destroy(Request $request)
     {
 
-        $checkedValue = $request->hapus_data;
+        $checked_data = $request->input('selected_items', []);
 
-        Kapal::whereIn('FLAG_IDX', $checkedValue)->delete();
+        Kapal::whereIn('FLAG_IDX', $checked_data)->delete();
 
         return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus!');
+    }
+
+    public function cetak($data)
+    {
+        $data               = Kapal::where('FLAG_IDX',)->first();
+        $pdf                = Pdf::loadView('reports.invoice', $data);
+        $pdf->setPaper('letter', 'potrait');
+
+        return $pdf->stream('kapal.pdf');
     }
 }
