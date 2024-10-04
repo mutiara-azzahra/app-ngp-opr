@@ -16,9 +16,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/kapal/show', [KapalController::class, 'show'])->name('kapal.show');
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
-    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
-    Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy')->middleware('ajax');
-    Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
+    Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update')->middleware('ajax');
+    Route::delete('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy')->middleware('ajax');
+    Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print')->middleware('ajax');
 
     //MASTER DATA BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
@@ -30,11 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/bendera/print', [BenderaController::class, 'print'])->name('bendera.print');
 
     Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
-
-    Route::middleware('ajax')->group(function () {
-        Route::get('/bendera/show', [BenderaController::class, 'show'])->name('bendera.show');
-        Route::get('/bendera/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
-    });
+    Route::get('/bendera/show', [BenderaController::class, 'show'])->name('bendera.show');
+    Route::get('/bendera/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
 });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

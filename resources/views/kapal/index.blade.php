@@ -11,6 +11,8 @@
     </div>
     <div class="ui divider hidden"></div>
 
+    <div id="alert_hapus"></div>
+
     @if ($message = Session::get('success'))
     <div class="ui poitive message">
         <i class="close icon"></i>
@@ -28,9 +30,6 @@
         <p>{{ $message }}</p>
     </div>
     @endif
-
-    <div id="#alert-success"></div>
-    <div id="#alert-danger"></div>
 
     <table class="ui compact table celled" id="example">
         <thead>
@@ -286,9 +285,13 @@
                 }
             });
 
+            $(document).ready(function() {
+                alert_hapus();
+            });
+
             $.ajax({
                 url: "{{ route('kapal.destroy') }}",
-                type: "GET",
+                type: "DELETE",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -297,7 +300,7 @@
                     _token: token
                 },
                 success: function(response) {
-                    $('#alert-success').html(`
+                    $('#alert_hapus').html(`
                         <div class="ui positive message">
                             <i class="close icon"></i>
                             <div class="header">
@@ -308,7 +311,14 @@
                 },
 
                 error: function(xhr, status, error) {
-                    console.error("Gagal mengambil data: ", error);
+                    $('#alert_hapus').html(`
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Data gagal dihapus
+                            </div>
+                            <p>${response.error}</p>
+                        </div>`);
                 }
             });
         });

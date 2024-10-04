@@ -185,18 +185,27 @@ class KapalController extends Controller
             return response()->json([
                 'message' => 'Data terpilih berhasil dihapus',
             ], 200);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
 
             return response()->json(['error' => 'Gagal hapus data'], 500);
         }
     }
 
-    public function cetak($data)
+    public function print(Request $request)
     {
-        $data               = Kapal::where('FLAG_IDX',)->first();
-        $pdf                = Pdf::loadView('reports.invoice', $data);
-        $pdf->setPaper('letter', 'potrait');
 
-        return $pdf->stream('kapal.pdf');
+        $checkedValue = $request->checked_data;
+
+        try {
+
+            $data   = Kapal::where('FLAG_IDX', $checkedValue)->first();
+            $pdf    = Pdf::loadView('reports.kapal', $data);
+            $pdf->setPaper('letter', 'landscape');
+
+            return $pdf->stream('kapal.pdf');
+        } catch (\Throwable $e) {
+
+            return response()->json(['error' => 'Gagal cetak data kapal yang dipilih'], 500);
+        }
     }
 }
