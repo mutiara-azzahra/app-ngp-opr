@@ -177,8 +177,6 @@
         _token: token
       },
       success: function(response) {
-
-        console.log(response)
         $('#result-show').html(`
         <div class="ui form">
             <div class="two fields">

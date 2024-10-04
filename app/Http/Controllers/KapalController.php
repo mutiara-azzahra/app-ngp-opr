@@ -176,11 +176,19 @@ class KapalController extends Controller
     public function destroy(Request $request)
     {
 
-        $checked_data = $request->input('selected_items', []);
+        $checkedValue = $request->checked_data;
 
-        Kapal::whereIn('FLAG_IDX', $checked_data)->delete();
+        try {
 
-        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus!');
+            Kapal::whereIn('FLAG_IDX', $checkedValue)->delete();
+
+            return response()->json([
+                'message' => 'Data terpilih berhasil dihapus',
+            ], 200);
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => 'Gagal hapus data'], 500);
+        }
     }
 
     public function cetak($data)

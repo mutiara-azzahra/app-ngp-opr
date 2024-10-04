@@ -6,7 +6,7 @@
     <div class="ui divider hidden"></div>
     <div class="column">
         <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
-        <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;" onchange="hapusCheckboxKapal()"></i> Hapus</a>
+        <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus</a>
         <a class="ui orange button"><i class="print icon" style="visibility: visible;"></i> Cetak</a>
     </div>
     <div class="ui divider hidden"></div>
@@ -29,6 +29,9 @@
     </div>
     @endif
 
+    <div id="#alert-success"></div>
+    <div id="#alert-danger"></div>
+
     <table class="ui compact table celled" id="example">
         <thead>
             <tr>
@@ -45,11 +48,11 @@
         </thead>
         <tbody>
             @foreach($kapal as $i)
-            <tr id="{{ $i->FLAG_IDX }}">
+            <tr id="index_{{ $i->FLAG_IDX }}">
                 <td>{{ $no++ }}</td>
                 <td class="center aligned">
                     <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="selected_items[]" onchange="pilihDataKapal(this.val)">
+                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes[]" onchange="pilihDataKapal(this.val)">
                     </div>
                 </td>
                 <td class="kode">{{ $i->KODE_KAPAL }}</td>
@@ -253,10 +256,63 @@
             <p>Data ini tidak dapat kembali</p>
         </div>
         <div class="actions">
-            <button class="ui negative icon button buttonHapus" type="submit">
+            <button class="ui negative button buttonHapus" type="submit">
                 <i class="trash icon"></i>
                 Hapus
             </button>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
+
+@section('script')
+<script>
+    function pilihDataKapal() {
+
+        let datas_id = []
+
+        $('input[name="checkboxes[]"]:checked').each(function(i) {
+            datas_id[i] = parseInt($(this).val());
+        });
+
+        $('.ui.button.buttonHapus').click(function() {
+
+            let token = "{{ csrf_token() }}"
+
+            datas_id.forEach(function(element) {
+                let el = document.getElementById(`index_${element}`);
+                if (el) {
+                    el.remove();
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('kapal.destroy') }}",
+                type: "GET",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    checked_data: datas_id,
+                    _token: token
+                },
+                success: function(response) {
+                    $('#alert-success').html(`
+                        <div class="ui positive message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Data berhasil dihapus
+                            </div>
+                            <p>${response.message}</p>
+                        </div>`);
+                },
+
+                error: function(xhr, status, error) {
+                    console.error("Gagal mengambil data: ", error);
+                }
+            });
+        });
+
+    }
+</script>
+@endsection

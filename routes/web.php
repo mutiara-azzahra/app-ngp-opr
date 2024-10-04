@@ -4,10 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BenderaController;
 use App\Http\Controllers\KapalController;
-use App\Http\Controllers\JenisKapalController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OwnershipController;
-use App\Http\Controllers\ContactPersonController;
 
 Route::middleware('auth')->group(function () {
     //DASHBOARD
@@ -16,12 +13,11 @@ Route::middleware('auth')->group(function () {
     //MASTER KAPAL
     Route::get('/kapal', [KapalController::class, 'index'])->name('kapal.index');
     Route::get('/kapal/create', [KapalController::class, 'create'])->name('kapal.create');
-    Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
-    Route::get('/kapal/checkbox', [KapalController::class, 'checkbox'])->name('kapal.checkbox');
     Route::get('/kapal/show', [KapalController::class, 'show'])->name('kapal.show');
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
+    Route::get('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy')->middleware('ajax');
     Route::post('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
 
     //MASTER DATA BENDERA
