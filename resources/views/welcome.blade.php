@@ -100,8 +100,8 @@
   });
 
   //BUTTON CETAK DATA
-  $('.ui.button.cetak').click(function() {
-    $('.ui.modal.cetak').modal('show');
+  $('.ui.button.print').click(function() {
+    $('.ui.modal.print').modal('show');
   });
 
   // SEARCH DROPDOWN

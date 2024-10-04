@@ -7,11 +7,10 @@
     <div class="column">
         <a class="ui positive button add"><i class="plus icon" style="visibility: visible;"></i> Tambah</a>
         <a class="ui negative button delete"><i class="trash icon" style="visibility: visible;"></i> Hapus</a>
-        <a class="ui orange button"><i class="print icon" style="visibility: visible;"></i> Cetak</a>
+        <a class="ui orange button print"><i class="print icon" style="visibility: visible;"></i> Cetak</a>
     </div>
     <div class="ui divider hidden"></div>
-
-    <div id="alert_hapus"></div>
+    <div id="alert_response"></div>
 
     @if ($message = Session::get('success'))
     <div class="ui poitive message">
@@ -68,7 +67,7 @@
         </tbody>
     </table>
 
-    <!-- TAMBAH DATA KAPAL -->
+    <!-- MODAL TAMBAH DATA -->
     <div class="ui modal add">
         <div class="header">Tambah Data Kapal</div>
         <div class="content">
@@ -261,6 +260,30 @@
             </button>
         </div>
     </div>
+
+    <!-- MODAL CETAK DATA -->
+    <div class="ui modal print">
+        <div class="header">
+            Pilih Cetak Data
+        </div>
+        <div class="content" style="padding-bottom: 50px;">
+            <div class="ui fluid search selection dropdown">
+                <input type="hidden" name="jenis_cetak">
+                <i class="dropdown icon"></i>
+                <div class="default text">Pilih Format Cetak Data</div>
+                <div class="menu" id="pilih-cetak">
+                    <div class="item" name="jenis_cetak" id="1" onclick="jenisCetak(this.id)">PDF</div>
+                    <div class="item" name="jenis_cetak" id="2" onclick="jenisCetak(this.id)">Excel</div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui positive button buttonPrint" type="submit">
+                <i class="print icon"></i>
+                Cetak
+            </button>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -286,7 +309,7 @@
             });
 
             $(document).ready(function() {
-                alert_hapus();
+                alert_response();
             });
 
             $.ajax({
@@ -300,7 +323,7 @@
                     _token: token
                 },
                 success: function(response) {
-                    $('#alert_hapus').html(`
+                    $('#alert_response').html(`
                         <div class="ui positive message">
                             <i class="close icon"></i>
                             <div class="header">
@@ -311,7 +334,7 @@
                 },
 
                 error: function(xhr, status, error) {
-                    $('#alert_hapus').html(`
+                    $('#alert_response').html(`
                         <div class="ui negative message">
                             <i class="close icon"></i>
                             <div class="header">
@@ -322,6 +345,59 @@
                 }
             });
         });
+
+        function jenisCetak(id) {
+            let jenis_cetak = id
+
+            $('.ui.button.buttonPrint').click(function() {
+
+                let token = "{{ csrf_token() }}"
+
+                datas_id.forEach(function(element) {
+                    let el = document.getElementById(`index_${element}`);
+                    if (el) {
+                        el.remove();
+                    }
+                });
+
+                $(document).ready(function() {
+                    alert_response();
+                });
+
+                $.ajax({
+                    url: "{{ route('kapal.destroy') }}",
+                    type: "DELETE",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        checked_data: datas_id,
+                        _token: token
+                    },
+                    success: function(response) {
+                        $('#alert_response').html(`
+                        <div class="ui positive message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Data kapal berhasil dicetak
+                            </div>
+                            <p>${response.message}</p>
+                        </div>`);
+                    },
+
+                    error: function(xhr, status, error) {
+                        $('#alert_response').html(`
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Data kapal gagal dicetak
+                            </div>
+                            <p>${response.error}</p>
+                        </div>`);
+                    }
+                })
+            })
+        }
 
     }
 </script>

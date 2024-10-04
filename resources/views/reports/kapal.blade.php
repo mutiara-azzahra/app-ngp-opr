@@ -88,7 +88,7 @@
             border-right: none;
         }
 
-        .td-qty {
+        .td-data {
             text-align: left;
             border: 0.5px solid #000;
         }
@@ -221,24 +221,20 @@
             <tbody>
                 @foreach ($data as $p)
                 <tr>
-                    <td class="td-qty">{{ $data->KODE_KAPAL }}</td>
-                    <td class="td-qty">{{ $data->NAMA_KAPAL }}</td>
-                    <td class="td-qty">{{$p->CALLSIGN }}</td>
-                    <td class="td-qty">{{$p->JENIS_KAPAL }}</td>
-                    <td class="td-qty">{{$p->ASAL_NEGARA }}</td>
-                    <td class="td-qty">{{$p->PANJANG }}</td>
-                    <td class="td-qty">{{$p->LEBAR }}</td>
-                    <td class="td-qty">{{$p->TINGGI }}</td>
-                    <td class="td-qty">{{$p->JENIS_MESIN }}</td>
-                    <td class="td-qty">{{$p->DAYA_MESIN }}</td>
-                    <td class="td-qty">{{$p->GALANGAN_KAPAL }}</td>
-                    <td class="td-qty">{{$p->KLASIFIKASI }}</td>
+                    <td class="td-data">{{ $p->KODE_KAPAL }}</td>
+                    <td class="td-data">{{ $p->NAMA_KAPAL }}</td>
+                    <td class="td-data">{{ $p->CALLSIGN }}</td>
+                    <td class="td-data">{{ $p->JENIS_KAPAL }}</td>
+                    <td class="td-data">{{ $p->ASAL_NEGARA }}</td>
+                    <td class="td-data">{{ $p->PANJANG }}</td>
+                    <td class="td-data">{{ $p->LEBAR }}</td>
+                    <td class="td-data">{{ $p->TINGGI }}</td>
+                    <td class="td-data">{{ $p->JENIS_MESIN }}</td>
+                    <td class="td-data">{{ $p->DAYA_MESIN }}</td>
+                    <td class="td-data">{{ $p->GALANGAN_KAPAL }}</td>
+                    <td class="td-data">{{ $p->KLASIFIKASI }}</td>
                 </tr>
                 @endforeach
-                <tr>
-                    <td colspan="5" class="td-angka"><b>TOTAL</b></td>
-                    <td class="td-part">{{ number_format($getReport->sum('nominal'), 0, ',', '.') }}</td>
-                </tr>
             </tbody>
         </table>
     </div>
