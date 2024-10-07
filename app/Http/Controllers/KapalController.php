@@ -11,6 +11,7 @@ use App\Models\JenisKapal;
 use App\Models\Kapal;
 use App\Models\Bendera;
 
+
 class KapalController extends Controller
 {
     public function index()
@@ -194,22 +195,25 @@ class KapalController extends Controller
     public function print(Request $request)
     {
 
-        $jenis_cetak = $request->input('jenis_cetak');
+        $jenis_cetak = $request->jenis_cetak;
+        $cetak_data =  $request->checked_data;
 
-        $checkedValue = $request->checked_data;
-
-        if ($jenis_cetak == 1) {
+        if ($jenis_cetak == 'PDF') {
 
             try {
 
-                $data   = Kapal::where('FLAG_IDX', $checkedValue)->first();
-                $pdf    = Pdf::loadView('reports.kapal', $data);
-                $pdf->setPaper('letter', 'landscape');
+                $data = Kapal::whereIn('FLAG_IDX', $cetak_data)->get();
 
-                return $pdf->stream('kapal.pdf');
+                $pdf = Pdf::loadView('reports.kapal', ['data' => $data]);
+
+                $pdf->setPaper('a4', 'landscape');
+
+                return $pdf->stream('invoice.pdf');
+
+                return response()->json(['message' => 'Berhasil cetak data'], 200);
             } catch (\Throwable $e) {
 
-                return response()->json(['error' => 'Gagal cetak data kapal yang dipilih'], 500);
+                return response()->json(['error' => 'Gagal cetak data'], 500);
             }
         }
     }

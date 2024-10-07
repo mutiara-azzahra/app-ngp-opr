@@ -50,7 +50,7 @@
                 <td>{{ $no++ }}</td>
                 <td class="center aligned">
                     <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes[]" onchange="pilihDataKapal(this.val)">
+                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes">
                     </div>
                 </td>
                 <td class="kode">{{ $i->KODE_KAPAL }}</td>
@@ -272,8 +272,8 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">Pilih Format Cetak Data</div>
                 <div class="menu" id="pilih-cetak">
-                    <div class="item" name="jenis_cetak" id="1" onclick="jenisCetak(this.id)">PDF</div>
-                    <div class="item" name="jenis_cetak" id="2" onclick="jenisCetak(this.id)">Excel</div>
+                    <div class="item tes" name="jenis_cetak" value="PDF" onclick="pilihJenisCetak(event)">PDF</div>
+                    <div class="item tes" name="jenis_cetak" value="EXCEL" onclick="pilihJenisCetak(event)">Excel</div>
                 </div>
             </div>
         </div>
@@ -289,22 +289,35 @@
 
 @section('script')
 <script>
-    document.querySelectorAll('button').forEach(button => {
-        button.onclick = function() {
-            let result = jenisCetak(this.id);
+    function pilihJenisCetak(event) {
+        let jenis_cetak = event.target.getAttribute('value');
+        return jenis_cetak;
+    }
 
-        };
+    $('.item.tes').click(function(event) {
+
+        let tes = pilihJenisCetak(event);
+
     });
 
-    console.log(result)
+    let datas_id = []
+
+    $('input[name="checkboxes"]').change(function() {
+        var checked = parseInt($(this).val());
+
+        if ($(this).is(':checked')) {
+            datas_id.push(checked);
+        } else {
+            datas_id.splice($.inArray(checked, datas_id), 1);
+        }
+    });
+
+
+    $('.buttonPrint').on('click', function() {
+        console.log(datas_id)
+    });
 
     function pilihDataKapal() {
-
-        let datas_id = []
-
-        $('input[name="checkboxes[]"]:checked').each(function(i) {
-            datas_id[i] = parseInt($(this).val());
-        });
 
         $('.ui.button.buttonHapus').click(function() {
 
@@ -315,10 +328,6 @@
                 if (el) {
                     el.remove();
                 }
-            });
-
-            $(document).ready(function() {
-                alert_response();
             });
 
             $.ajax({
@@ -355,47 +364,44 @@
             });
         });
 
-        $('.ui.button.buttonPrint').click(function() {
+        // $('.ui.button.buttonPrint').click(function() {
 
-            let token = "{{ csrf_token() }}"
+        //     let token = "{{ csrf_token() }}"
 
-            $(document).ready(function() {
-                alert_response();
-            });
+        //     let selectedPrintType = $('.item.tes.selected').attr('value');
 
-            $.ajax({
-                url: "{{ route('kapal.print') }}",
-                type: "GET",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    jenis_cetak: jenis_cetak,
-                    checked_data: datas_id,
-                    _token: token
-                },
-                success: function(response) {
-                    $('#alert_response').html(`
-                    <div class="ui positive message">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            Data kapal berhasil dicetak
-                        </div>
-                        <p>${response.message}</p>
-                    </div>`);
-                },
-                error: function(xhr, status, error) {
-                    $('#alert_response').html(`
-                    <div class="ui negative message">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            Data kapal gagal dicetak
-                        </div>
-                        <p>${response.error}</p>
-                    </div>`);
-                }
-            })
-        })
+        //     $.ajax({
+        //         url: "{{ route('kapal.print') }}",
+        //         type: "GET",
+        //         data: {
+        //             jenis_cetak: selectedPrintType,
+        //             checked_data: datas_id,
+        //             _token: token,
+        //         },
+        //         success: function(response) {
+        //             $('#alert_response').html(`
+        //             <div class="ui positive message">
+        //                 <i class="close icon"></i>
+        //                 <div class="header">
+        //                     Data kapal berhasil dicetak
+        //                 </div>
+        //                 <p>${message}</p>
+        //             </div>`);
+
+        //         },
+        //         error: function(xhr, status, error) {
+
+        //             $('#alert_response').html(`
+        //             <div class="ui negative message">
+        //                 <i class="close icon"></i>
+        //                 <div class="header">
+        //                     Data kapal gagal dicetak
+        //                 </div>
+        //                 <p>${error}</p>
+        //             </div>`);
+        //         }
+        //     })
+        // })
     }
 </script>
 @endsection
