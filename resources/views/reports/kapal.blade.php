@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <head>
     <title>Report Data Kapal</title>
-
 </head>
 
 <body>
@@ -65,6 +65,7 @@
                 @foreach ($data as $p)
                 <tr>
 
+                    <td>{{ $p->KODE_KAPAL }}</td>
                 </tr>
                 @endforeach
             </tbody>

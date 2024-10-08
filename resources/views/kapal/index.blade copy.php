@@ -29,49 +29,50 @@
         <p>{{ $message }}</p>
     </div>
     @endif
-    <table class="ui compact table celled" id="example">
-        <thead>
-            <tr>
-                <th></th>
-                <th class="center aligned">
-                </th>
-                <th class="center aligned">Kode Kapal</th>
-                <th class="center aligned">Nama Kapal</th>
-                <th class="center aligned">Callsign</th>
-                <th class="center aligned">Jenis Kapal</th>
-                <th class="center aligned">Bendera</th>
-                <th class="center aligned">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($kapal as $i)
-            <tr>
-                <td>{{ $no++ }}</td>
-                <td class="center aligned">
-                    <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes">
-                    </div>
-                </td>
-                <td class="kode">{{ $i->KODE_KAPAL }}</td>
-                <td class="asal">{{ $i->NAMA_KAPAL }}</td>
-                <td class="asal">{{ $i->CALLSIGN }}</td>
-                <td class="asal">{{ $i->JENIS_KAPAL }}</td>
-                <td class="asal">{{ $i->KODE_BENDERA }}/{{ $i->bendera->ASAL_NEGARA }}</td>
-                <td class="center aligned">
-                    <button class="ui icon orange button show" id="{{ $i->FLAG_IDX }}" onclick="showDataKapal(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
-                    <a class="ui icon primary button" href="{{ route('kapal.edit', $i->FLAG_IDX) }}"><i class="edit icon" style="visibility: visible;"></i></a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
 
-    <!-- MODAL TAMBAH DATA -->
-    <div class="ui modal add">
-        <div class="header">Tambah Data Kapal</div>
-        <div class="content">
-            <form class="ui form" action="{{ route('kapal.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+    <form class="ui form" method="POST" enctype="multipart/form-data">
+        @csrf
+        <table class="ui compact table celled" id="example">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="center aligned">
+                    </th>
+                    <th class="center aligned">Kode Kapal</th>
+                    <th class="center aligned">Nama Kapal</th>
+                    <th class="center aligned">Callsign</th>
+                    <th class="center aligned">Jenis Kapal</th>
+                    <th class="center aligned">Bendera</th>
+                    <th class="center aligned">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($kapal as $i)
+                <tr id="index_{{ $i->FLAG_IDX }}">
+                    <td>{{ $no++ }}</td>
+                    <td class="center aligned">
+                        <div class="ui checkbox">
+                            <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes">
+                        </div>
+                    </td>
+                    <td class="kode">{{ $i->KODE_KAPAL }}</td>
+                    <td class="asal">{{ $i->NAMA_KAPAL }}</td>
+                    <td class="asal">{{ $i->CALLSIGN }}</td>
+                    <td class="asal">{{ $i->JENIS_KAPAL }}</td>
+                    <td class="asal">{{ $i->KODE_BENDERA }}/{{ $i->bendera->ASAL_NEGARA }}</td>
+                    <td class="center aligned">
+                        <button class="ui icon orange button show" id="{{ $i->FLAG_IDX }}" onclick="showDataKapal(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
+                        <a class="ui icon primary button" href="{{ route('kapal.edit', $i->FLAG_IDX) }}"><i class="edit icon" style="visibility: visible;"></i></a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- MODAL TAMBAH DATA -->
+        <div class="ui modal add">
+            <div class="header">Tambah Data Kapal</div>
+            <div class="content">
                 <div class="two fields">
                     <div class="field">
                         <label>Kode Kapal</label>
@@ -223,90 +224,190 @@
                         <input type="text" name="klasifikasi" placeholder="Isi klasifikasi kapal">
                     </div>
                 </div>
+            </div>
+            <div class="actions">
+                <a class="ui negative deny button">
+                    Batal
+                </a>
+                <button class="ui positive right labeled icon button" action="{{ route('kapal.store') }}" type="submit">
+                    <i class="checkmark icon"></i>
+                    Simpan
+                </button>
+            </div>
         </div>
-        <div class="actions">
-            <a class="ui negative deny button">
-                Batal
-            </a>
-            <button class="ui positive right labeled icon button" type="submit">
-                <i class="checkmark icon"></i>
-                Simpan
-            </button>
-        </div>
-        </form>
-    </div>
 
-    <!-- MODAL SHOW DATA -->
-    <div class="ui modal show">
-        <div class="header">Lihat Data Kapal</div>
-        <div class="content">
-            <div class="ui form" id="result-show"></div>
+        <!-- MODAL SHOW DATA -->
+        <div class="ui modal show">
+            <div class="header">Lihat Data Kapal</div>
+            <div class="content">
+                <div class="ui form" id="result-show"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- MODAL HAPUS DATA -->
-    <div class="ui modal delete">
-        <div class="header">
-            Hapus data ini?
-        </div>
-        <div class="content">
-            <p>Data ini tidak dapat kembali</p>
-        </div>
-        <div class="actions">
-            <form class="ui form" action="{{ route('kapal.destroy') }}" method="POST" onsubmit="" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" id="selectedCheckboxesDelete" name="selectedCheckboxesDelete">
-                <button class="ui negative button" type="submit">
+        <!-- MODAL HAPUS DATA -->
+        <div class="ui modal delete">
+            <div class="header">
+                Hapus data ini?
+            </div>
+            <div class="content">
+                <p>Data ini tidak dapat kembali</p>
+            </div>
+            <div class="actions">
+                <button class="ui negative button" action="{{ route('kapal.store') }}" type="submit">
                     <i class="trash icon"></i>
                     Hapus
                 </button>
-            </form>
+            </div>
         </div>
-    </div>
 
-    <!-- MODAL CETAK DATA -->
-    <div class="ui modal print">
-        <div class="header">
-            Pilih Cetak Data
-        </div>
-        <!-- <div class="content" style="padding-bottom: 50px;">
-            <div class="ui fluid search selection dropdown">
-                <input type="hidden" name="jenis_cetak">
-                <i class="dropdown icon"></i>
-                <div class="default text">Pilih Format Cetak Data</div>
-                <div class="menu" name="jenis_cetak">
-                    <div class="item" value="1">PDF</div>
-                    <div class="item" value="2">Excel</div>
+        <!-- MODAL CETAK DATA -->
+        <div class="ui modal print">
+            <div class="header">
+                Pilih Cetak Data
+            </div>
+            <div class="content" style="padding-bottom: 50px;">
+                <div class="ui fluid search selection dropdown">
+                    <input type="hidden" name="jenis_cetak">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Pilih Format Cetak Data</div>
+                    <div class="menu" id="pilih-cetak">
+                        <div class="item tes" value="PDF">PDF</div>
+                        <div class="item tes" value="EXCEL">Excel</div>
+                    </div>
                 </div>
             </div>
-        </div> -->
-        <div class="content">
-            <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
-            <a class="ui positive button" onsubmit="checkedData()" href="{{ route('kapal.print') }}" target="_blank">
-                <i class="print icon"></i>
-                Cetak PDF
-            </a>
+            <div class="actions">
+                <button class="ui positive button buttonPrint" type="submit">
+                    <i class="print icon"></i>
+                    Cetak
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 @endsection
 
 @section('script')
 <script>
-    let data_id = []
+    // function pilihJenisCetak(event) {
+    //     let jenis_cetak = event.target.getAttribute('value');
+    //     return jenis_cetak;
+    // }
+
+    // $('.item.tes').click(function(event) {
+    //     let tes = pilihJenisCetak(event);
+    // });
+
+    // let datas_id = []
+
+    // $('input[name="checkboxes"]').change(function() {
+    //     var checked = parseInt($(this).val());
+
+    //     if ($(this).is(':checked')) {
+    //         datas_id.push(checked);
+    //     } else {
+    //         datas_id.splice($.inArray(checked, datas_id), 1);
+    //     }
+    // });
+
+    // $('.buttonPrint').on('click', function() {
+
+    //     let token = "{{ csrf_token() }}"
+    //     let selectedPrintType = $('.item.tes.selected').attr('value');
+    //     var xhr = new XMLHttpRequest();
+
+    //     $.ajax({
+    //         url: "{{ route('kapal.print') }}",
+    //         type: "GET",
+    //         data: {
+    //             jenis_cetak: selectedPrintType,
+    //             checked_data: datas_id,
+    //             _token: token,
+    //         },
+
+    //         success: function(response) {
+    //             $('#alert_response').html(`
+    //                 <div class="ui positive message">
+    //                     <i class="close icon"></i>
+    //                     <div class="header">
+    //                         Data berhasil dicetak
+    //                     </div>
+    //                     <p></p>
+    //                 </div>`);
+    //         },
+    //         error: function(error) {
+    //             $('#alert_response').html(`
+    //             <div class="ui negative message">
+    //                 <i class="close icon"></i>
+    //                 <div class="header">
+    //                     Data kapal gagal dicetak
+    //                 </div>
+    //             </div>`);
+    //         }
+    //     })
+    // });
+
+    // function pilihDataKapal() {
+
+    //     $('.ui.button.buttonHapus').click(function() {
+
+    //         let token = "{{ csrf_token() }}"
+
+    //         datas_id.forEach(function(element) {
+    //             let el = document.getElementById(`index_${element}`);
+    //             if (el) {
+    //                 el.remove();
+    //             }
+    //         });
+
+    //         $.ajax({
+    //             url: "{{ route('kapal.destroy') }}",
+    //             type: "DELETE",
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             data: {
+    //                 checked_data: datas_id,
+    //                 _token: token
+    //             },
+    //             success: function(response) {
+    //                 $('#alert_response').html(`
+    //                 <div class="ui positive message">
+    //                     <i class="close icon"></i>
+    //                     <div class="header">
+    //                         Data kapal berhasil dihapus
+    //                     </div>
+    //                     <p>${response.message}</p>
+    //                 </div>`);
+    //             },
+
+    //             error: function(xhr, status, error) {
+    //                 $('#alert_response').html(`
+    //                 <div class="ui negative message">
+    //                     <i class="close icon"></i>
+    //                     <div class="header">
+    //                         Data gagal dihapus
+    //                     </div>
+    //                     <p>${response.error}</p>
+    //                 </div>`);
+    //             }
+    //         });
+    //     });
+
+    // }
+</script>
+
+<script>
+    let datas_id = []
 
     $('input[name="checkboxes"]').change(function() {
-        let checked = parseInt($(this).val())
+        var checked = parseInt($(this).val());
 
         if ($(this).is(':checked')) {
-            data_id.push(checked)
+            datas_id.push(checked);
         } else {
-            data_id.splice($.inArray(checked, data_id), 1)
+            datas_id.splice($.inArray(checked, datas_id), 1);
         }
     });
-
-    function checkedData() {
-        document.getElementById('selectedCheckboxesPrint').value = data_id
-    }
 </script>
 @endsection

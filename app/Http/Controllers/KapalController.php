@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -10,7 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\JenisKapal;
 use App\Models\Kapal;
 use App\Models\Bendera;
+use Barryvdh\DomPDF\Facade\Pdf;
 
+use function PHPSTORM_META\map;
 
 class KapalController extends Controller
 {
@@ -177,44 +178,28 @@ class KapalController extends Controller
     public function destroy(Request $request)
     {
 
-        $checkedValue = $request->checked_data;
+        $checked = $request->input('checkbox', []);
 
         try {
 
-            Kapal::whereIn('FLAG_IDX', $checkedValue)->delete();
+            Kapal::whereIn('FLAG_IDX', $checked)->delete();
 
-            return response()->json([
-                'message' => 'Data terpilih berhasil dihapus',
-            ], 200);
+            return redirect()->route('kapal.index')->with('success', 'Berhasil hapus data');
         } catch (\Throwable $e) {
 
-            return response()->json(['error' => 'Gagal hapus data'], 500);
+            return redirect()->route('kapal.index')->with('danger', 'Gagal hapus data');
         }
     }
 
     public function print(Request $request)
     {
 
-        $jenis_cetak = $request->jenis_cetak;
-        $cetak_data =  $request->checked_data;
+        $cetak_dat   = array_map('intval', explode(',', $request->selectedCheckboxesPrint));
+        $data = Kapal::whereIn('FLAG_IDX', $cetak_dat)->get();
 
-        if ($jenis_cetak == 'PDF') {
+        $pdf = Pdf::loadView('reports.kapal', compact('data'));
+        $pdf->setPaper('a4', 'landscape');
 
-            try {
-
-                $data = Kapal::whereIn('FLAG_IDX', $cetak_data)->get();
-
-                $pdf = Pdf::loadView('reports.kapal', ['data' => $data]);
-
-                $pdf->setPaper('a4', 'landscape');
-
-                return $pdf->stream('invoice.pdf');
-
-                return response()->json(['message' => 'Berhasil cetak data'], 200);
-            } catch (\Throwable $e) {
-
-                return response()->json(['error' => 'Gagal cetak data'], 500);
-            }
-        }
+        return $pdf->stream('report.pdf');
     }
 }
