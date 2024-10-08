@@ -178,14 +178,14 @@ class KapalController extends Controller
     public function destroy(Request $request)
     {
 
-        $checked = $request->input('checkbox', []);
+        $data   = array_map('intval', explode(',', $request->selectedCheckboxesDelete));
 
         try {
 
-            Kapal::whereIn('FLAG_IDX', $checked)->delete();
+            Kapal::whereIn('FLAG_IDX', $data)->delete();
 
             return redirect()->route('kapal.index')->with('success', 'Berhasil hapus data');
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
 
             return redirect()->route('kapal.index')->with('danger', 'Gagal hapus data');
         }
@@ -194,8 +194,8 @@ class KapalController extends Controller
     public function print(Request $request)
     {
 
-        $cetak_dat   = array_map('intval', explode(',', $request->selectedCheckboxesPrint));
-        $data = Kapal::whereIn('FLAG_IDX', $cetak_dat)->get();
+        $cetak_data   = array_map('intval', explode(',', $request->selectedCheckboxesPrint));
+        $data = Kapal::whereIn('FLAG_IDX', $cetak_data)->get();
 
         $pdf = Pdf::loadView('reports.kapal', compact('data'));
         $pdf->setPaper('a4', 'landscape');

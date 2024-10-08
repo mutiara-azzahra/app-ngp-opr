@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/kapal/edit/{id}', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::post('/kapal/store', [KapalController::class, 'store'])->name('kapal.store');
     Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update')->middleware('ajax');
-    Route::delete('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy')->middleware('ajax');
+    Route::delete('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
 
     //MASTER DATA BENDERA

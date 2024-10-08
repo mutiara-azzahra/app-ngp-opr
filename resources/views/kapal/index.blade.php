@@ -253,8 +253,9 @@
             <p>Data ini tidak dapat kembali</p>
         </div>
         <div class="actions">
-            <form class="ui form" action="{{ route('kapal.destroy') }}" method="POST" onsubmit="" enctype="multipart/form-data">
+            <form class="ui form" action="{{ route('kapal.destroy') }}" method="POST" enctype="multipart/form-data" onsubmit="checkedDataDelete()">
                 @csrf
+                @method('DELETE')
                 <input type="hidden" id="selectedCheckboxesDelete" name="selectedCheckboxesDelete">
                 <button class="ui negative button" type="submit">
                     <i class="trash icon"></i>
@@ -269,17 +270,6 @@
         <div class="header">
             Pilih Cetak Data
         </div>
-        <!-- <div class="content" style="padding-bottom: 50px;">
-            <div class="ui fluid search selection dropdown">
-                <input type="hidden" name="jenis_cetak">
-                <i class="dropdown icon"></i>
-                <div class="default text">Pilih Format Cetak Data</div>
-                <div class="menu" name="jenis_cetak">
-                    <div class="item" value="1">PDF</div>
-                    <div class="item" value="2">Excel</div>
-                </div>
-            </div>
-        </div> -->
         <div class="content">
             <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
             <a class="ui positive button" onsubmit="checkedData()" href="{{ route('kapal.print') }}" target="_blank">
@@ -303,10 +293,15 @@
         } else {
             data_id.splice($.inArray(checked, data_id), 1)
         }
+
     });
 
     function checkedData() {
         document.getElementById('selectedCheckboxesPrint').value = data_id
+    }
+
+    function checkedDataDelete() {
+        document.getElementById('selectedCheckboxesDelete').value = data_id
     }
 </script>
 @endsection
