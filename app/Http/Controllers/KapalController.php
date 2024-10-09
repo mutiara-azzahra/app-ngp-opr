@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\JenisKapal;
 use App\Models\Kapal;
 use App\Models\Bendera;
+use App\Exports\MasterKapalExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KapalController extends Controller
 {
@@ -41,14 +43,22 @@ class KapalController extends Controller
     {
 
         $data = Kapal::where('FLAG_IDX', $id)->first();
-        $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
-        $bendera = Bendera::where('FLAG_STATUS', 1)->get();
 
-        return view('kapal.edit', compact('data', 'jenis_kapal', 'bendera'));
+        if (isset($data)) {
+
+            $jenis_kapal = JenisKapal::where('FLAG_STATUS', 1)->get();
+            $bendera = Bendera::where('FLAG_STATUS', 1)->get();
+
+            return view('kapal.edit', compact('data', 'jenis_kapal', 'bendera'));
+        }
+
+        return redirect()->route('kapal.index');
     }
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
 
         $request->validate(
             [
@@ -202,6 +212,19 @@ class KapalController extends Controller
             $pdf->setPaper('a4', 'landscape');
 
             return $pdf->stream('report.pdf');
+        }
+
+        return redirect()->route('kapal.index')->with('danger', 'Tidak ada data kapal dipilih');
+    }
+
+    public function print_excel(Request $request)
+    {
+
+        if (isset($request->selectedPrintExcel)) {
+
+            $cetak_excel   = array_map('intval', explode(',', $request->selectedPrintExcel));
+
+            return Excel::download(new MasterKapalExport($cetak_excel), 'report_kapal_.xlsx');
         }
 
         return redirect()->route('kapal.index')->with('danger', 'Tidak ada data kapal dipilih');

@@ -11,6 +11,19 @@
     </div>
     <div class="ui divider hidden"></div>
     <div id="alert_response"></div>
+    @if ($errors->any())
+    <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="header">
+            Data gagal disimpan
+        </div>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     @if ($message = Session::get('success'))
     <div class="ui poitive message">
         <i class="close icon"></i>
@@ -28,7 +41,7 @@
         <p>{{ $message }}</p>
     </div>
     @endif
-    <table class="ui compact table celled" id="example">
+    <table class="ui compact table celled" id="table_paging">
         <thead>
             <tr>
                 <th></th>
@@ -39,23 +52,25 @@
                 <th class="center aligned">Callsign</th>
                 <th class="center aligned">Jenis Kapal</th>
                 <th class="center aligned">Bendera</th>
+                <th class="center aligned">Panjang/Lebar/Tinggi</th>
                 <th class="center aligned">Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($kapal as $i)
             <tr>
-                <td>{{ $no++ }}</td>
                 <td class="center aligned">
                     <div class="ui checkbox">
                         <input type="checkbox" tabindex="0" value="{{ $i->FLAG_IDX }}" name="checkboxes">
                     </div>
                 </td>
+                <td class="center aligned">{{ $no++ }}</td>
                 <td class="kode">{{ $i->KODE_KAPAL }}</td>
                 <td class="asal">{{ $i->NAMA_KAPAL }}</td>
                 <td class="asal">{{ $i->CALLSIGN }}</td>
                 <td class="asal">{{ $i->JENIS_KAPAL }}</td>
                 <td class="asal">{{ $i->KODE_BENDERA }}/{{ $i->bendera->ASAL_NEGARA }}</td>
+                <td class="asal">{{ number_format($i->PANJANG, 2, '.', ',') }} m² / {{ number_format($i->LEBAR, 2, '.', ',') }} m² / {{ number_format($i->TINGGI, 2, '.', ',') }} m²</td>
                 <td class="center aligned">
                     <button class="ui icon orange button show" id="{{ $i->FLAG_IDX }}" onclick="showDataKapal(this.id)"><i class="eye icon" style="visibility: visible;"></i></button>
                     <a class="ui icon primary button" href="{{ route('kapal.edit', $i->FLAG_IDX) }}"><i class="edit icon" style="visibility: visible;"></i></a>
@@ -122,7 +137,7 @@
                         <div class="row">
                             <label>Panjang <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="panjang" placeholder="Isi panjang kapal">
+                        <input type="number" class="data-input" step=".01" name="panjang" placeholder="Isi panjang kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -130,13 +145,13 @@
                         <div class="row">
                             <label>Lebar <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="lebar" placeholder="Isi lebar kapal">
+                        <input type="number" class="data-input" step=".01" name="lebar" placeholder="Isi lebar kapal">
                     </div>
                     <div class="field">
                         <div class="row">
                             <label>Draft <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="draft" placeholder="Isi callsign kapal">
+                        <input type="number" class="data-input" step=".01" name="draft" placeholder="Isi callsign kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -144,13 +159,13 @@
                         <div class="row">
                             <label>Tinggi <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="tinggi" placeholder="Isi tinggi kapal">
+                        <input type="number" class="data-input" step=".01" name="tinggi" placeholder="Isi tinggi kapal">
                     </div>
                     <div class="field">
                         <div class="row">
                             <label>Gross Ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="gross_ton" placeholder="Isi gross kapal">
+                        <input type="number" class="data-input" step=".01" name="gross_ton" placeholder="Isi gross kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -158,13 +173,13 @@
                         <div class="row">
                             <label>Dead Ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="dead_ton" placeholder="Isi dead ton kapal">
+                        <input type="number" class="data-input" step=".01" name="dead_ton" placeholder="Isi dead ton kapal">
                     </div>
                     <div class="field">
                         <div class="row">
                             <label>Displacement <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="displacement" placeholder="Isi displacement kapal">
+                        <input type="number" class="data-input" step=".01" name="displacement" placeholder="Isi displacement kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -178,7 +193,7 @@
                         <div class="row">
                             <label>Daya Mesin <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="daya_mesin" placeholder="Isi daya mesin kapal">
+                        <input type="number" class="data-input" step=".01" name="daya_mesin" placeholder="Isi daya mesin kapal">
                     </div>
                 </div>
                 <div class="two fields">
@@ -187,19 +202,19 @@
                             <label>Kecepatan Maks.</label>
                             <span class="ui red text input-desimal" id="input-desimal" style="display: none;">*angka, gunakan desimal '.'</span>
                         </div>
-                        <input type="text" class="data-input" name="kecepatan_maksimal" placeholder="Isi kecepatan maksimal kapal">
+                        <input type="number" class="data-input" step=".01" name="kecepatan_maksimal" placeholder="Isi kecepatan maksimal kapal">
                     </div>
                     <div class="field">
                         <div class="row">
                             <label>Kapasitas Kargo / ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
                         </div>
-                        <input type="text" class="data-input" name="kapasitas_kargo" placeholder="Isi kapasitas kargo kapal">
+                        <input type="number" class="data-input" step=".01" name="kapasitas_kargo" placeholder="Isi kapasitas kargo kapal">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
-                        <label>Kapasitas Penumpang / orang</label>
-                        <input type="number" name="kapasitas_penumpang" placeholder="Isi kapasitas penumpang">
+                        <label>Kapasitas Penumpang / orang <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                        <input type="number" class="data-input" step=".01" name="kapasitas_penumpang" placeholder="Isi kapasitas penumpang">
                     </div>
                     <div class="field">
                         <label>Tahun Pembuatan Kapal</label>
@@ -235,7 +250,18 @@
     </div>
     <!-- MODAL SHOW DATA -->
     <div class="ui modal show">
-        <div class="header">Lihat Data Kapal</div>
+        <div class="header">
+            <div class="ui grid">
+                <div class="column row">
+                    <div class="left floated column">Lihat Data Kapal</div>
+                    <div class="right floated column">
+                        <a class="ui orange button" onsubmit="" href="" target="_blank">
+                            <i class="print icon"></i>Cetak
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="content">
             <div class="ui form" id="result-show"></div>
         </div>
@@ -266,11 +292,29 @@
             Pilih Cetak Data
         </div>
         <div class="content">
-            <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
-            <a class="ui positive button" onsubmit="checkedData()" href="{{ route('kapal.print') }}" target="_blank">
-                <i class="print icon"></i>
-                Cetak PDF
-            </a>
+            <div class="ui grid">
+                <div class="one column row">
+                    <form class="ui form" action="{{ route('kapal.print') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedData()" target="_blank">
+                        @csrf
+                        @method('GET')
+                        <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
+                        <button class="ui positive button">
+                            <i class="print icon"></i>
+                            Cetak PDF
+                        </button>
+                    </form>
+
+                    <form class="ui form" action="{{ route('kapal.print_excel') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedDataExcel()" target="_blank">
+                        @csrf
+                        @method('GET')
+                        <input type="hidden" id="selectedPrintExcel" name="selectedPrintExcel">
+                        <button class="ui orange button">
+                            <i class="print icon"></i>
+                            Cetak Excel
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -296,6 +340,10 @@
 
     function checkedDataDelete() {
         document.getElementById('selectedCheckboxesDelete').value = data_id
+    }
+
+    function checkedDataExcel() {
+        document.getElementById('selectedPrintExcel').value = data_id
     }
 </script>
 @endsection

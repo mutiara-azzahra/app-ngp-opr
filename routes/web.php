@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kapal/update', [KapalController::class, 'update'])->name('kapal.update');
     Route::delete('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
+    Route::get('/kapal/print_excel', [KapalController::class, 'print_excel'])->name('kapal.print_excel');
 
     //MASTER DATA BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');

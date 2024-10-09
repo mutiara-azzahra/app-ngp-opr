@@ -154,7 +154,7 @@
   });
 
   //DATATABLES UI
-  new DataTable('#example', {
+  new DataTable('#table_paging', {
     layout: {
       bottomEnd: {
         paging: {

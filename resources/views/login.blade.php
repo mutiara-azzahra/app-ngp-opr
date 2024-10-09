@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properties -->
-  <title>Login Example - Fomantic</title>
+  <title>Login App NGP OPR</title>
   <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/components/reset.css">
   <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/components/site.css">
 
