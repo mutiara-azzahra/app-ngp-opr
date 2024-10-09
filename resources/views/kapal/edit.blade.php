@@ -8,6 +8,20 @@
         <a class="ui primary button" href="{{ route('kapal.index') }}"><i class="arrow left icon" style="visibility: visible;"></i> Kembali</a>
     </div>
     <div class="ui divider hidden"></div>
+
+    @if ($errors->any())
+    <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="header">
+            Data gagal disimpan
+        </div>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     @if ($message = Session::get('success'))
     <div class="ui poitive message">
         <i class="close icon"></i>
@@ -77,38 +91,38 @@
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>Panjang</label>
-                                    <input type="text" name="panjang" value="{{ $data->PANJANG }}">
+                                    <label>Panjang <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="panjang" value="{{ $data->PANJANG }}">
                                 </div>
                             </div>
                             <div class="two fields" style="padding-bottom: 15px;">
                                 <div class="field">
-                                    <label>Lebar</label>
-                                    <input type="text" name="lebar" value="{{ $data->LEBAR }}">
+                                    <label>Lebar <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="lebar" value="{{ $data->LEBAR }}">
                                 </div>
                                 <div class="field">
-                                    <label>Draft</label>
-                                    <input type="text" name="draft" value="{{ $data->DRAFT }}">
-                                </div>
-                            </div>
-                            <div class="two fields" style="padding-bottom: 15px;">
-                                <div class="field">
-                                    <label>Tinggi</label>
-                                    <input type="text" name="tinggi" value="{{ $data->TINGGI }}">
-                                </div>
-                                <div class="field">
-                                    <label>Gross Ton</label>
-                                    <input type="text" name="gross_ton" value="{{ $data->GROSS_TON }}">
+                                    <label>Draft <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="draft" value="{{ $data->DRAFT }}">
                                 </div>
                             </div>
                             <div class="two fields" style="padding-bottom: 15px;">
                                 <div class="field">
-                                    <label>Dead Ton</label>
-                                    <input type="text" name="dead_ton" value="{{ $data->DEAD_TON }}">
+                                    <label>Tinggi <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="tinggi" value="{{ $data->TINGGI }}">
                                 </div>
                                 <div class="field">
-                                    <label>Displacement</label>
-                                    <input type="text" name="displacement" value="{{ $data->DISPLACEMENT }}">
+                                    <label>Gross Ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="gross_ton" value="{{ $data->GROSS_TON }}">
+                                </div>
+                            </div>
+                            <div class="two fields" style="padding-bottom: 15px;">
+                                <div class="field">
+                                    <label>Dead Ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="dead_ton" value="{{ $data->DEAD_TON }}">
+                                </div>
+                                <div class="field">
+                                    <label>Displacement <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="displacement" value="{{ $data->DISPLACEMENT }}">
                                 </div>
                             </div>
                             <div class="two fields" style="padding-bottom: 15px;">
@@ -117,18 +131,18 @@
                                     <input type="text" name="jenis_mesin" value="{{ $data->JENIS_MESIN }}">
                                 </div>
                                 <div class="field">
-                                    <label>Daya Mesin</label>
-                                    <input type="text" name="daya_mesin" value="{{ $data->DAYA_MESIN }}">
+                                    <label>Daya Mesin <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="daya_mesin" value="{{ $data->DAYA_MESIN }}">
                                 </div>
                             </div>
                             <div class="two fields" style="padding-bottom: 15px;">
                                 <div class="field">
-                                    <label>Kecepatan Maksimal</label>
-                                    <input type="text" name="kecepatan_maksimal" value="{{ $data->KECEPATAN_MAX }}">
+                                    <label>Kecepatan Maksimal <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="kecepatan_maksimal" value="{{ $data->KECEPATAN_MAX }}">
                                 </div>
                                 <div class="field">
-                                    <label>Kapasitas Kargo / ton</label>
-                                    <input type="text" name="kapasitas_kargo" value="{{ $data->KAPASITAS_KARGO }}">
+                                    <label>Kapasitas Kargo / ton <span class="ui red text input-desimal" style="display: none;">*angka, gunakan desimal '.'</span></label>
+                                    <input type="text" class="data-input" name="kapasitas_kargo" value="{{ $data->KAPASITAS_KARGO }}">
                                 </div>
                             </div>
                             <div class="two fields" style="padding-bottom: 15px;">

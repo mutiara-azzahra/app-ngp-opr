@@ -11,7 +11,6 @@
     </div>
     <div class="ui divider hidden"></div>
     <div id="alert_response"></div>
-
     @if ($message = Session::get('success'))
     <div class="ui poitive message">
         <i class="close icon"></i>
@@ -65,7 +64,6 @@
             @endforeach
         </tbody>
     </table>
-
     <!-- MODAL TAMBAH DATA -->
     <div class="ui modal add">
         <div class="header">Tambah Data Kapal</div>
@@ -235,7 +233,6 @@
         </div>
         </form>
     </div>
-
     <!-- MODAL SHOW DATA -->
     <div class="ui modal show">
         <div class="header">Lihat Data Kapal</div>
@@ -243,7 +240,6 @@
             <div class="ui form" id="result-show"></div>
         </div>
     </div>
-
     <!-- MODAL HAPUS DATA -->
     <div class="ui modal delete">
         <div class="header">
@@ -264,7 +260,6 @@
             </form>
         </div>
     </div>
-
     <!-- MODAL CETAK DATA -->
     <div class="ui modal print">
         <div class="header">
@@ -293,7 +288,6 @@
         } else {
             data_id.splice($.inArray(checked, data_id), 1)
         }
-
     });
 
     function checkedData() {

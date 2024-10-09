@@ -11,8 +11,6 @@ use App\Models\Kapal;
 use App\Models\Bendera;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-use function PHPSTORM_META\map;
-
 class KapalController extends Controller
 {
     public function index()
@@ -33,7 +31,7 @@ class KapalController extends Controller
         $data = Kapal::where('FLAG_IDX', $flag_idx)->first();
 
         if (!$data) {
-            return response()->json(['error' => 'Data Kapal tidak ditemukan'], 404);
+            return response()->json(['error' => 'Data kapal tidak ditemukan'], 404);
         }
 
         return response()->json($data);
@@ -111,18 +109,16 @@ class KapalController extends Controller
                 return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil ditambahkan!');
             } else {
 
-                return redirect()->route('kapal.index')->with('danger', 'Maaf! ada data yang belum terisi');
+                return redirect()->route('kapal.index')->with('danger', 'Gagal ditambakan, ada data yang belum terisi');
             }
         } else {
 
-            return redirect()->route('kapal.index')->with('danger', 'Kode kapal sudah ada!');
+            return redirect()->route('kapal.index')->with('danger', 'Kode kapal sudah ada');
         }
     }
 
     public function update(Request $request)
     {
-
-        // dd($request->all());
 
         $request->validate(
             [
@@ -143,7 +139,7 @@ class KapalController extends Controller
             ]
         );
 
-        $update = Kapal::where('KODE_KAPAL', $request->kode_kapal)->update([
+        $update = Kapal::where('FLAG_IDX', $request->flag_idx)->update([
             'KODE_KAPAL'            => strtoupper($request->kode_kapal),
             'NAMA_KAPAL'            => strtoupper($request->nama_kapal),
             'CALLSIGN'              => strtoupper($request->callsign),
@@ -169,7 +165,7 @@ class KapalController extends Controller
         ]);
 
         if (!$update) {
-            return redirect()->route('kapal.index')->with('danger', 'Data kapal kapal baru gagal diubah');
+            return redirect()->route('kapal.edit', $request->flag_idx)->with('danger', 'Data kapal kapal baru gagal diubah');
         }
 
         return redirect()->route('kapal.index')->with('success', 'Data kapal kapal baru berhasil diubah!');
@@ -177,29 +173,37 @@ class KapalController extends Controller
 
     public function destroy(Request $request)
     {
+        if (isset($request->selectedCheckboxesDelete)) {
+            $data   = array_map('intval', explode(',', $request->selectedCheckboxesDelete));
 
-        $data   = array_map('intval', explode(',', $request->selectedCheckboxesDelete));
+            try {
 
-        try {
+                Kapal::whereIn('FLAG_IDX', $data)->delete();
 
-            Kapal::whereIn('FLAG_IDX', $data)->delete();
+                return redirect()->route('kapal.index')->with('success', 'Berhasil hapus data kapal');
+            } catch (\Exception $e) {
 
-            return redirect()->route('kapal.index')->with('success', 'Berhasil hapus data');
-        } catch (\Exception $e) {
-
-            return redirect()->route('kapal.index')->with('danger', 'Gagal hapus data');
+                return redirect()->route('kapal.index')->with('danger', 'Gagal hapus data kapal');
+            }
         }
+
+        return redirect()->route('kapal.index')->with('danger', 'Tidak ada data kapal dipilih');
     }
 
     public function print(Request $request)
     {
 
-        $cetak_data   = array_map('intval', explode(',', $request->selectedCheckboxesPrint));
-        $data = Kapal::whereIn('FLAG_IDX', $cetak_data)->get();
+        if (isset($request->selectedCheckboxesPrint)) {
 
-        $pdf = Pdf::loadView('reports.kapal', compact('data'));
-        $pdf->setPaper('a4', 'landscape');
+            $cetak_data   = array_map('intval', explode(',', $request->selectedCheckboxesPrint));
+            $data = Kapal::whereIn('FLAG_IDX', $cetak_data)->get();
 
-        return $pdf->stream('report.pdf');
+            $pdf = Pdf::loadView('reports.kapal', compact('data'));
+            $pdf->setPaper('a4', 'landscape');
+
+            return $pdf->stream('report.pdf');
+        }
+
+        return redirect()->route('kapal.index')->with('danger', 'Tidak ada data kapal dipilih');
     }
 }
