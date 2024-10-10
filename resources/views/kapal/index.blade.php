@@ -249,23 +249,7 @@
         </form>
     </div>
     <!-- MODAL SHOW DATA -->
-    <div class="ui modal show">
-        <div class="header">
-            <div class="ui grid">
-                <div class="column row">
-                    <div class="left floated column">Lihat Data Kapal</div>
-                    <div class="right floated column">
-                        <a class="ui orange button" onsubmit="" href="" target="_blank">
-                            <i class="print icon"></i>Cetak
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="ui form" id="result-show"></div>
-        </div>
-    </div>
+    <div class="ui modal show" id="result-show"></div>
     <!-- MODAL HAPUS DATA -->
     <div class="ui modal delete">
         <div class="header">
@@ -292,29 +276,24 @@
             Pilih Cetak Data
         </div>
         <div class="content">
-            <div class="ui grid">
-                <div class="one column row">
-                    <form class="ui form" action="{{ route('kapal.print') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedData()" target="_blank">
-                        @csrf
-                        @method('GET')
-                        <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
-                        <button class="ui positive button">
-                            <i class="print icon"></i>
-                            Cetak PDF
-                        </button>
-                    </form>
-
-                    <form class="ui form" action="{{ route('kapal.print_excel') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedDataExcel()" target="_blank">
-                        @csrf
-                        @method('GET')
-                        <input type="hidden" id="selectedPrintExcel" name="selectedPrintExcel">
-                        <button class="ui orange button">
-                            <i class="print icon"></i>
-                            Cetak Excel
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <form class="ui form" action="{{ route('kapal.print') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedData()" target="_blank">
+                @csrf
+                @method('GET')
+                <input type="hidden" id="selectedCheckboxesPrint" name="selectedCheckboxesPrint">
+                <button class="ui primary button">
+                    <i class="print icon"></i>
+                    Cetak PDF
+                </button>
+            </form>
+            <form class="ui form" action="{{ route('kapal.print_excel') }}" method="GET" enctype="multipart/form-data" onsubmit="checkedDataExcel()" target="_blank">
+                @csrf
+                @method('GET')
+                <input type="hidden" id="selectedPrintExcel" name="selectedPrintExcel">
+                <button class="ui orange button">
+                    <i class="print icon"></i>
+                    Cetak Excel
+                </button>
+            </form>
         </div>
     </div>
 </div>
@@ -344,6 +323,166 @@
 
     function checkedDataExcel() {
         document.getElementById('selectedPrintExcel').value = data_id
+    }
+
+
+    function showDataKapal(id) {
+        let token = "{{ csrf_token() }}";
+
+        $.ajax({
+            url: "{{ route('kapal.show') }}",
+            type: "GET",
+            data: {
+                id: id,
+                _token: token
+            },
+            success: function(response) {
+                $('#result-show').html(`
+                <div class="header">
+                    <div class="row">
+                        <div class="left floated column">Lihat Data Kapal</div>
+                        <div class="ui divider hidden"></div>
+                        <div class="right floated column">
+                                <i class="print icon"></i>Cetak
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="ui form">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kode Kapal
+                                        <p>${response}</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Nama Kapal
+                                        <p>${response.NAMA_KAPAL}</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Callsign
+                                        <p>${response.CALLSIGN}</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Jenis Kapal
+                                        <p>${response.JENIS_KAPAL}</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Bendera
+                                        <p>${response.KODE_BENDERA}</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Panjang Kapal
+                                        <p>${response.PANJANG}/m2</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Lebar
+                                        <p>${response.LEBAR}/m2</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Draft
+                                        <p>${response.DRAFT}/m2</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Tinggi
+                                        <p>${response.TINGGI}/m2</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Gross Ton
+                                        <p>${response.GROSS_TON} ton</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Displacement
+                                        <p>${response.DISPLACEMENT} ton</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Draft
+                                        <p>${response.DRAFT}/m2</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Jenis Mesin
+                                        <p>${response.JENIS_MESIN} ton</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Daya Mesin
+                                        <p>${response.DAYA_MESIN}/m2</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kecepatan Maksimal
+                                        <p>${response.KECEPATAN_MAX} ton</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Kapasitas Kargo
+                                        <p>${response.KAPASITAS_KARGO} ton</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Kapasitas Penumpang
+                                        <p>${response.KAPASITAS_PENUMPANG} orang</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Tahun Pembuatan
+                                        <p>${response.TAHUN_PEMBUATAN}</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Galangan Kapal
+                                        <p>${response.GALANGAN_KAPAL}</p>
+                                    </label>
+                                </div>
+                                <div class="field">
+                                    <label>Klasifikasi
+                                        <p>${response.KLASIFIKASI}</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`)
+            },
+            error: function(xhr, status, error) {
+                $('#alert_response').html(`
+                <div class="ui negative message">
+                    <i class="close icon"></i>
+                    <div class="header">${error}</div>
+                </div>`)
+            }
+        })
     }
 </script>
 @endsection

@@ -27,7 +27,6 @@ class LoginController extends Controller
     {
 
         $username = strtoupper($request->username);
-        // $credentials = $request->only('username', 'password');
 
         if (Auth::attempt(['username' => $username, 'password' => $request->password])) {
 

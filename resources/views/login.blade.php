@@ -27,7 +27,7 @@
   <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/components/message.css">
   <link rel="stylesheet" type="text/css" href="../assets/fomantic-ui/dist/components/icon.css">
 
-  <script src="../example/assets/library/jquery.min.js"></script>
+  <!-- <script src="../example/assets/library/jquery.min.js"></script> -->
   <script src="../assets/fomantic-ui/dist/components/form.js"></script>
   <script src="../assets/fomantic-ui/dist/components/transition.js"></script>
 
@@ -48,40 +48,6 @@
       max-width: 450px;
     }
   </style>
-  <script>
-    $(document)
-      .ready(function() {
-        $('.ui.form')
-          .form({
-            fields: {
-              email: {
-                identifier: 'email',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Please enter your e-mail'
-                  },
-                  {
-                    type: 'email',
-                    prompt: 'Please enter a valid e-mail'
-                  }
-                ]
-              },
-              password: {
-                identifier: 'password',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Please enter your password'
-                  },
-                  {
-                    type: 'length[6]',
-                    prompt: 'Your password must be at least 6 characters'
-                  }
-                ]
-              }
-            }
-          });
-      });
-  </script>
 </head>
 
 <body>
@@ -117,10 +83,8 @@
       </form>
     </div>
   </div>
-
   <script>
-    // Password toggle
-    function myPassword() {
+    function hidePassword() {
       var x = document.getElementById("password");
       if (x.type === "password") {
         x.type = "text";

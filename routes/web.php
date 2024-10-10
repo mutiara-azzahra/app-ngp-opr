@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/kapal/destroy', [KapalController::class, 'destroy'])->name('kapal.destroy');
     Route::get('/kapal/print', [KapalController::class, 'print'])->name('kapal.print');
     Route::get('/kapal/print_excel', [KapalController::class, 'print_excel'])->name('kapal.print_excel');
+    Route::get('/kapal/cetak_pdf/{id}', [KapalController::class, 'cetak_pdf'])->name('kapal.cetak_pdf');
 
     //MASTER DATA BENDERA
     Route::get('/bendera', [BenderaController::class, 'index'])->name('bendera.index');
@@ -35,7 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/bendera/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
 });
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'formRegister'])->name('login.formRegister');
 
 Route::get('/', [LoginController::class, 'formLogin'])->name('login.formLogin');
